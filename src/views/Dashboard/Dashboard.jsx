@@ -187,7 +187,9 @@ class Dashboard extends React.Component {
                   <Icon>ac_unit</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>Air Conditioner</p>
-                <h3 className={classes.cardTitle}>{this.state.powerAc} -24 C</h3>
+                <h3 className={classes.cardTitle}>
+                  {this.state.powerAc} -24 C
+                </h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>

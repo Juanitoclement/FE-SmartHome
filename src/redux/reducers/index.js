@@ -1,16 +1,18 @@
-let defaultState={
-  name: "unknown user"
+let defaultState = {
+  color: "red"
 };
 
-const mainReducer=(state=defaultState, action) =>{
-  if(action.type === "User"){
-    return{
+const mainReducer = (state = defaultState, action) => {
+  if (action.type === "CHANGE_COLOR") {
+    return {
       ...state,
-      name: action.name
-    }
-  } else{
-    return{
+      color: action.color
+    };
+  } else {
+    return {
       ...state
-    }
+    };
   }
 };
+
+export default mainReducer;
