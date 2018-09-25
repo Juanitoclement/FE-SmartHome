@@ -42,7 +42,11 @@ class Dashboard extends React.Component {
   state = {
     value: 0,
     tvStatus: 0,
-    power: "OFF"
+    acStatus: 0,
+    ligStatus: 0,
+    powerTv: "OFF",
+    powerLig: "OFF",
+    powerAc: "OFF"
   };
   handleChange = (event, value) => {
     this.setState({ value });
@@ -51,29 +55,71 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
-  handleColor = int => {
+  handleColorTv = () => {
     if (this.state.tvStatus === 0) {
       return "info";
     } else if (this.state.tvStatus === 1) {
       return "rose";
     }
   };
-  button = () => {
+
+  handleColorLig = () => {
+    if (this.state.ligStatus === 0) {
+      return "info";
+    } else if (this.state.ligStatus === 1) {
+      return "success";
+    }
+  };
+  handleColorAc = () => {
+    if (this.state.acStatus === 0) {
+      return "info";
+    } else if (this.state.acStatus === 1) {
+      return "warning";
+    }
+  };
+
+  buttonTv = () => {
     if (this.state.tvStatus === 0) {
       this.setState({
         tvStatus: 1,
-        power: "ON"
+        powerTv: "ON"
       });
     } else if (this.state.tvStatus === 1) {
       this.setState({
         tvStatus: 0,
-        power: "OFF"
+        powerTv: "OFF"
       });
     }
   };
-  showUI() {
-    window.location = "/table";
-  }
+
+  buttonAc = () => {
+    if (this.state.acStatus === 0) {
+      this.setState({
+        acStatus: 1,
+        powerAc: "ON"
+      });
+    } else if (this.state.acStatus === 1) {
+      this.setState({
+        acStatus: 0,
+        powerAc: "OFF"
+      });
+    }
+  };
+
+  buttonLig = () => {
+    if (this.state.ligStatus === 0) {
+      this.setState({
+        ligStatus: 1,
+        powerLig: "ON"
+      });
+    } else if (this.state.ligStatus === 1) {
+      this.setState({
+        ligStatus: 0,
+        powerLig: "OFF"
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -82,18 +128,19 @@ class Dashboard extends React.Component {
           <GridItem xs={6} sm={6} md={3}>
             <Card>
               <CardHeader
-                color={this.handleColor(this.state.tvStatus)}
+                color={this.handleColorTv(this.state.tvStatus)}
                 stats
                 icon
               >
                 <CardIcon
-                  onClick={this.button}
-                  color={this.handleColor(this.state.tvStatus)}>
+                  onClick={this.buttonTv}
+                  color={this.handleColorTv(this.state.tvStatus)}
+                >
                   <Icon>tv</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>TV</p>
                 <h3 className={classes.cardTitle}>
-                  {this.state.power} - <small>Bedroom</small>
+                  {this.state.powerTv} - <small>Bedroom</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -106,13 +153,16 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={6} sm={6} md={3}>
             <Card>
-              <CardHeader color="warning" stats icon>
-                <CardIcon color="warning">
+              <CardHeader stats icon>
+                <CardIcon
+                  onClick={this.buttonLig}
+                  color={this.handleColorLig(this.state.ligStatus)}
+                >
                   <Icon>wb_incandescent</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>Light Intensity</p>
                 <h3 className={classes.cardTitle}>
-                  49/50 <small>Cd</small>
+                  {this.state.powerLig} - <small>Bedroom</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -128,13 +178,16 @@ class Dashboard extends React.Component {
             </Card>
           </GridItem>
           <GridItem xs={6} sm={6} md={3}>
-            <Card onClick={() => this.showUI()}>
+            <Card>
               <CardHeader color="success" stats icon>
-                <CardIcon color="success">
+                <CardIcon
+                  onClick={this.buttonAc}
+                  color={this.handleColorAc(this.state.acStatus)}
+                >
                   <Icon>ac_unit</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>Air Conditioner</p>
-                <h3 className={classes.cardTitle}>24 C</h3>
+                <h3 className={classes.cardTitle}>{this.state.powerAc} -24 C</h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
@@ -157,23 +210,6 @@ class Dashboard extends React.Component {
                 <div className={classes.stats}>
                   <LocalOffer />
                   Tracked from Github
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
-            <Card>
-              <CardHeader color="info" stats icon>
-                <CardIcon color="info">
-                  <Icon>wc</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Toilet</p>
-                <h3 className={classes.cardTitle}>Livingroom</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Update />
-                  Just Updated
                 </div>
               </CardFooter>
             </Card>
