@@ -27,6 +27,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import { Route, Link } from "react-router-dom";
 
 import { bugs, website, server } from "variables/general";
 
@@ -120,6 +121,14 @@ class Dashboard extends React.Component {
     }
   };
 
+  redirectToTv = () => {
+    this.props.history.push("tv");
+  };
+
+  redirectToAc = () => {
+    this.props.history.push("ac");
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -138,9 +147,9 @@ class Dashboard extends React.Component {
                 >
                   <Icon>tv</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>TV</p>
-                <h3 className={classes.cardTitle}>
-                  {this.state.powerTv} - <small>Bedroom</small>
+                <p className={classes.cardCategory} onClick={this.redirectToTv}>TV</p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToTv}>
+                  {this.state.powerTv}  - <small>Bedroom</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
@@ -186,8 +195,12 @@ class Dashboard extends React.Component {
                 >
                   <Icon>ac_unit</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Air Conditioner</p>
-                <h3 className={classes.cardTitle}>{this.state.powerAc} -24 C</h3>
+                <p className={classes.cardCategory} onClick={this.redirectToAc}>
+                  Air Conditioner
+                </p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToAc}>
+                  {this.state.powerAc} -24 C
+                </h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
