@@ -21,11 +21,13 @@
     "react-dom": "16.4.1",
     "react-google-maps": "9.4.5",
     "react-redux": "^5.0.7",
-    "react-router-dom": "4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-swipeable-views": "0.12.15",
     "react-toggle-button": "^2.2.0",
     "redux": "^4.0.0",
+    "redux-form": "^7.4.2",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {

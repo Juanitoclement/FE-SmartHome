@@ -29,6 +29,8 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import { Route, Link } from "react-router-dom";
 
+import store from "../../redux/store";
+
 import { bugs, website, server } from "variables/general";
 
 import {
@@ -58,6 +60,7 @@ class Dashboard extends React.Component {
   };
   handleColorTv = () => {
     if (this.state.tvStatus === 0) {
+      console.log(store.getState().newTodo.text);
       return "info";
     } else if (this.state.tvStatus === 1) {
       return "rose";
