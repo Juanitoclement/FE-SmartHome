@@ -40,7 +40,9 @@ import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx
 
 class Dashboard extends React.Component {
   state = {
-    value: 0
+    value: 0,
+    tvStatus: 0,
+    power: "OFF"
   };
   handleChange = (event, value) => {
     this.setState({ value });
@@ -48,6 +50,26 @@ class Dashboard extends React.Component {
 
   handleChangeIndex = index => {
     this.setState({ value: index });
+  };
+  handleColor = int => {
+    if (this.state.tvStatus === 0) {
+      return "info";
+    } else if (this.state.tvStatus === 1) {
+      return "rose";
+    }
+  };
+  button = () => {
+    if (this.state.tvStatus === 0) {
+      this.setState({
+        tvStatus: 1,
+        power: "ON"
+      });
+    } else if (this.state.tvStatus === 1) {
+      this.setState({
+        tvStatus: 0,
+        power: "OFF"
+      });
+    }
   };
   showUI() {
     window.location = "/table";
@@ -59,13 +81,19 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={6} sm={6} md={3}>
             <Card>
-              <CardHeader color="rose" stats icon>
-                <CardIcon color="rose">
+              <CardHeader
+                color={this.handleColor(this.state.tvStatus)}
+                stats
+                icon
+              >
+                <CardIcon
+                  onClick={this.button}
+                  color={this.handleColor(this.state.tvStatus)}>
                   <Icon>tv</Icon>
                 </CardIcon>
                 <p className={classes.cardCategory}>TV</p>
                 <h3 className={classes.cardTitle}>
-                  ON - <small>Bedroom</small>
+                  {this.state.power} - <small>Bedroom</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
