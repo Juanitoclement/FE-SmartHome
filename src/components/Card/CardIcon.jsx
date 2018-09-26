@@ -9,6 +9,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
 import cardIconStyle from "assets/jss/smart-home-react/components/cardIconStyle.jsx";
+import cardIconCustomStyle from "assets/jss/smart-home-react/components/cardIconCustomStyle.jsx";
 
 function CardIcon({ ...props }) {
   const { classes, className, children, color, ...rest } = props;

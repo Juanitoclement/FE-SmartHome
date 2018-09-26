@@ -12,6 +12,7 @@ import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
+import TV from "views/TV/TV.js"
 
 const dashboardRoutes = [
   {
@@ -55,6 +56,13 @@ const dashboardRoutes = [
     navbarName: "Air Conditioner",
     icon: Unarchive,
     component: AC
+  },
+  {
+    path: "/tv",
+    sidebarName: "TV",
+    navbarName: "TV",
+    icon: Unarchive,
+    component: TV
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
