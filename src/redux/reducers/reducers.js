@@ -5,7 +5,7 @@ function newTodo(state = [], action) {
   switch (action.type) {
     case NEW_TODO:
       return {
-        text: "clement",
+        text: action.payload,
         completion: false
       };
     default:

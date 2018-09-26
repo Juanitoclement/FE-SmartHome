@@ -60,7 +60,7 @@ class Dashboard extends React.Component {
   };
   handleColorTv = () => {
     if (this.state.tvStatus === 0) {
-      console.log(store.getState().newTodo.text);
+      console.log(store.getState().newTodo);
       return "info";
     } else if (this.state.tvStatus === 1) {
       return "rose";
@@ -150,9 +150,11 @@ class Dashboard extends React.Component {
                 >
                   <Icon>tv</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory} onClick={this.redirectToTv}>TV</p>
+                <p className={classes.cardCategory} onClick={this.redirectToTv}>
+                  TV
+                </p>
                 <h3 className={classes.cardTitle} onClick={this.redirectToTv}>
-                  {this.state.powerTv}  - <small>Bedroom</small>
+                  {this.state.powerTv} - <small>Bedroom</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
