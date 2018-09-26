@@ -1,34 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-// react plugin for creating charts
-import ChartistGraph from "react-chartist";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "components/Table/Table.jsx";
-import Tasks from "components/Tasks/Tasks.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-
-import { bugs, website, server } from "variables/general";
 
 import {
   dailySalesChart,
@@ -38,18 +19,16 @@ import {
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
-import Dropdown from "react-dropdown"
-import "react-dropdown/style.css"
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
-const options = [
-  'Bedroom', 'Livingroom', 'Kamar Pembantu'
-]
+const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
 const styles = {
   cardColorTest: {
     backgroundColor: "rgba(255,255,255,.62)"
   }
-}
+};
 
 class AC extends React.Component {
   state = {
@@ -69,29 +48,27 @@ class AC extends React.Component {
     window.location = "/table";
   }
 
-  handleColor = (int) => {
-    if(this.state.acstatus === 0){
+  handleColor = int => {
+    if (this.state.acstatus === 0) {
       return "info";
-    }
-    else {
+    } else {
       return "rose";
     }
-  }
+  };
 
-  button = () =>{
-    if(this.state.acstatus === 0){
+  button = () => {
+    if (this.state.acstatus === 0) {
       this.setState({
         acstatus: 1,
         power: "ON"
       });
-    }
-    else {
+    } else {
       this.setState({
         acstatus: 0,
         power: "OFF"
       });
     }
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -101,20 +78,20 @@ class AC extends React.Component {
           {/*Power Off button*/}
           <GridItem xs={12} sm={6} md={3} lg={12}>
             <Card>
-
               {/* Power Off / Main Card */}
               <CardHeader color="info" stats icon>
-                <CardIcon onClick={this.button} color={this.handleColor(this.state.acstatus)}>
+                <CardIcon
+                  onClick={this.button}
+                  color={this.handleColor(this.state.acstatus)}
+                >
                   <Icon>power_settings_new</Icon>
                   <p>{this.state.power}</p>
-
                 </CardIcon>
               </CardHeader>
 
               <CardBody>
                 {/* Seperate The 2 card inside */}
                 <GridContainer>
-
                   {/* Minus Temperature Button */}
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
@@ -150,11 +127,15 @@ class AC extends React.Component {
                   {/* Dropdown Menu */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select AC:</h3>
-                    <Dropdown options={options} onChange={this._onSelect} value={options[0]} placeholder="TEsting123" />
+                    <Dropdown
+                      options={options}
+                      onChange={this._onSelect}
+                      value={options[0]}
+                      placeholder="TEsting123"
+                    />
                   </GridItem>
                 </GridContainer>
               </CardBody>
-
             </Card>
           </GridItem>
         </GridContainer>

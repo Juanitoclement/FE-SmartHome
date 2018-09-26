@@ -27,7 +27,6 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import { Route, Link } from "react-router-dom";
 
 import store from "../../redux/store";
 
@@ -49,8 +48,17 @@ class Dashboard extends React.Component {
     ligStatus: 0,
     powerTv: "OFF",
     powerLig: "OFF",
-    powerAc: "OFF"
+    powerAc: "OFF",
+    items: []
   };
+  componentDidMount() {
+    store.subscribe(() => {
+      this.setState({
+        items: store.getState().newTodo.data
+      });
+    });
+  }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -60,7 +68,6 @@ class Dashboard extends React.Component {
   };
   handleColorTv = () => {
     if (this.state.tvStatus === 0) {
-      console.log(store.getState().newTodo);
       return "info";
     } else if (this.state.tvStatus === 1) {
       return "rose";
@@ -176,7 +183,7 @@ class Dashboard extends React.Component {
                 </CardIcon>
                 <p className={classes.cardCategory}>Light Intensity</p>
                 <h3 className={classes.cardTitle}>
-                  {this.state.powerLig} - <small>Bedroom</small>
+                  {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
