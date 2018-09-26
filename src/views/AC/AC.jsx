@@ -38,6 +38,13 @@ import {
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
+import Dropdown from "react-dropdown"
+import "react-dropdown/style.css"
+
+const options = [
+  'Bedroom', 'Livingroom', 'Kamar Pembantu'
+]
+
 const styles = {
   cardColorTest: {
     backgroundColor: "rgba(255,255,255,.62)"
@@ -134,12 +141,17 @@ class AC extends React.Component {
                       </CardHeader>
                       <CardBody>
                         <CardIcon>
-                          <button>Increase Temperature</button>
+                          <button>Increase Temperature </button>
                         </CardIcon>
                       </CardBody>
                     </Card>
                   </GridItem>
 
+                  {/* Dropdown Menu */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <h3>Select AC:</h3>
+                    <Dropdown options={options} onChange={this._onSelect} value={options[0]} placeholder="TEsting123" />
+                  </GridItem>
                 </GridContainer>
               </CardBody>
 
