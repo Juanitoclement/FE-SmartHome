@@ -19,6 +19,7 @@
     "react": "16.4.1",
     "react-chartist": "0.13.1",
     "react-dom": "16.4.1",
+    "react-dropdown": "^1.6.2",
     "react-google-maps": "9.4.5",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
