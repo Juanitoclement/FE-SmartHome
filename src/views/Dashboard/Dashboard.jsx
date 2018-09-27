@@ -181,9 +181,14 @@ class Dashboard extends React.Component {
                 >
                   <Icon>wb_incandescent</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Light Intensity</p>
-                <h3 className={classes.cardTitle}>
-                  {this.state.powerLig} - <small>{this.state.items}</small>
+                <p
+                  className={classes.cardCategory}
+                  onClick={this.redirectToLamp}
+                >
+                  >Light Intensity
+                </p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToLamp}>
+                  >{this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
               </CardHeader>
               <CardFooter stats>
