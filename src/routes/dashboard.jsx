@@ -12,7 +12,8 @@ import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
-import TV from "views/TV/TV.js"
+import TV from "views/TV/TV.js";
+import Login from "views/Login/Login.jsx";
 
 const dashboardRoutes = [
   {
@@ -63,6 +64,13 @@ const dashboardRoutes = [
     navbarName: "TV",
     icon: Unarchive,
     component: TV
+  },
+  {
+    path: "/login",
+    sidebarName: "Login",
+    navbarName: "Login",
+    icon: Unarchive,
+    component: Login
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];

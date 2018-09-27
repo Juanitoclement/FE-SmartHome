@@ -97,7 +97,7 @@ class tv extends React.Component {
                   <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
                     <p>Change Volume</p>
                   </GridItem>
-                  <GridItem  xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={6} md={3} lg={4}>
                   </GridItem>
                   <GridItem xs={4} sm={6} md={3} lg={4}>
                     <Card>
