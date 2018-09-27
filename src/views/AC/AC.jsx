@@ -33,17 +33,9 @@ const styles = {
 class AC extends React.Component {
   state = {
     value: 0,
-    acstatus: 0,
-    power: "OFF"
+    acstatus: 0
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
   showUI() {
     window.location = "/table";
   }
@@ -59,15 +51,26 @@ class AC extends React.Component {
   button = () => {
     if (this.state.acstatus === 0) {
       this.setState({
-        acstatus: 1,
-        power: "ON"
+        acstatus: 1
       });
     } else {
       this.setState({
-        acstatus: 0,
-        power: "OFF"
+        acstatus: 0
       });
     }
+  };
+
+  handleTimer = () => {
+    this.setState({
+      h: this.state.number,
+      m: 0,
+      s: 0
+    });
+  }
+  handleInput = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   };
 
   render() {
@@ -133,6 +136,26 @@ class AC extends React.Component {
                       value={options[0]}
                       placeholder="TEsting123"
                     />
+                  </GridItem>
+
+                  {/* Timer Menu */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <h3>Timer</h3>
+                    <form>
+                      <input
+                        name="number"
+                        type="number"
+                        placeholder="Time in hours"
+                        onChange={event => this.handleInput(event)}
+                      />
+                      {/*<p>{this.state.number}</p>*/}
+                      <button type="button" onClick={this.handleTimer}>
+                        Submit
+                      </button>
+                      <br />
+                      h: {this.state.h} m: {this.state.m} s:{" "}
+                      {this.state.s}
+                    </form>
                   </GridItem>
                 </GridContainer>
               </CardBody>

@@ -14,7 +14,6 @@ import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.js";
 import Login from "views/Login/Login.jsx";
-import Lamp from "views/Lamp/Lamp.jsx";
 
 const dashboardRoutes = [
   {
@@ -72,14 +71,6 @@ const dashboardRoutes = [
     navbarName: "Login",
     icon: Unarchive,
     component: Login
-  },
-  {
-    path: "/lamp",
-    sidebarName: "Lamp",
-    navbarName: "Lamp",
-    icon: Unarchive,
-    component: Lamp
-
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
