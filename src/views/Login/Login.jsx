@@ -7,11 +7,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-const buttonStyle = {
-  fontSize: "20px",
-  color: "black",
-  textAlign: "center"
-};
+import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 const cardStyle = {
   border: "0",
@@ -33,7 +29,7 @@ const cardStyle = {
   wordWrap: "break-word",
   fontSize: ".875rem",
   textAlign: "center"
-}
+};
 
 const cardHeader = {
   border: "0",
@@ -60,6 +56,12 @@ class Login extends React.Component {
   handleSubmit() {
     alert("Logging you in");
   }
+  handleInput(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+    console.log(event.target.value);
+  }
 
   render() {
     return (
@@ -72,19 +74,12 @@ class Login extends React.Component {
             <GridItem xs={12} sm={12} md={12} lg={12}>
               <form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <label style={labelStyle}>
-                    Username:
-                    {/*<input type="text" name="username" />*/}
-                    <TextField id="input-with-icon-grid" label="Username" />
-                  </label>
+                  <TextField id="input-with-icon-grid" label="Username" />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <label style={labelStyle}>
-                    Password:
-                    {/*<input type="text" name="password" />*/}
-                    <TextField id="input-with-icon-grid" label="Password" />
-                  </label>
+                  <TextField id="input-with-icon-grid" label="Password" />
                 </GridItem>
+                <br />
                 <GridItem xs={12} sm={12} md={12} lg={12}>
                   <Button size="large" color="primary" variant="contained" type="submit">
                     Login
@@ -98,4 +93,4 @@ class Login extends React.Component {
     );
   }
 }
-export default Login;
+export default withStyles(dashboardStyle)(Login);
