@@ -9,20 +9,51 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
+import Dropdown from 'react-dropdown';
+
+
+// for choice of TV Place
+const room = [ 'Bedroom', 'Master Room', 'Living Room'];
+
+
 
 class tv extends React.Component {
   state = {
+    tvstatus: 0,
+    power: "OFF",
     programNumber: 1,
     Volume: 7
   };
+
+  button = () =>{
+    if(this.state.tvstatus === 0){
+      this.setState({
+        tvstatus: 1,
+        power: "ON"
+      });
+    }
+    else {
+      this.setState({
+        tvstatus: 0,
+        power: "OFF"
+      });
+    }
+  }
+
+  handleColor = (int) => {
+    if(this.state.tvstatus === 0){
+      return "info";
+    }
+    else {
+      return "rose";
+    }
+  }
+
   changeProgram = (event) => {
     this.setState({ programNumber: this.state.programNumber + 1 });
     console.log("change happened");
   };
 
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
   showUI() {
     window.location = "/table";
   }
@@ -34,7 +65,7 @@ class tv extends React.Component {
           <GridItem xs={12} sm={6} md={3} lg={12}>
             <Card>
               <CardHeader color="rose" stats icon>
-                <CardIcon color="rose">
+                <CardIcon onClick={this.button} color={this.handleColor(this.state.tvstatus)}>
                   <Icon>power_settings_new</Icon>
                 </CardIcon>
               </CardHeader>
@@ -66,7 +97,7 @@ class tv extends React.Component {
                   <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
                     <p>Change Volume</p>
                   </GridItem>
-                  <GridItem  xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={6} md={3} lg={4}>
                   </GridItem>
                   <GridItem xs={4} sm={6} md={3} lg={4}>
                     <Card>
@@ -85,6 +116,10 @@ class tv extends React.Component {
                         </CardIcon>
                       </CardHeader>
                     </Card>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <h3>Select AC:</h3>
+                    <Dropdown options={room} onChange={this._onSelect} value={room[0]} placeholder="Choose a room..." />
                   </GridItem>
                 </GridContainer>
               </CardBody>
