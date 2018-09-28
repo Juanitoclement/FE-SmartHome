@@ -28,7 +28,8 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-import store from "../../redux/store";
+import action from "../../redux/actions/actions";
+import store from "../../redux/store/configureStore";
 
 import { bugs, website, server } from "variables/general";
 
@@ -41,20 +42,23 @@ import {
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0,
-    tvStatus: 0,
-    acStatus: 0,
-    ligStatus: 0,
-    powerTv: "OFF",
-    powerLig: "OFF",
-    powerAc: "OFF",
-    items: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0,
+      tvStatus: 0,
+      acStatus: 0,
+      ligStatus: 0,
+      powerTv: "OFF",
+      powerLig: "OFF",
+      powerAc: "OFF",
+      items: []
+    };
+  }
   componentDidMount() {
-    store.subscribe(() => {
+    store.store.getState().payload.then(val => {
       this.setState({
-        items: store.getState().newTodo.data
+        items: val.title
       });
     });
   }
@@ -139,6 +143,10 @@ class Dashboard extends React.Component {
     this.props.history.push("ac");
   };
 
+  redirectToLig = () => {
+    this.props.history.push("light");
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -181,8 +189,13 @@ class Dashboard extends React.Component {
                 >
                   <Icon>wb_incandescent</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Light Intensity</p>
-                <h3 className={classes.cardTitle}>
+                <p
+                  className={classes.cardCategory}
+                  onClick={this.redirectToLig}
+                >
+                  Light Intensity
+                </p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToLig}>
                   {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
               </CardHeader>
@@ -211,7 +224,7 @@ class Dashboard extends React.Component {
                   Air Conditioner
                 </p>
                 <h3 className={classes.cardTitle} onClick={this.redirectToAc}>
-                  {this.state.powerAc} -24 C
+                  {this.state.powerAc} - abc
                 </h3>
               </CardHeader>
               <CardFooter stats>
