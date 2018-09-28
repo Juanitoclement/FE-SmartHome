@@ -14,6 +14,7 @@ import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.js";
 import Login from "views/Login/Login.jsx";
+import Light from "views/Light/Light.jsx";
 
 const dashboardRoutes = [
   {
@@ -72,6 +73,14 @@ const dashboardRoutes = [
     icon: Unarchive,
     component: Login
   },
+  {
+    path: "/light",
+    sidebarName: "Light",
+    navbarName: "Light",
+    icon: Unarchive,
+    component: Light
+  },
+
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 

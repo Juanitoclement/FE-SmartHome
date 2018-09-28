@@ -139,6 +139,10 @@ class Dashboard extends React.Component {
     this.props.history.push("ac");
   };
 
+  redirectToLig = () => {
+    this.props.history.push("light");
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -181,8 +185,13 @@ class Dashboard extends React.Component {
                 >
                   <Icon>wb_incandescent</Icon>
                 </CardIcon>
-                <p className={classes.cardCategory}>Light Intensity</p>
-                <h3 className={classes.cardTitle}>
+                <p
+                  className={classes.cardCategory}
+                  onClick={this.redirectToLig}
+                >
+                  Light Intensity
+                </p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToLig}>
                   {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
               </CardHeader>
