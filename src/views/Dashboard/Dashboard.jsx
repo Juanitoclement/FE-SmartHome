@@ -56,8 +56,17 @@ class Dashboard extends React.Component {
       this.setState({
         items: store.getState().newTodo.data
       });
+      console.log(this.state.items);
     });
+    console.log(this.state.items);
   }
+  class abc {
+  render() {
+    const greeting =
+
+    return <h1>{greeting}</h1>;
+  }
+}
 
   handleChange = (event, value) => {
     this.setState({ value });
