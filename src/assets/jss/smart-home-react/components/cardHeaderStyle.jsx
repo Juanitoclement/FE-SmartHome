@@ -47,7 +47,7 @@ const cardHeaderStyle = {
       marginBottom: "1px"
     },
     "&$cardHeaderStats$cardHeaderIcon": {
-      textAlign: "right"
+      textAlign: "center"
     }
   },
   cardHeaderPlain: {
@@ -56,7 +56,7 @@ const cardHeaderStyle = {
   },
   cardHeaderStats: {
     "& $cardHeaderIcon": {
-      textAlign: "right"
+      textAlign: "center"
     },
     "& h1,& h2,& h3,& h4,& h5,& h6": {
       margin: "0 !important"

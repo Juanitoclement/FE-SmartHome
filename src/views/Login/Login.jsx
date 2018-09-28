@@ -28,7 +28,7 @@ const cardStyle = {
   minWidth: "0",
   wordWrap: "break-word",
   fontSize: ".875rem",
-  textAlign: "center"
+
 };
 
 const cardHeader = {

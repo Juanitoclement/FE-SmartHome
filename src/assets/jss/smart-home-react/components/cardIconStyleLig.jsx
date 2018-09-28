@@ -6,17 +6,16 @@ import {
   primaryCardHeader,
   roseCardHeader
 } from "assets/jss/smart-home-react.jsx";
-const cardIconStyle = {
-  cardIcon: {
+const cardIconStyleLig = {
+  cardIconLig: {
     "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
       borderRadius: "3px",
       backgroundColor: "#999",
       padding: "15px",
       marginTop: "-20px",
-
+      marginLeft: "40%",
       marginRight: "15px",
       float: "left",
-
     }
   },
   warningCardHeader,
@@ -27,4 +26,4 @@ const cardIconStyle = {
   roseCardHeader
 };
 
-export default cardIconStyle;
+export default cardIconStyleLig;
