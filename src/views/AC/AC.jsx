@@ -32,20 +32,23 @@ const styles = {
 };
 
 class AC extends React.Component {
-  state = {
-    value: 0,
-    acstatus: 0
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: 0,
+      acstatus: 0,
+      h: 0,
+      m: 0,
+      s: 0
+    };
+    this.secondsRemaining;
+    this.handleInput = this.handleInput.bind(this);
+  }
 
   showUI() {
     window.location = "/table";
   }
 
-  startCountDown() {
-    this.intervalHandle = setInterval(this.tick, 1000);
-    let time = this.state.minutes;
-    this.secondsRemaining = time * 60;
-  }
 
   handleColor = int => {
     if (this.state.acstatus === 0) {
@@ -67,16 +70,17 @@ class AC extends React.Component {
     }
   };
 
+  // for later countdown
+  // still no tick function yet
   handleTimer = () => {
-    this.setState({
-      h: this.state.number,
-      m: 0,
-      s: 0
-    });
+    this.intervalHandle = setInterval(this.tick, 1000);
+    let time = this.state.h;
+    this.secondsRemaining = time * 3600;
   }
+
   handleInput = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      h: event.target.value
     });
   };
 

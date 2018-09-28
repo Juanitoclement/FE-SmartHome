@@ -119,7 +119,7 @@ class tv extends React.Component {
                     </Card>
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Select AC:</h3>
+                    <h3>Select TV:</h3>
                     <Dropdown options={room} onChange={this._onSelect} value={room[0]} placeholder="Choose a room..." />
                   </GridItem>
                 </GridContainer>
