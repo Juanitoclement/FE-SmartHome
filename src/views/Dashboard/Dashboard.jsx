@@ -64,13 +64,6 @@ class Dashboard extends React.Component {
     });
     console.log(this.state.items);
   }
-  class abc {
-  render() {
-    const greeting =
-
-    return <h1>{greeting}</h1>;
-  }
-}
 
   handleChange = (event, value) => {
     this.setState({ value });
@@ -161,7 +154,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <GridContainer>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader
                 color={this.handleColorTv(this.state.tvStatus)}
@@ -189,7 +182,7 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader stats icon>
                 <CardIcon
@@ -220,7 +213,7 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader color="success" stats icon>
                 <CardIcon
@@ -240,23 +233,6 @@ class Dashboard extends React.Component {
                 <div className={classes.stats}>
                   <DateRange />
                   Last 24 Hours
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <Icon>photo_camera</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Camera</p>
-                <h3 className={classes.cardTitle}>Garage</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <LocalOffer />
-                  Tracked from Github
                 </div>
               </CardFooter>
             </Card>
