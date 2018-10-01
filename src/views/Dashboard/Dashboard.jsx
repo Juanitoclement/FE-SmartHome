@@ -28,7 +28,6 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-import action from "../../redux/actions/actions";
 import store from "../../redux/store/configureStore";
 
 import { bugs, website, server } from "variables/general";
@@ -62,7 +61,7 @@ class Dashboard extends React.Component {
       });
       console.log(this.state.items);
     });
-    console.log(this.state.items);
+    console.log(store.store.getState());
   }
 
   handleChange = (event, value) => {

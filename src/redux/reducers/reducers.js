@@ -1,5 +1,6 @@
 import {
   NEW_TODO,
+  OLD_TODO,
   NEW_TODO_FAILURE,
   NEW_TODO_SUCCESS
 } from "../actions/actions";
@@ -13,6 +14,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case NEW_TODO: // start fetching posts and set loading = true
       return { ...state, payload: action.payload };
+    case OLD_TODO: // start fetching posts and set loading = true
+      return { ...state, oldPayload: action.oldPayload };
     case NEW_TODO_SUCCESS: // return list of posts and make loading = false
       return {
         ...state,
