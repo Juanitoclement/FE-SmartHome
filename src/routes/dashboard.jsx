@@ -15,6 +15,7 @@ import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.js";
 import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
+import Environmental from "views/Environmental/Environmental";
 
 const dashboardRoutes = [
   {
@@ -80,7 +81,13 @@ const dashboardRoutes = [
     icon: Unarchive,
     component: Light
   },
-
+  {
+    path: "/environmental",
+    sidebarName: "Environmental",
+    navbarName: "Environmental",
+    icon: Unarchive,
+    component: Environmental
+  },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
