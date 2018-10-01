@@ -9,6 +9,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
+import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
 import {
@@ -31,14 +32,23 @@ const styles = {
 };
 
 class AC extends React.Component {
-  state = {
-    value: 0,
-    acstatus: 0
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: 0,
+      acstatus: 0,
+      h: 0,
+      m: 0,
+      s: 0
+    };
+    this.secondsRemaining;
+    this.handleInput = this.handleInput.bind(this);
+  }
 
   showUI() {
     window.location = "/table";
   }
+
 
   handleColor = int => {
     if (this.state.acstatus === 0) {
@@ -60,16 +70,17 @@ class AC extends React.Component {
     }
   };
 
+  // for later countdown
+  // still no tick function yet
   handleTimer = () => {
-    this.setState({
-      h: this.state.number,
-      m: 0,
-      s: 0
-    });
+    this.intervalHandle = setInterval(this.tick, 1000);
+    let time = this.state.h;
+    this.secondsRemaining = time * 3600;
   }
+
   handleInput = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      h: event.target.value
     });
   };
 
@@ -83,13 +94,13 @@ class AC extends React.Component {
             <Card>
               {/* Power Off / Main Card */}
               <CardHeader color="info" stats icon>
-                <CardIcon
+                <CardIconCustom
                   onClick={this.button}
                   color={this.handleColor(this.state.acstatus)}
                 >
                   <Icon>power_settings_new</Icon>
                   <p>{this.state.power}</p>
-                </CardIcon>
+                </CardIconCustom>
               </CardHeader>
 
               <CardBody>
@@ -153,8 +164,7 @@ class AC extends React.Component {
                         Submit
                       </button>
                       <br />
-                      h: {this.state.h} m: {this.state.m} s:{" "}
-                      {this.state.s}
+                      h: {this.state.h} m: {this.state.m} s: {this.state.s}
                     </form>
                   </GridItem>
                 </GridContainer>
