@@ -26,20 +26,6 @@ const dashboardRoutes = [
     component: DashboardPage
   },
   {
-    path: "/user",
-    sidebarName: "User Profile",
-    navbarName: "Profile",
-    icon: Person,
-    component: UserProfile
-  },
-  {
-    path: "/icons",
-    sidebarName: "Icons",
-    navbarName: "Icons",
-    icon: BubbleChart,
-    component: Icons
-  },
-  {
     path: "/notifications",
     sidebarName: "Notifications",
     navbarName: "Notifications",
@@ -50,7 +36,7 @@ const dashboardRoutes = [
     path: "/contact-us",
     sidebarName: "Contact Us",
     navbarName: "Contact Us",
-    icon: Unarchive,
+    icon: Person,
     component: ContactUs
   },
   {
@@ -71,14 +57,14 @@ const dashboardRoutes = [
     path: "/login",
     sidebarName: "Login",
     navbarName: "Login",
-    icon: Unarchive,
+    icon: Person,
     component: Login
   },
   {
     path: "/light",
     sidebarName: "Light",
     navbarName: "Light",
-    icon: Unarchive,
+    icon: BubbleChart,
     component: Light
   },
   {

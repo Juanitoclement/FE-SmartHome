@@ -18,6 +18,8 @@ import dashboardStyle from "assets/jss/smart-home-react/layouts/dashboardStyle.j
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import homie from "assets/img/Homie_logo.png";
+
 
 const switchRoutes = (
   <Switch>
@@ -71,8 +73,8 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"Smart Home"}
-          logo={logo}
+          // logoText={"Hommie"}
+          logo={homie}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
