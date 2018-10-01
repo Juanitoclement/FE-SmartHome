@@ -8,7 +8,6 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
@@ -29,6 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
+import { newTodo, oldTodo } from "../../redux/actions/actions";
 
 import { bugs, website, server } from "variables/general";
 
@@ -51,17 +51,9 @@ class Dashboard extends React.Component {
       powerTv: "OFF",
       powerLig: "OFF",
       powerAc: "OFF",
-      items: []
+      items: [],
+      items2: []
     };
-  }
-  componentDidMount() {
-    store.store.getState().payload.then(val => {
-      this.setState({
-        items: val.title
-      });
-      console.log(this.state.items);
-    });
-    console.log(store.store.getState());
   }
 
   handleChange = (event, value) => {
@@ -135,7 +127,12 @@ class Dashboard extends React.Component {
       });
     }
   };
-
+  offAc() {
+    store.store.dispatch(newTodo());
+  }
+  onAc() {
+    store.store.dispatch(oldTodo());
+  }
   redirectToTv = () => {
     this.props.history.push("tv");
   };
@@ -146,7 +143,7 @@ class Dashboard extends React.Component {
 
   redirectToLig = () => {
     this.props.history.push("light");
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -196,6 +193,8 @@ class Dashboard extends React.Component {
                 >
                   Light Intensity
                 </p>
+                <button onClick={this.onAc}>on</button>
+                <button onClick={this.offAc}>off</button>
                 <h3 className={classes.cardTitle} onClick={this.redirectToLig}>
                   {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
