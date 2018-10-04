@@ -23,7 +23,7 @@ const dashboardRoutes = [
     sidebarName: "Dashboard",
     navbarName: "SmartHome Panel",
     icon: Dashboard,
-    component: DashboardPage
+    component: DashboardPage,
   },
   {
     path: "/notifications",
@@ -44,7 +44,8 @@ const dashboardRoutes = [
     sidebarName: "Air Conditioner",
     navbarName: "Air Conditioner",
     icon: Unarchive,
-    component: AC
+    component: AC,
+    hidden: true
   },
   {
     path: "/tv",
