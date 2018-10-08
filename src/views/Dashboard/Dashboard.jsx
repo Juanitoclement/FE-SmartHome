@@ -8,7 +8,6 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
@@ -28,8 +27,8 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
-import action from "../../redux/actions/actions";
 import store from "../../redux/store/configureStore";
+import { newTodo, oldTodo } from "../../redux/actions/actions";
 
 import { bugs, website, server } from "variables/general";
 
@@ -52,15 +51,9 @@ class Dashboard extends React.Component {
       powerTv: "OFF",
       powerLig: "OFF",
       powerAc: "OFF",
-      items: []
+      items: [],
+      items2: []
     };
-  }
-  componentDidMount() {
-    store.store.getState().payload.then(val => {
-      this.setState({
-        items: val.title
-      });
-    });
   }
 
   handleChange = (event, value) => {
@@ -134,7 +127,12 @@ class Dashboard extends React.Component {
       });
     }
   };
-
+  offAc() {
+    store.store.dispatch(newTodo());
+  }
+  onAc() {
+    store.store.dispatch(oldTodo());
+  }
   redirectToTv = () => {
     this.props.history.push("tv");
   };
@@ -145,14 +143,14 @@ class Dashboard extends React.Component {
 
   redirectToLig = () => {
     this.props.history.push("light");
-  }
+  };
 
   render() {
     const { classes } = this.props;
     return (
       <div>
         <GridContainer>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader
                 color={this.handleColorTv(this.state.tvStatus)}
@@ -180,7 +178,7 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader stats icon>
                 <CardIcon
@@ -195,6 +193,8 @@ class Dashboard extends React.Component {
                 >
                   Light Intensity
                 </p>
+                <button onClick={this.onAc}>on</button>
+                <button onClick={this.offAc}>off</button>
                 <h3 className={classes.cardTitle} onClick={this.redirectToLig}>
                   {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
@@ -211,7 +211,7 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
+          <GridItem xs={6} sm={6} md={4}>
             <Card>
               <CardHeader color="success" stats icon>
                 <CardIcon
@@ -231,23 +231,6 @@ class Dashboard extends React.Component {
                 <div className={classes.stats}>
                   <DateRange />
                   Last 24 Hours
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={6} sm={6} md={3}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <Icon>photo_camera</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Camera</p>
-                <h3 className={classes.cardTitle}>Garage</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <LocalOffer />
-                  Tracked from Github
                 </div>
               </CardFooter>
             </Card>

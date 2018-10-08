@@ -60,19 +60,6 @@ class HeaderLinks extends React.Component {
             <Search />
           </Button>
         </div>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Dashboard"
-          className={classes.buttonLink}
-          onClick={this.handleSubmit}
-        >
-          <Dashboard className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Dashboard</p>
-          </Hidden>
-        </Button>
         <div className={classes.manager}>
           <Button
             buttonRef={node => {
@@ -128,12 +115,6 @@ class HeaderLinks extends React.Component {
                         className={classes.dropdownItem}
                       >
                         You have 5 new tasks
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleClose}
-                        className={classes.dropdownItem}
-                      >
-                        You're now friend with Andrew
                       </MenuItem>
                       <MenuItem
                         onClick={this.handleClose}
