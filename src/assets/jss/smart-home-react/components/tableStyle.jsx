@@ -37,7 +37,7 @@ const tableStyle = theme => ({
     maxWidth: "100%",
     backgroundColor: "transparent",
     borderSpacing: "0",
-    borderCollapse: "collapse"
+    borderCollapse: "collapse",
   },
   tableHeadCell: {
     color: "inherit",
@@ -47,7 +47,7 @@ const tableStyle = theme => ({
   tableCell: {
     ...defaultFont,
     lineHeight: "1.42857143",
-    padding: "12px 8px",
+    padding: "5px 5px",
     verticalAlign: "middle"
   },
   tableResponsive: {

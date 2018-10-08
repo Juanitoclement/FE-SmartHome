@@ -45,7 +45,7 @@ const dashboardRoutes = [
     navbarName: "Air Conditioner",
     icon: Unarchive,
     component: AC,
-    hidden: true
+    hidden: false
   },
   {
     path: "/tv",

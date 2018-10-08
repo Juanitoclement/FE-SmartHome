@@ -1,5 +1,5 @@
 import React from "react";
-import Swiper from "react-id-swiper";
+// import Swiper from "react-id-swiper";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -51,10 +51,10 @@ class Environmental extends React.Component {
     };
     return (
       <div>
-        <Swiper {...params}>
-          <div style={cardHeader}>Slide 1</div>
-          <div style={cardHeader}>Slide 2</div>
-        </Swiper>
+        {/*<Swiper {...params}>*/}
+          {/*<div style={cardHeader}>Slide 1</div>*/}
+          {/*<div style={cardHeader}>Slide 2</div>*/}
+        {/*</Swiper>*/}
       </div>
     );
   }
