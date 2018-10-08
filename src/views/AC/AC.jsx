@@ -52,8 +52,6 @@ class AC extends React.Component {
   showUI() {
     window.location = "/table";
   }
-
-
   handleColor = int => {
     if (this.state.acstatus === 0) {
       return "info";
@@ -150,7 +148,7 @@ class AC extends React.Component {
                       placeholder="TEsting123"
                     />
                   </GridItem>
-                  {/* Timer Menu */}
+                  {/* Scheduler Menu */}
                   <GridItem xs={9} sm={12} md={12} lg={12}>
                     <h3>Schedule</h3>
                     <Table border="1px">
