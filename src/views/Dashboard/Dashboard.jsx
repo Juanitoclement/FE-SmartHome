@@ -28,7 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
-import { newTodo, oldTodo } from "../../redux/actions/actions";
+import { newTodo, oldTodo, testingApi } from "../../redux/actions/actions";
 
 import { bugs, website, server } from "variables/general";
 
@@ -52,7 +52,8 @@ class Dashboard extends React.Component {
       powerLig: "OFF",
       powerAc: "OFF",
       items: [],
-      items2: []
+      items2: [],
+      apiResult: store.store.dispatch(testingApi())
     };
   }
 
@@ -129,9 +130,11 @@ class Dashboard extends React.Component {
   };
   offAc() {
     store.store.dispatch(newTodo());
+    console.log(store.store.dispatch(newTodo()));
   }
   onAc() {
-    store.store.dispatch(oldTodo());
+    const abc = store.store.dispatch(oldTodo());
+    console.log(abc.oldPayload.then(value => { value.sucess}));
   }
   redirectToTv = () => {
     this.props.history.push("tv");
