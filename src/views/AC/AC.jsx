@@ -31,11 +31,26 @@ import "react-dropdown/style.css";
 
 const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
-// const styles = {
-//   cardColorTest: {
-//     backgroundColor: "rgba(255,255,255,.62)"
-//   }
-// };
+const styles = {
+  cardColorTest: {
+    backgroundColor: "rgba(255,255,255,.62)"
+  }
+};
+
+const CustomTableHead = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
+
+const CustomTableCell = withStyles(theme => ({
+  body: {
+    fontSize: 14,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
 
 class AC extends React.Component {
   constructor(props){
@@ -151,23 +166,23 @@ class AC extends React.Component {
                   {/* Scheduler Menu */}
                   <GridItem xs={9} sm={12} md={12} lg={12}>
                     <h3>Schedule</h3>
-                    <Table border="1px">
+                    <Table border='1px'>
                       <TableHead>
-                        <TableRow border-style="solid" color="black">
-                          <TableCell>From</TableCell>
-                          <TableCell>To</TableCell>
-                          <TableCell>Button</TableCell>
+                        <TableRow>
+                          <CustomTableHead>From</CustomTableHead>
+                          <CustomTableHead>To</CustomTableHead>
+                          <CustomTableHead>Button</CustomTableHead>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         <TableRow>
-                          <TableCell>{this.state.hourfrom}</TableCell>
-                          <TableCell>{this.state.hourto}</TableCell>
-                          <TableCell>
+                          <CustomTableCell>{this.state.hourfrom}</CustomTableCell>
+                          <CustomTableCell>{this.state.hourto}</CustomTableCell>
+                          <CustomTableCell>
                             <CardIcon onClick={this.handleStatus}>
                               <Icon>{this.state.schedulerstatus}</Icon>
                             </CardIcon>
-                          </TableCell>
+                          </CustomTableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
