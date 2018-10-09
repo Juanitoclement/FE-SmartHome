@@ -2,7 +2,8 @@ import {
   NEW_TODO,
   OLD_TODO,
   NEW_TODO_FAILURE,
-  NEW_TODO_SUCCESS
+  NEW_TODO_SUCCESS,
+  TEST_API
 } from "../actions/actions";
 
 const INITIAL_STATE = {
@@ -16,6 +17,9 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, payload: action.payload };
     case OLD_TODO: // start fetching posts and set loading = true
       return { ...state, oldPayload: action.oldPayload };
+    case TEST_API:
+      console.log(action.testPayload)
+      return { ...state, testPayload: action.testPayload };
     case NEW_TODO_SUCCESS: // return list of posts and make loading = false
       return {
         ...state,

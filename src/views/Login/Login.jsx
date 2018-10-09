@@ -5,9 +5,8 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import withStyles from "@material-ui/core/styles/withStyles";
-
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
+import { testingApi } from "../../redux/actions/actions";
+import store from "../../redux/store/configureStore";
 
 const cardStyle = {
   border: "0",
@@ -53,13 +52,28 @@ const cardHeader = {
 };
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: ""
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  }
+
   handleSubmit() {
     alert("Logging you in");
+    console.log(this.state.username);
+    console.log(this.state.password);
   }
+
   handleInput(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
+    console.log(this.state);
     console.log(event.target.value);
   }
 
@@ -74,10 +88,10 @@ class Login extends React.Component {
             <GridItem xs={12} sm={12} md={12} lg={12}>
               <form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <TextField id="input-with-icon-grid" label="Username" />
+                  <TextField name="username" id="input-with-icon-grid" label="Username" onChange={this.handleInput}/>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <TextField id="input-with-icon-grid" label="Password" />
+                  <TextField name="password" type="password" id="input-with-icon-grid" label="Password" onChange={this.handleInput}/>
                 </GridItem>
                 <br />
                 <GridItem xs={12} sm={12} md={12} lg={12}>
@@ -93,4 +107,4 @@ class Login extends React.Component {
     );
   }
 }
-export default withStyles(dashboardStyle)(Login);
+export default Login;
