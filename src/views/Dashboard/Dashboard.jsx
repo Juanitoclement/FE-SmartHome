@@ -44,6 +44,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ...this.state,
       value: 0,
       tvStatus: 0,
       acStatus: 0,
@@ -51,7 +52,7 @@ class Dashboard extends React.Component {
       powerTv: "OFF",
       powerLig: "OFF",
       powerAc: "OFF",
-      items: [],
+      items: 0,
       items2: [],
       apiResult: store.store.dispatch(testingApi())
     };
@@ -132,10 +133,14 @@ class Dashboard extends React.Component {
     store.store.dispatch(newTodo());
     console.log(store.store.dispatch(newTodo()));
   }
-  onAc() {
+  onAc = () => {
     const abc = store.store.dispatch(oldTodo());
-    console.log(abc.oldPayload.then(value => { value.sucess}));
-  }
+    abc.oldPayload.then(test => {
+      this.setState({
+        items: test
+      });
+    });
+  };
   redirectToTv = () => {
     this.props.history.push("tv");
   };

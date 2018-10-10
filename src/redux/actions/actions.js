@@ -13,7 +13,9 @@ function newTodo() {
   return {
     type: NEW_TODO,
     payload: new Promise(resolve => {
-      axios.get(apiUrl + "turn-off/1/").then(response => resolve(response.data));
+      axios
+        .get(apiUrl + "turn-off/1/")
+        .then(response => resolve(response.data));
     })
   };
 }
@@ -21,7 +23,10 @@ function oldTodo() {
   return {
     type: OLD_TODO,
     oldPayload: new Promise(resolve => {
-      axios.get(apiUrl + "turn-on/1/  ").then(response => resolve(response.data));
+      axios.get(apiUrl + "turn-on/1/").then(response => {
+        console.log(response.data.status);
+        return resolve(response.data.status);
+      });
     })
   };
 }

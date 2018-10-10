@@ -18,7 +18,7 @@ export default function(state = INITIAL_STATE, action) {
     case OLD_TODO: // start fetching posts and set loading = true
       return { ...state, oldPayload: action.oldPayload };
     case TEST_API:
-      console.log(action.testPayload)
+      console.log(action.testPayload);
       return { ...state, testPayload: action.testPayload };
     case NEW_TODO_SUCCESS: // return list of posts and make loading = false
       return {
