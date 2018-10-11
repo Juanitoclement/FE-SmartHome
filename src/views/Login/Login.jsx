@@ -5,8 +5,8 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { testingApi } from "../../redux/actions/actions";
 import store from "../../redux/store/configureStore";
+import { doLogin, doVerify } from "../../redux/actions/actions";
 
 const cardStyle = {
   border: "0",
@@ -55,18 +55,45 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: ""
+      email: "",
+      password: "",
+      code: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
-  handleSubmit() {
-    alert("Logging you in");
-    console.log(this.state.username);
-    console.log(this.state.password);
+  handleSubmit(e) {
+    e.preventDefault();
+    let data = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    const abc = store.store.dispatch(doLogin(data));
+    abc.loginPayload.then(test => {
+      if (test == "SUCCESS") {
+        var person = prompt("Please check your email:", "Insert Code");
+        console.log(person);
+        this.setState({
+          code: person
+        });
+        this.verifyLogin();
+      } else {
+        alert("bye");
+      }
+    });
+  }
+
+  verifyLogin() {
+    let data = {
+      email: this.state.email,
+      password: this.state.password,
+      code: this.state.code
+    };
+    console.log(data);
+    const abc = store.store.dispatch(doVerify(data));
+    console.log(abc);
   }
 
   handleInput(event) {
@@ -81,21 +108,35 @@ class Login extends React.Component {
     return (
       <div>
         <div style={cardStyle}>
-          <div style={cardHeader}>
-            Welcome!!!
-          </div>
+          <div style={cardHeader}>Welcome!!!</div>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12} lg={12}>
               <form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <TextField name="username" id="input-with-icon-grid" label="Username" onChange={this.handleInput}/>
+                  <TextField
+                    name="email"
+                    id="1 input-with-icon-grid"
+                    label="Email"
+                    onChange={this.handleInput}
+                  />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <TextField name="password" type="password" id="input-with-icon-grid" label="Password" onChange={this.handleInput}/>
+                  <TextField
+                    name="password"
+                    type="password"
+                    id="2 input-with-icon-grid"
+                    label="Password"
+                    onChange={this.handleInput}
+                  />
                 </GridItem>
                 <br />
                 <GridItem xs={12} sm={12} md={12} lg={12}>
-                  <Button size="large" color="primary" variant="contained" type="submit">
+                  <Button
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                  >
                     Login
                   </Button>
                 </GridItem>
