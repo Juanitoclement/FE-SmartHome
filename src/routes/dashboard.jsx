@@ -15,7 +15,6 @@ import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.js";
 import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
-import Environmental from "views/Environmental/Environmental";
 
 const dashboardRoutes = [
   {
@@ -23,7 +22,21 @@ const dashboardRoutes = [
     sidebarName: "Dashboard",
     navbarName: "SmartHome Panel",
     icon: Dashboard,
-    component: DashboardPage,
+    component: DashboardPage
+  },
+  {
+    path: "/user",
+    sidebarName: "User Profile",
+    navbarName: "Profile",
+    icon: Person,
+    component: UserProfile
+  },
+  {
+    path: "/icons",
+    sidebarName: "Icons",
+    navbarName: "Icons",
+    icon: BubbleChart,
+    component: Icons
   },
   {
     path: "/notifications",
@@ -36,7 +49,7 @@ const dashboardRoutes = [
     path: "/contact-us",
     sidebarName: "Contact Us",
     navbarName: "Contact Us",
-    icon: Person,
+    icon: Unarchive,
     component: ContactUs
   },
   {
@@ -44,8 +57,7 @@ const dashboardRoutes = [
     sidebarName: "Air Conditioner",
     navbarName: "Air Conditioner",
     icon: Unarchive,
-    component: AC,
-    hidden: false
+    component: AC
   },
   {
     path: "/tv",
@@ -58,22 +70,15 @@ const dashboardRoutes = [
     path: "/login",
     sidebarName: "Login",
     navbarName: "Login",
-    icon: Person,
+    icon: Unarchive,
     component: Login
   },
   {
     path: "/light",
     sidebarName: "Light",
     navbarName: "Light",
-    icon: BubbleChart,
-    component: Light
-  },
-  {
-    path: "/environmental",
-    sidebarName: "Environmental",
-    navbarName: "Environmental",
     icon: Unarchive,
-    component: Environmental
+    component: Light
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
