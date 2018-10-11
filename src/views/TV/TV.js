@@ -10,8 +10,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
-import Dropdown from 'react-dropdown';
-
+import Dropdown from "react-dropdown";
 
 // for choice of TV Place
 const room = [ 'Bedroom', 'Master Room', 'Living Room'];

@@ -53,7 +53,8 @@ class Dashboard extends React.Component {
       powerAc: "OFF",
       items: [],
       items2: [],
-      apiResult: store.store.dispatch(testingApi())
+      apiResult: store.store.dispatch(testingApi()),
+      testResult: {}
     };
   }
 
@@ -133,8 +134,10 @@ class Dashboard extends React.Component {
     console.log(store.store.dispatch(newTodo()));
   }
   onAc() {
+    // console.log(this.state.testResult);
     const abc = store.store.dispatch(oldTodo());
-    console.log(abc.oldPayload.then(value => { value.sucess}));
+    console.log(abc);
+    // console.log(abc.oldPayload.then(res => { res.value.success}));
   }
   redirectToTv = () => {
     this.props.history.push("tv");
