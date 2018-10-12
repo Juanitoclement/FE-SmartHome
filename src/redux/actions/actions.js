@@ -12,10 +12,15 @@ const apiUrl = "http://flaskapi.danieljua.pitunnel.com/AC/";
 const loginUrl =
   "http://192.168.1.111.:8000/homie/homie/user/verify-credentials";
 const verifyUrl = "http://192.168.1.111.:8000/homie/homie/user/sign-in";
+const acOnUrl = "http://192.168.1.111.:8000/homie/homie/user/turn-on-ac";
+const acOffUrl = "http://192.168.1.111.:8000/homie/homie/user/turn-off-ac";
 const apiUrlTest = "http://192.168.1.118:5000/temp";
 
 const httpOptions = {
-  headers: { "Content-type": "application/form-data" }
+  headers: {
+    "Content-type": "application/form-data",
+    "Authorization": "Bearer " + localStorage.getItem("token")
+  }
 };
 
 function newTodo() {
@@ -61,7 +66,7 @@ function doLogin(data) {
         .catch(res => {
           localStorage.setItem("SUCCESS_CODE", "ERROR");
           console.log(localStorage.getItem("SUCCESS_CODE"));
-          //handle error
+          // handle error
           // localStorage.removeItem("SUCCESS_CODE");
           // localStorage.setItem("SUCCESS_CODE", "ERROR");
           // console.log(res);

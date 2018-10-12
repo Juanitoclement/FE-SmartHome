@@ -17,19 +17,6 @@ import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
 import Environmental from "views/Environmental/Environmental";
 
-const login = true;
-
-const isLoggedin = () => {
-  if (localStorage.getItem("token") != null){
-    this.login = false;
-    console.log(this.login);
-  }
-  else {
-    this.login = true;
-    console.log(this.login);
-  }
-}
-
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -58,7 +45,7 @@ const dashboardRoutes = [
     navbarName: "Air Conditioner",
     icon: Unarchive,
     component: AC,
-    hidden: this.login
+    hidden: false
   },
   {
     path: "/tv",
