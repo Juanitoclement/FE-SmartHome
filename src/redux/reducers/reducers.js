@@ -2,6 +2,7 @@ import {
   NEW_TODO,
   OLD_TODO,
   DO_LOGIN,
+  DO_VERIFY,
   NEW_TODO_FAILURE,
   NEW_TODO_SUCCESS,
   TEST_API
@@ -17,10 +18,14 @@ export default function(state = INITIAL_STATE, action) {
     case NEW_TODO: // start fetching posts and set loading = true
       return { ...state, payload: action.payload };
     case OLD_TODO: // start fetching posts and set loading = true
-      return { ...state, oldPayload: action.oldPayload.value };
-    case DO_LOGIN: // start fetching posts and set loading = true
+      return { ...state, oldPayload: action.oldPayload };
+    case DO_LOGIN:
+      console.log(...state, action.loginPayload);
       return { ...state, loginPayload: action.loginPayload };
+    case DO_VERIFY:
+      return { ...state, verifyPayload: action.verifyPayload };
     case TEST_API:
+      console.log(action.testPayload);
       return { ...state, testPayload: action.testPayload };
     case NEW_TODO_SUCCESS: // return list of posts and make loading = false
       return {

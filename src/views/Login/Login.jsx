@@ -5,8 +5,8 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { doLogin } from "../../redux/actions/actions";
 import store from "../../redux/store/configureStore";
+import { doLogin, doVerify } from "../../redux/actions/actions";
 
 const cardStyle = {
   border: "0",
@@ -56,7 +56,8 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      code: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -65,23 +66,36 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem("SUCCESS_CODE", "-");
+    let data = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    const abc = store.store.dispatch(doLogin(data));
+    abc.loginPayload.then(test => {
+      if (test == "SUCCESS") {
+        var person = prompt("Please check your email:", "Insert Code");
+        console.log(person);
+        this.setState({
+          code: person
+        });
+        this.verifyLogin();
+      } else {
+        alert("bye");
+      }
+    });
+  }
 
-    console.log(this.state.email);
-    console.log(this.state.password);
-    console.log("------------");
-    console.log(localStorage.getItem("SUCCESS_CODE"));
-    this.validateCode();
+  verifyLogin() {
+    let data = {
+      email: this.state.email,
+      password: this.state.password,
+      code: this.state.code
+    };
+    console.log(data);
+    const abc = store.store.dispatch(doVerify(data));
+    console.log(abc);
   }
-  validateCode() {
-    const abc = store.store.dispatch(doLogin(this.state));
-    console.log(abc.loginPayload);
-    if (abc.loginPayload == "SUCCESS") {
-      alert("YEEY");
-    } else {
-      alert("Bitch");
-    }
-  }
+
   handleInput(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -101,7 +115,6 @@ class Login extends React.Component {
                 <GridItem xs={12} sm={12} md={12} lg={12}>
                   <TextField
                     name="email"
-                    type="email"
                     id="1 input-with-icon-grid"
                     label="Email"
                     onChange={this.handleInput}
