@@ -10,8 +10,8 @@ export const TEST_API = "TEST_API";
 
 const apiUrl = "http://flaskapi.danieljua.pitunnel.com/AC/";
 const loginUrl =
-  "http://10.25.151.186:8000/homie/homie/user/verify-credentials";
-const verifyUrl = "http://10.25.151.186:8000/homie/homie/user/sign-in";
+  "http://192.168.1.111.:8000/homie/homie/user/verify-credentials";
+const verifyUrl = "http://192.168.1.111.:8000/homie/homie/user/sign-in";
 const apiUrlTest = "http://192.168.1.118:5000/temp";
 
 const httpOptions = {
@@ -91,6 +91,7 @@ function doVerify(data) {
           resolve(response.data.token);
         })
         .catch(res => {
+          alert("WRONG!!!");
           console.log(res);
         });
     })
