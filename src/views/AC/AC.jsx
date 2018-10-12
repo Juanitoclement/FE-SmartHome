@@ -11,6 +11,12 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+// core components
 
 import {
   dailySalesChart,
@@ -31,25 +37,36 @@ const styles = {
   }
 };
 
+const CustomTableHead = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
+
+const CustomTableCell = withStyles(theme => ({
+  body: {
+    fontSize: 14,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
+
 class AC extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       value: 0,
       acstatus: 0,
-      h: 0,
-      m: 0,
-      s: 0
+      hourfrom: "12:00",
+      hourto: "1:00",
+      schedulerstatus: "toggle_off"
     };
-    this.secondsRemaining;
-    this.handleInput = this.handleInput.bind(this);
   }
 
   showUI() {
     window.location = "/table";
   }
-
-
   handleColor = int => {
     if (this.state.acstatus === 0) {
       return "info";
@@ -70,19 +87,17 @@ class AC extends React.Component {
     }
   };
 
-  // for later countdown
-  // still no tick function yet
-  handleTimer = () => {
-    this.intervalHandle = setInterval(this.tick, 1000);
-    let time = this.state.h;
-    this.secondsRemaining = time * 3600;
+  handleStatus = () => {
+    if (this.state.schedulerstatus === "toggle_off") {
+      this.setState({
+        schedulerstatus: "toggle_on"
+      });
+    } else {
+      this.setState({
+        schedulerstatus: "toggle_off"
+      });
+    }
   }
-
-  handleInput = event => {
-    this.setState({
-      h: event.target.value
-    });
-  };
 
   render() {
     const { classes } = this.props;
@@ -148,24 +163,29 @@ class AC extends React.Component {
                       placeholder="TEsting123"
                     />
                   </GridItem>
-
-                  {/* Timer Menu */}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Timer</h3>
-                    <form>
-                      <input
-                        name="number"
-                        type="number"
-                        placeholder="Time in hours"
-                        onChange={event => this.handleInput(event)}
-                      />
-                      {/*<p>{this.state.number}</p>*/}
-                      <button type="button" onClick={this.handleTimer}>
-                        Submit
-                      </button>
-                      <br />
-                      h: {this.state.h} m: {this.state.m} s: {this.state.s}
-                    </form>
+                  {/* Scheduler Menu */}
+                  <GridItem xs={9} sm={12} md={12} lg={12}>
+                    <h3>Schedule</h3>
+                    <Table border='1px'>
+                      <TableHead>
+                        <TableRow>
+                          <CustomTableHead>From</CustomTableHead>
+                          <CustomTableHead>To</CustomTableHead>
+                          <CustomTableHead>Button</CustomTableHead>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <CustomTableCell>{this.state.hourfrom}</CustomTableCell>
+                          <CustomTableCell>{this.state.hourto}</CustomTableCell>
+                          <CustomTableCell>
+                            <CardIcon onClick={this.handleStatus}>
+                              <Icon>{this.state.schedulerstatus}</Icon>
+                            </CardIcon>
+                          </CustomTableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
                   </GridItem>
                 </GridContainer>
               </CardBody>

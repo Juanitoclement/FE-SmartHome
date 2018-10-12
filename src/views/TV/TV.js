@@ -57,6 +57,9 @@ class tv extends React.Component {
   showUI() {
     window.location = "/table";
   }
+
+
+  //rendering process down here
   render() {
     const { classes } = this.props;
     return (
