@@ -19,6 +19,7 @@ function CardHeader({ ...props }) {
     plain,
     stats,
     icon,
+    topIcon,
     ...rest
   } = props;
   const cardHeaderClasses = classNames({
@@ -27,6 +28,7 @@ function CardHeader({ ...props }) {
     [classes.cardHeaderPlain]: plain,
     [classes.cardHeaderStats]: stats,
     [classes.cardHeaderIcon]: icon,
+    [classes.cardHeaderTop]: topIcon,
     [className]: className !== undefined
   });
   return (
@@ -50,6 +52,7 @@ CardHeader.propTypes = {
   plain: PropTypes.bool,
   stats: PropTypes.bool,
   icon: PropTypes.bool,
+  topIcon: PropTypes.bool,
 };
 
 export default withStyles(cardHeaderStyle)(CardHeader);

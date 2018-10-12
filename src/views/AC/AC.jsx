@@ -59,6 +59,7 @@ class AC extends React.Component {
       value: 0,
       acstatus: 0,
       schedulerstatus: "toggle_off",
+      TemperatureNow: 26,
       hourFrom: "12:00",
       hourTo: "13:00"
     };
@@ -111,7 +112,6 @@ class AC extends React.Component {
   }
 
   render() {
-    # AC AC AC
     const { classes } = this.props;
     return (
       <div>
@@ -120,7 +120,7 @@ class AC extends React.Component {
           <GridItem xs={12} sm={6} md={3} lg={12}>
             <Card>
               {/* Power Off / Main Card */}
-              <CardHeader color="info" stats icon>
+              <CardHeader color="info" stats topIcon>
                 <CardIcon
                   onClick={this.button}
                   color={this.handleColor(this.state.acstatus)}
@@ -133,6 +133,10 @@ class AC extends React.Component {
               <CardBody>
                 {/* Seperate The 2 card inside */}
                 <GridContainer>
+                  {/* For Temperature Display */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <p align="center" style={{fontSize: 40}}>{this.state.TemperatureNow} &#8451;</p>
+                  </GridItem>
                   {/* Minus Temperature Button */}
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
