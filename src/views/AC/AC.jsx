@@ -26,7 +26,7 @@ import {
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
-import { getAc, oldTodo } from "../../redux/actions/actions";
+import { getAc, getAcStatus, oldTodo } from "../../redux/actions/actions";
 
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -137,11 +137,15 @@ class AC extends React.Component {
       });
     }
   };
-
   onChange = () => {
-    console.log(document.getElementById("Testing").value);
-    this.setState({
-      index: document.getElementById("Testing").value
+    const abc = store.store.dispatch(
+      getAcStatus(document.getElementById("Testing").value)
+    );
+    abc.getAcStatus.then(res => {
+      this.setState({
+        temperatureNow: res.data.data.temperature,
+        index: res.data.data.id
+      });
     });
     console.log(this.state.index);
   };
@@ -209,7 +213,7 @@ class AC extends React.Component {
                   {/* Dropdown Menu */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select AC:</h3>
-                    <select id="Testing">
+                    <select id="Testing" onChange={this.onChange}>
                       {this.state.options.map(item => (
                         <option key={item.id} value={item.id}>
                           {item.name}
@@ -218,10 +222,10 @@ class AC extends React.Component {
                     </select>
                     <button onClick={this.onChange}>Testing</button>
                     {/*<Dropdown*/}
-                      {/*options={this.state.options.map(item => item.name)}*/}
-                      {/*onChange={this.onChange.bind(this.item)}*/}
-                      {/*value={this.state.initOption}*/}
-                      {/*placeholder="TEsting123"*/}
+                    {/*options={this.state.options.map(item => item.name)}*/}
+                    {/*onChange={this.onChange.bind(this.item)}*/}
+                    {/*value={this.state.initOption}*/}
+                    {/*placeholder="TEsting123"*/}
                     {/*/>*/}
                   </GridItem>
                   {/* Scheduler Menu */}
