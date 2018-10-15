@@ -7,7 +7,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import store from "../../redux/store/configureStore";
-import { doLogin, doVerify } from "../../redux/actions/actions";
+import { doLogin, doVerify, doLogout } from "../../redux/actions/actions";
 
 const cardStyle = {
   border: "0",
@@ -80,7 +80,7 @@ class Login extends React.Component {
           code: person
         });
         this.verifyLogin();
-        window.location.href = "/dashboard";
+        // window.location.href = "/dashboard";
       } else {
         alert("bye");
       }
@@ -95,6 +95,11 @@ class Login extends React.Component {
     };
     console.log(data);
     const abc = store.store.dispatch(doVerify(data));
+    console.log(abc);
+  }
+
+  handleLogout() {
+    const abc = store.store.dispatch(doLogout());
     console.log(abc);
   }
 
@@ -146,8 +151,9 @@ class Login extends React.Component {
                     color="primary"
                     variant="contained"
                     type="button"
+                    onClick={this.handleLogout}
                   >
-                    <Link to="/dashboard">Testing</Link>
+                    Logout
                   </Button>
                 </GridItem>
               </form>

@@ -3,21 +3,28 @@ export const NEW_TODO = "NEW_TODO";
 export const OLD_TODO = "OLD_TODO";
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
+export const DO_LOGOUT = "DO_LOGOUT";
+export const GET_AC ="GET_AC";
 export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
 export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
-
 export const TEST_API = "TEST_API";
 
-const apiUrl = "http://192.168.1.111:8000/homie/homie/user/turn-on-ac";
+const apiUrl = "http://10.25.150.228:8000/homie/homie/device/turn-on-ac";
 const loginUrl =
-  "http://192.168.1.111.:8000/homie/homie/user/verify-credentials";
-const verifyUrl = "http://192.168.1.111.:8000/homie/homie/user/sign-in";
-const apiUrlTest = "http://192.168.1.118:5000/temp";
+  "http://10.25.150.228:8000/homie/homie/user/verify-credentials";
+const verifyUrl = "http://10.25.150.228:8000/homie/homie/user/sign-in";
+const apiUrlTest = "http://10.25.150.228:5000/temp";
+const getAcUrl =
+  "http://10.25.150.228:8000/homie/homie/device/get-all-users-ac";
 
 const httpOptions = {
   headers: {
     "Content-type": "application/form-data",
-    "Authorization": "Bearer " + localStorage.getItem("token")
+    mandatory: localStorage.getItem("token")
+  },
+  params: {
+    deviceID: 1,
+    accessToken: localStorage.getItem("token")
   }
 };
 
@@ -102,6 +109,25 @@ function doVerify(data) {
   };
 }
 
+function doLogout() {
+  return {
+    type: DO_LOGOUT,
+    logoutPayload: localStorage.removeItem("token")
+  };
+}
+
+function getAc() {
+  return {
+    type: GET_AC,
+    getacPayload: new Promise(resolve => {
+      axios.get(getAcUrl, httpOptions).then(response => {
+        console.log(response);
+        return resolve(response);
+      });
+    })
+  };
+}
+
 function testingApi() {
   return {
     type: TEST_API,
@@ -129,6 +155,8 @@ export {
   oldTodo,
   doLogin,
   doVerify,
+  doLogout,
+  getAc,
   newTodoFailure,
   newTodoSuccess,
   testingApi
