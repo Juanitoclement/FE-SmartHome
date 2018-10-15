@@ -37,13 +37,13 @@ const styles = {
   }
 };
 
-// const CustomTableHead = withStyles(theme => ({
-//   head: {
-//     backgroundColor: theme.palette.common.black,
-//     color: theme.palette.common.white,
-//     borderBottomColor: theme.palette.common.black
-//   }
-// }))(TableCell);
+const CustomTableHead = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
 
 const CustomTableCell = withStyles(theme => ({
   body: {
@@ -58,10 +58,9 @@ class AC extends React.Component {
     this.state = {
       value: 0,
       acstatus: 0,
-      schedulerstatus: "toggle_off",
-      TemperatureNow: 26,
-      hourFrom: "12:00",
-      hourTo: "13:00"
+      hourfrom: "12:00",
+      hourto: "1:00",
+      schedulerstatus: "toggle_off"
     };
   }
 
@@ -88,17 +87,6 @@ class AC extends React.Component {
     }
   };
 
-  handleTimeFrom = (event) => {
-      this.setState({
-        hourFrom: event.target.value
-      });
-  }
-  handleTimeTo = (event) => {
-    this.setState({
-      hourTo: event.target.value
-    });
-  }
-
   handleStatus = () => {
     if (this.state.schedulerstatus === "toggle_off") {
       this.setState({
@@ -121,23 +109,19 @@ class AC extends React.Component {
           <GridItem xs={12} sm={6} md={3} lg={12}>
             <Card>
               {/* Power Off / Main Card */}
-              <CardHeader color="info" stats topIcon>
-                <CardIcon
+              <CardHeader color="info" stats icon>
+                <CardIconCustom
                   onClick={this.button}
                   color={this.handleColor(this.state.acstatus)}
                 >
                   <Icon>power_settings_new</Icon>
                   <p>{this.state.power}</p>
-                </CardIcon>
+                </CardIconCustom>
               </CardHeader>
 
               <CardBody>
                 {/* Seperate The 2 card inside */}
                 <GridContainer>
-                  {/* For Temperature Display */}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <p align="center" style={{fontSize: 40}}>{this.state.TemperatureNow} &#8451;</p>
-                  </GridItem>
                   {/* Minus Temperature Button */}
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
@@ -186,25 +170,15 @@ class AC extends React.Component {
                     <Table border='1px'>
                       <TableHead>
                         <TableRow>
-                          <CustomTableCell>From</CustomTableCell>
-                          <CustomTableCell>To</CustomTableCell>
-                          <CustomTableCell>Button</CustomTableCell>
+                          <CustomTableHead>From</CustomTableHead>
+                          <CustomTableHead>To</CustomTableHead>
+                          <CustomTableHead>Button</CustomTableHead>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         <TableRow>
-                          <CustomTableCell>
-                            <input type="time"
-                                   onChange={this.handleTimeFrom.bind(this)}
-                                   value={this.state.hourFrom}
-                            />
-                          </CustomTableCell>
-                          <CustomTableCell>
-                            <input type="time"
-                                   onChange={this.handleTimeTo.bind(this)}
-                                   value={this.state.hourTo}
-                            />
-                          </CustomTableCell>
+                          <CustomTableCell>{this.state.hourfrom}</CustomTableCell>
+                          <CustomTableCell>{this.state.hourto}</CustomTableCell>
                           <CustomTableCell>
                             <CardIcon onClick={this.handleStatus}>
                               <Icon>{this.state.schedulerstatus}</Icon>
