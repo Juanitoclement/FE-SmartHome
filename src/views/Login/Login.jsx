@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -79,6 +80,7 @@ class Login extends React.Component {
           code: person
         });
         this.verifyLogin();
+        window.location.href = "/dashboard";
       } else {
         alert("bye");
       }
@@ -138,6 +140,14 @@ class Login extends React.Component {
                     type="submit"
                   >
                     Login
+                  </Button>
+                  <Button
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    type="button"
+                  >
+                    <Link to="/dashboard">Testing</Link>
                   </Button>
                 </GridItem>
               </form>
