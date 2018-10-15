@@ -134,11 +134,11 @@ class Dashboard extends React.Component {
   }
   onAc = () => {
     const abc = store.store.dispatch(oldTodo());
-    abc.oldPayload.then(test => {
-      this.setState({
-        items: test
-      });
-    });
+    // abc.oldPayload.then(test => {
+    //   this.setState({
+    //     items: test
+    //   });
+    // });
   };
   redirectToTv = () => {
     this.props.history.push("tv");

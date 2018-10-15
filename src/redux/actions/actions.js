@@ -8,7 +8,7 @@ export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
 
 export const TEST_API = "TEST_API";
 
-const apiUrl = "http://flaskapi.danieljua.pitunnel.com/AC/";
+const apiUrl = "http://192.168.1.111:8000/homie/homie/user/turn-on-ac";
 const loginUrl =
   "http://192.168.1.111.:8000/homie/homie/user/verify-credentials";
 const verifyUrl = "http://192.168.1.111.:8000/homie/homie/user/sign-in";
@@ -32,12 +32,13 @@ function newTodo() {
   };
 }
 function oldTodo() {
+  console.log(httpOptions);
   return {
     type: OLD_TODO,
     oldPayload: new Promise(resolve => {
-      axios.get(apiUrl + "turn-on/1/").then(response => {
-        console.log(response.data.status);
-        return resolve(response.data.status);
+      axios.get(apiUrl, httpOptions).then(response => {
+        console.log(response);
+        return resolve(response);
       });
     })
   };
