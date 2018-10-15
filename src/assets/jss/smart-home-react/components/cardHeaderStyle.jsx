@@ -81,39 +81,59 @@ const cardHeaderStyle = {
       margin: "5px 4px 0px"
     }
   },
+  cardHeaderTop: {
+    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
+      background: "transparent",
+      margin: "auto",
+      boxShadow: "none"
+    },
+    "& i,& .material-icons": {
+      width: "33px",
+      height: "33px",
+      textAlign: "center",
+      lineHeight: "33px"
+    },
+    "& svg": {
+      width: "24px",
+      height: "24px",
+      textAlign: "center",
+      lineHeight: "33px",
+      margin: "5px 4px 0px"
+    }
+  },
   warningCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...warningCardHeader
     }
   },
   successCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...successCardHeader
     }
   },
   dangerCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...dangerCardHeader
     }
   },
   infoCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...infoCardHeader
-    }
+    },
   },
   primaryCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...primaryCardHeader
     }
   },
   roseCardHeader: {
     color: "#FFFFFF",
-    "&:not($cardHeaderIcon)": {
+    "&:not($cardHeaderIcon):not($cardHeaderTop)": {
       ...roseCardHeader
     }
   }
