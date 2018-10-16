@@ -26,7 +26,7 @@ import {
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
-import { getAc } from "../../redux/actions/actions";
+import { getAc, getAcStatus, oldTodo } from "../../redux/actions/actions";
 
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -62,33 +62,34 @@ class AC extends React.Component {
       value: 0,
       acstatus: 0,
       schedulerstatus: "toggle_off",
-      TemperatureNow: 26,
+      temperatureNow: 26,
       hourFrom: "12:00",
       hourTo: "13:00",
       ac: [],
       options: [],
-      initOption: ""
+      initOption: "",
+      index: ""
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const abc = store.store.dispatch(getAc());
     abc.getacPayload.then(res => {
       this.setState({
+        ac: res.data.data,
         options: res.data.data,
-        initOption: res.data.data[0].name
+        initOption: res.data.data[0].id,
+        temperatureNow: res.data.data[0].temperature
       });
       console.log(res.data.data);
+      console.log(this.state);
     });
-  }
-
-  getAC() {
-    const abc = store.store.dispatch(getAc());
   }
 
   showUI() {
     window.location = "/table";
   }
+
   handleColor = int => {
     if (this.state.acstatus === 0) {
       return "info";
@@ -97,7 +98,12 @@ class AC extends React.Component {
     }
   };
 
-  button = () => {
+  turnAc = () => {
+    console.log(this.state.index);
+    const abc = store.store.dispatch(oldTodo());
+    abc.oldPayload.then(res => {
+      console.log(res);
+    });
     if (this.state.acstatus === 0) {
       this.setState({
         acstatus: 1
@@ -131,12 +137,18 @@ class AC extends React.Component {
       });
     }
   };
-  onChange = e => {
-    console.log(e);
+  onChange = () => {
+    const abc = store.store.dispatch(
+      getAcStatus(document.getElementById("Testing").value)
+    );
+    abc.getAcStatus.then(res => {
+      this.setState({
+        temperatureNow: res.data.data.temperature,
+        index: res.data.data.id
+      });
+    });
+    console.log(this.state.index);
   };
-  getID(id) {
-    console.log(id);
-  }
 
   render() {
     const { classes } = this.props;
@@ -149,14 +161,11 @@ class AC extends React.Component {
               {/* Power Off / Main Card */}
               <CardHeader color="info" stats topIcon>
                 <CardIcon
-                  onClick={this.button}
+                  onClick={this.turnAc}
                   color={this.handleColor(this.state.acstatus)}
                 >
                   <Icon>power_settings_new</Icon>
                   <p>{this.state.power}</p>
-                  <button type="button" onClick={this.getAC}>
-                    Testing
-                  </button>
                 </CardIcon>
               </CardHeader>
 
@@ -166,7 +175,7 @@ class AC extends React.Component {
                   {/* For Temperature Display */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <p align="center" style={{ fontSize: 40 }}>
-                      {this.state.TemperatureNow} &#8451;
+                      {this.state.temperatureNow} &#8451;
                     </p>
                   </GridItem>
                   {/* Minus Temperature Button */}
@@ -204,12 +213,20 @@ class AC extends React.Component {
                   {/* Dropdown Menu */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select AC:</h3>
-                    <Dropdown
-                      options={this.state.options.map(item => item.name)}
-                      onChange={this.onChange.bind(this.item)}
-                      value={this.state.initOption}
-                      placeholder="TEsting123"
-                    />
+                    <select id="Testing" onChange={this.onChange}>
+                      {this.state.options.map(item => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button onClick={this.onChange}>Testing</button>
+                    {/*<Dropdown*/}
+                    {/*options={this.state.options.map(item => item.name)}*/}
+                    {/*onChange={this.onChange.bind(this.item)}*/}
+                    {/*value={this.state.initOption}*/}
+                    {/*placeholder="TEsting123"*/}
+                    {/*/>*/}
                   </GridItem>
                   {/* Scheduler Menu */}
                   <GridItem xs={9} sm={6} md={12} lg={12}>

@@ -4,7 +4,8 @@ export const OLD_TODO = "OLD_TODO";
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";
-export const GET_AC ="GET_AC";
+export const GET_AC = "GET_AC";
+export const GET_AC_STATUS = "GET_AC_STATUS";
 export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
 export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
 export const TEST_API = "TEST_API";
@@ -16,14 +17,15 @@ const verifyUrl = "http://10.25.150.228:8000/homie/homie/user/sign-in";
 const apiUrlTest = "http://10.25.150.228:5000/temp";
 const getAcUrl =
   "http://10.25.150.228:8000/homie/homie/device/get-all-users-ac";
-
+const getAcStatusUrl =
+  "http://10.25.150.228:8000/homie/homie/device/get-ac-by-device-id";
 const httpOptions = {
   headers: {
     "Content-type": "application/form-data",
     mandatory: localStorage.getItem("token")
   },
   params: {
-    deviceID: 1,
+    deviceID: "5bc41d6a2b7302a70769955a",
     accessToken: localStorage.getItem("token")
   }
 };
@@ -128,6 +130,29 @@ function getAc() {
   };
 }
 
+function getAcStatus(id) {
+  return {
+    type: GET_AC_STATUS,
+    getAcStatus: new Promise(resolve => {
+      axios
+        .get(getAcStatusUrl, {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
+
 function testingApi() {
   return {
     type: TEST_API,
@@ -157,6 +182,7 @@ export {
   doVerify,
   doLogout,
   getAc,
+  getAcStatus,
   newTodoFailure,
   newTodoSuccess,
   testingApi
