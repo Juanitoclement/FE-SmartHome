@@ -7,7 +7,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import store from "../../redux/store/configureStore";
-import { doLogin, doVerify, doLogout } from "../../redux/actions/actions";
+import { doLogin, doVerify, doLogout } from "../../redux/actions/authAction";
 
 const cardStyle = {
   border: "0",

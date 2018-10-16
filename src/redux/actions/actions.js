@@ -1,4 +1,5 @@
 import axios from "axios/index";
+<<<<<<< HEAD
 export const NEW_TODO = "NEW_TODO";
 export const OLD_TODO = "OLD_TODO";
 export const DO_LOGIN = "DO_LOGIN";
@@ -16,25 +17,37 @@ const verifyUrl = "http://10.25.150.228:8000/homie/homie/user/sign-in";
 const apiUrlTest = "http://10.25.150.228:5000/temp";
 const getAcUrl =
   "http://10.25.150.228:8000/homie/homie/device/get-all-users-ac";
+=======
+import {
+  AC_ON,
+  AC_OFF,
+  GET_AC,
+  GET_AC_STATUS,
+  OLD_TODO
+} from "./actionType";
+>>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
 
+const deviceUrl = "http://10.25.150.228:8000/homie/device/";
+const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
+const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
+const getAcStatusUrl =
+  "http://10.25.150.228:8000/homie/device/get-ac-by-device-id";
 const httpOptions = {
   headers: {
     "Content-type": "application/form-data",
     mandatory: localStorage.getItem("token")
   },
   params: {
-    deviceID: 1,
+    deviceID: "5bc41d6a2b7302a70769955a",
     accessToken: localStorage.getItem("token")
   }
 };
 
-function newTodo() {
+function turnOnAc() {
   return {
-    type: NEW_TODO,
+    type: AC_ON,
     payload: new Promise(resolve => {
-      axios
-        .get(apiUrl + "turn-off/1/")
-        .then(response => resolve(response.data));
+      axios.get(deviceUrl).then(response => resolve(response.data));
     })
   };
 }
@@ -50,71 +63,6 @@ function oldTodo() {
     })
   };
 }
-function doLogin(data) {
-  var bodyFormData = new FormData();
-  bodyFormData.set("email", data.email);
-  bodyFormData.set("password", data.password);
-
-  return {
-    type: DO_LOGIN,
-    loginPayload: new Promise(resolve => {
-      axios({
-        method: "post",
-        url: loginUrl,
-        data: bodyFormData,
-        config: httpOptions
-      })
-        // .post(loginUrl, data)
-        .then(response => {
-          console.log(response.data.code);
-          resolve(response.data.code);
-        })
-        .catch(res => {
-          localStorage.setItem("SUCCESS_CODE", "ERROR");
-          console.log(localStorage.getItem("SUCCESS_CODE"));
-          // handle error
-          // localStorage.removeItem("SUCCESS_CODE");
-          // localStorage.setItem("SUCCESS_CODE", "ERROR");
-          // console.log(res);
-        });
-    })
-  };
-}
-
-function doVerify(data) {
-  var bodyFormData = new FormData();
-  bodyFormData.set("email", data.email);
-  bodyFormData.set("password", data.password);
-  bodyFormData.set("code", data.code);
-
-  return {
-    type: DO_VERIFY,
-    verifyPayload: new Promise(resolve => {
-      axios({
-        method: "post",
-        url: verifyUrl,
-        data: bodyFormData,
-        config: httpOptions
-      })
-        .then(response => {
-          console.log(response.data.data.token);
-          localStorage.setItem("token", response.data.data.token);
-          resolve(response.data.token);
-        })
-        .catch(res => {
-          alert("WRONG!!!");
-          console.log(res);
-        });
-    })
-  };
-}
-
-function doLogout() {
-  return {
-    type: DO_LOGOUT,
-    logoutPayload: localStorage.removeItem("token")
-  };
-}
 
 function getAc() {
   return {
@@ -128,36 +76,47 @@ function getAc() {
   };
 }
 
-function testingApi() {
+function getAcStatus(id) {
   return {
-    type: TEST_API,
-    testPayload: new Promise(resolve => {
-      axios.post(apiUrlTest).then(response => resolve(response.data));
+    type: GET_AC_STATUS,
+    getAcStatus: new Promise(resolve => {
+      axios
+        .get(getAcStatusUrl, {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
     })
   };
 }
-
-function newTodoSuccess(data) {
-  return {
-    type: NEW_TODO_SUCCESS,
-    payload: data
-  };
-}
-
-function newTodoFailure(error) {
-  return {
-    type: NEW_TODO_FAILURE,
-    payload: error
-  };
-}
+//
+// function newTodoSuccess(data) {
+//   return {
+//     type: NEW_TODO_SUCCESS,
+//     payload: data
+//   };
+// }
+//
+// function newTodoFailure(error) {
+//   return {
+//     type: NEW_TODO_FAILURE,
+//     payload: error
+//   };
+// }
 export {
-  newTodo,
+  turnOnAc,
   oldTodo,
-  doLogin,
-  doVerify,
-  doLogout,
   getAc,
-  newTodoFailure,
-  newTodoSuccess,
-  testingApi
+  getAcStatus
+  // newTodoFailure,
+  // newTodoSuccess
 };

@@ -1,0 +1,10 @@
+export const AC_ON = "AC_ON";
+export const AC_OFF = "AC_OFF";
+export const OLD_TODO = "OLD_TODO";
+export const DO_LOGIN = "DO_LOGIN";
+export const DO_VERIFY = "DO_VERIFY";
+export const DO_LOGOUT = "DO_LOGOUT";
+export const GET_AC = "GET_AC";
+export const GET_AC_STATUS = "GET_AC_STATUS";
+// export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
+// export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
