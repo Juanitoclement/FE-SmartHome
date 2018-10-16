@@ -1,8 +1,7 @@
 import axios from "axios/index";
 import { DO_VERIFY, DO_LOGIN, DO_LOGOUT } from "./actionType";
 
-const loginUrl = "http://10.25.150.228:8000/homie/user/verify-credentials";
-const verifyUrl = "http://10.25.150.228:8000/homie/user/sign-in";
+const loginUrl = "http://10.25.150.228:8000/homie/user/";
 
 const httpOptions = {
   headers: {
@@ -25,7 +24,7 @@ function doLogin(data) {
     loginPayload: new Promise(resolve => {
       axios({
         method: "post",
-        url: loginUrl,
+        url: loginUrl + "verify-credentials",
         data: bodyFormData,
         config: httpOptions
       })
@@ -54,7 +53,7 @@ function doVerify(data) {
     verifyPayload: new Promise(resolve => {
       axios({
         method: "post",
-        url: verifyUrl,
+        url: loginUrl + "sign-in",
         data: bodyFormData,
         config: httpOptions
       })
