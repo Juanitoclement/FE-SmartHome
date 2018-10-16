@@ -16,15 +16,20 @@ import Dropdown from 'react-dropdown';
 // for choice of TV Place
 const room = [ 'Bedroom', 'Master Room', 'Living Room'];
 
-
-
 class tv extends React.Component {
   state = {
+    device: room[0],
     tvstatus: 0,
     power: "OFF",
     programNumber: 1,
     Volume: 7
   };
+
+  _onSelect(event) {
+    this.setState({
+      device: event.target.value
+    });
+  }
 
   button = () =>{
     if(this.state.tvstatus === 0){
@@ -32,8 +37,7 @@ class tv extends React.Component {
         tvstatus: 1,
         power: "ON"
       });
-    }
-    else {
+    } else {
       this.setState({
         tvstatus: 0,
         power: "OFF"
@@ -41,7 +45,7 @@ class tv extends React.Component {
     }
   }
 
-  handleColor = (int) => {
+  handleColor = () => {
     if(this.state.tvstatus === 0){
       return "info";
     }
@@ -50,9 +54,8 @@ class tv extends React.Component {
     }
   }
 
-  changeProgram = (event) => {
+  upProgram = () => {
     this.setState({ programNumber: this.state.programNumber + 1 });
-    console.log("change happened");
   };
 
   showUI() {
@@ -63,6 +66,8 @@ class tv extends React.Component {
   //rendering process down here
   render() {
     const { classes } = this.props;
+    let allRoom = room;
+    const roomList = allRoom.map((x) => {return(<option key={x}>{x}</option>)});
     return (
       <div>
         <GridContainer>
@@ -75,7 +80,7 @@ class tv extends React.Component {
               </CardHeader>
               <CardBody>
                 <GridContainer>
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={5} md={3} lg={4}>
                     <Card>
                       <CardHeader color="warning" stats icon>
                         <CardIcon color="warning">
@@ -84,26 +89,26 @@ class tv extends React.Component {
                       </CardHeader>
                     </Card>
                   </GridItem>
-                  <GridItem  xs={4} sm={6} md={3} lg={4}>
+                  <GridItem  xs={4} sm={2} md={3} lg={4}>
+                  </GridItem>
+                  <GridItem  xs={4} sm={5} md={3} lg={4}>
                     <Card>
                       <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.changeProgram} color="warning">
+                        <CardIcon onClick={this.upProgram} color="warning">
                           <Icon>add_circle</Icon>
                         </CardIcon>
                       </CardHeader>
                     </Card>
                   </GridItem>
-                  <GridItem  xs={4} sm={6} md={3} lg={4}>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
+                  <GridItem xs={4} sm={5} md={3} lg={4} height={"2px"}>
                     <p>Change Program</p>
                   </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
+                  <GridItem xs={4} sm={2} md={3} lg={4} height={"2px"}>
+                  </GridItem>
+                  <GridItem xs={4} sm={5} md={3} lg={4} height={"2px"}>
                     <p>Change Volume</p>
                   </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={5} md={3} lg={4}>
                     <Card>
                       <CardHeader color="warning" stats icon>
                         <CardIcon color="warning">
@@ -112,7 +117,9 @@ class tv extends React.Component {
                       </CardHeader>
                     </Card>
                   </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={2} md={3} lg={4}>
+                  </GridItem>
+                  <GridItem xs={4} sm={5} md={3} lg={4}>
                     <Card>
                       <CardHeader color="warning" stats icon>
                         <CardIcon color="warning">
@@ -123,7 +130,10 @@ class tv extends React.Component {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select TV:</h3>
-                    <Dropdown options={room} onChange={this._onSelect} value={room[0]} placeholder="Choose a room..." />
+                    {/*<Dropdown options={room} onChange={this._onSelect} value={this.state.device} placeholder="Choose a room..." />*/}
+                    <select onChange={this._onSelect.bind(this)} value={this.state.device} style={{width: '50%'}}>
+                      {roomList}
+                    </select>
                   </GridItem>
                 </GridContainer>
               </CardBody>

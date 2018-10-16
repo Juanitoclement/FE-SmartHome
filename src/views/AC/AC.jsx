@@ -56,7 +56,6 @@ class AC extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      value: 0,
       acstatus: 0,
       schedulerstatus: "toggle_off",
       TemperatureNow: 26,
@@ -97,6 +96,7 @@ class AC extends React.Component {
     this.setState({
       hourTo: event.target.value
     });
+    this.checkTime();
   }
 
   handleStatus = () => {

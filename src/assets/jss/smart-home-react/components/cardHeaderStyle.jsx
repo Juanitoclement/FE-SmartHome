@@ -81,7 +81,7 @@ const cardHeaderStyle = {
       margin: "5px 4px 0px"
     }
   },
-  {/* Make the card Icon to the middle part */}
+  /* Make the card Icon to the middle part */
   cardHeaderTop: {
     "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
       background: "transparent",
