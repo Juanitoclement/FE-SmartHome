@@ -1,6 +1,5 @@
 export const AC_ON = "AC_ON";
 export const AC_OFF = "AC_OFF";
-export const OLD_TODO = "OLD_TODO";
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";

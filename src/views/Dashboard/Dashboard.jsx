@@ -28,7 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
-import { turnOnAc, oldTodo } from "../../redux/actions/actions";
+import { turnOnAc, turnOffAc } from "../../redux/actions/actions";
 
 import { bugs, website, server } from "variables/general";
 
@@ -128,17 +128,18 @@ class Dashboard extends React.Component {
     }
   };
   offAc() {
-    store.store.dispatch(turnOnAc());
-    console.log(store.store.dispatch(turnOnAc()));
+    store.store.dispatch(turnOffAc());
+    console.log(store.store.dispatch(turnOffAc()));
   }
   onAc = () => {
-    const abc = store.store.dispatch(oldTodo());
+    const abc = store.store.dispatch(turnOnAc());
     // abc.oldPayload.then(test => {
     //   this.setState({
     //     items: test
     //   });
     // });
   };
+
   redirectToTv = () => {
     this.props.history.push("tv");
   };
