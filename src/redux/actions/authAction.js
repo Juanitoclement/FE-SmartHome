@@ -6,11 +6,7 @@ const loginUrl = "http://10.25.150.228:8000/homie/user/";
 const httpOptions = {
   headers: {
     "Content-type": "application/form-data",
-    mandatory: localStorage.getItem("token")
-  },
-  params: {
-    deviceID: "5bc41d6a2b7302a70769955a",
-    accessToken: localStorage.getItem("token")
+    // mandatory: localStorage.getItem("token")
   }
 };
 
