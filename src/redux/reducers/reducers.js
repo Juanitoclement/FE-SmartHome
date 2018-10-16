@@ -3,6 +3,9 @@ import {
   OLD_TODO,
   DO_LOGIN,
   DO_VERIFY,
+  DO_LOGOUT,
+  GET_AC,
+  GET_AC_STATUS,
   NEW_TODO_FAILURE,
   NEW_TODO_SUCCESS,
   TEST_API
@@ -24,6 +27,12 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, loginPayload: action.loginPayload };
     case DO_VERIFY:
       return { ...state, verifyPayload: action.verifyPayload };
+    case DO_LOGOUT:
+      return { ...state, logoutPayload: action.logoutPayload };
+    case GET_AC:
+      return { ...state, getacPayload: action.getacPayload };
+    case GET_AC_STATUS:
+      return { ...state, getAcStatus: action.getAcStatus };
     case TEST_API:
       console.log(action.testPayload);
       return { ...state, testPayload: action.testPayload };

@@ -10,8 +10,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 
-import Dropdown from 'react-dropdown';
-
+import Dropdown from "react-dropdown";
 
 // for choice of TV Place
 const room = [ 'Bedroom', 'Master Room', 'Living Room'];
@@ -127,6 +126,7 @@ class tv extends React.Component {
                         </CardIcon>
                       </CardHeader>
                     </Card>
+                    /*Selection of TV*/
                   </GridItem>
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select TV:</h3>

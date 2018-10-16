@@ -101,7 +101,7 @@ class AC extends React.Component {
                     <h3>Select Light:</h3>
                     <Dropdown
                       options={options}
-                      onChange={this._onSelect}
+                      onChange={this.onSelect}
                       value={options[0]}
                       placeholder="TEsting123"
                     />

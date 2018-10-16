@@ -23,7 +23,7 @@ const dashboardRoutes = [
     sidebarName: "Dashboard",
     navbarName: "SmartHome Panel",
     icon: Dashboard,
-    component: DashboardPage,
+    component: DashboardPage
   },
   {
     path: "/notifications",
