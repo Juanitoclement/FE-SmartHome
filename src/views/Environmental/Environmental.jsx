@@ -58,5 +58,5 @@ class Environmental extends React.Component {
       </div>
     );
   }
-}
+}// baru selesaiin graph nya tapi belom ambil data dari backend
 export default withStyles(dashboardStyle)(Environmental);
