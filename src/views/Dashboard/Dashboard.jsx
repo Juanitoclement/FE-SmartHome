@@ -28,7 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
-import { newTodo, oldTodo, testingApi } from "../../redux/actions/actions";
+import { turnOnAc, turnOffAc } from "../../redux/actions/actions";
 
 import { bugs, website, server } from "variables/general";
 
@@ -53,7 +53,6 @@ class Dashboard extends React.Component {
       powerAc: "OFF",
       items: 0,
       items2: [],
-      apiResult: store.store.dispatch(testingApi())
     };
   }
 
@@ -129,17 +128,18 @@ class Dashboard extends React.Component {
     }
   };
   offAc() {
-    store.store.dispatch(newTodo());
-    console.log(store.store.dispatch(newTodo()));
+    store.store.dispatch(turnOffAc());
+    console.log(store.store.dispatch(turnOffAc()));
   }
   onAc = () => {
-    const abc = store.store.dispatch(oldTodo());
+    const abc = store.store.dispatch(turnOnAc());
     // abc.oldPayload.then(test => {
     //   this.setState({
     //     items: test
     //   });
     // });
   };
+
   redirectToTv = () => {
     this.props.history.push("tv");
   };
@@ -200,8 +200,6 @@ class Dashboard extends React.Component {
                 >
                   Light Intensity
                 </p>
-                <button onClick={this.onAc}>on</button>
-                <button onClick={this.offAc}>off</button>
                 <h3 className={classes.cardTitle} onClick={this.redirectToLig}>
                   {this.state.powerLig} - <small>{this.state.items}</small>
                 </h3>
