@@ -25,6 +25,10 @@ import {
   completedTasksChart
 } from "variables/charts";
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
+
 const cardHeader = {
   border: "0",
   marginBottom: "50px",
@@ -76,13 +80,38 @@ class Environmental extends React.Component {
           <GridItem xs={12} sm={12} md={4}>
             <Card chart>
               <CardHeader color="success">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={dailySalesChart.data}
-                  type="Line"
-                  options={dailySalesChart.options}
-                  listener={dailySalesChart.animation}
-                />
+                <Carousel>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                </Carousel>
               </CardHeader>
               <CardBody>
                 <h4 className={classes.cardTitle}>Room Temperature</h4>
@@ -100,10 +129,6 @@ class Environmental extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          {/*<Swiper {...params}>*/}
-          {/*<div style={cardHeader}>Slide 1</div>*/}
-          {/*<div style={cardHeader}>Slide 2</div>*/}
-          {/*</Swiper>*/}
         </GridContainer>
       </div>
     );
