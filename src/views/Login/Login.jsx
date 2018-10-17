@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -72,7 +73,7 @@ class Login extends React.Component {
     };
     const abc = store.store.dispatch(doLogin(data));
     abc.loginPayload.then(test => {
-      if (test === "SUCCESS") {
+      if (test == "SUCCESS") {
         var person = prompt("Please check your email:", "Insert Code");
         console.log(person);
         this.setState({

@@ -1,6 +1,7 @@
 import {
   AC_ON,
   AC_OFF,
+  OLD_TODO,
   DO_LOGIN,
   DO_VERIFY,
   DO_LOGOUT,
@@ -13,13 +14,16 @@ const INITIAL_STATE = {
 };
 
 export default function(state = INITIAL_STATE, action) {
-  // let error;
+  let error;
   switch (action.type) {
     case AC_ON:
-      return { ...state, acOnPayload: action.acOnPayload };
+      return { ...state, payload: action.payload };
     case AC_OFF:
-      return { ...state, acOffPayload: action.acOffPayload };
+      return { ...state, payload: action.payload };
+    case OLD_TODO: // start fetching posts and set loading = true
+      return { ...state, oldPayload: action.oldPayload };
     case DO_LOGIN:
+      console.log(...state, action.loginPayload);
       return { ...state, loginPayload: action.loginPayload };
     case DO_VERIFY:
       return { ...state, verifyPayload: action.verifyPayload };

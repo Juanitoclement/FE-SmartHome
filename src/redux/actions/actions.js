@@ -1,13 +1,36 @@
 import axios from "axios/index";
-import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS } from "./actionType";
 
-const apiUrl = "http://10.25.151.75:8000/homie/device/";
-// const deviceUrl = "http://10.25.150.228:8000/homie/device/";
-// const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
-// const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
-// const getAcStatusUrl =
-//   "http://10.25.150.228:8000/homie/device/get-ac-by-device-id";
+export const NEW_TODO = "NEW_TODO";
+export const OLD_TODO = "OLD_TODO";
+export const DO_LOGIN = "DO_LOGIN";
+export const DO_VERIFY = "DO_VERIFY";
+export const DO_LOGOUT = "DO_LOGOUT";
+export const GET_AC = "GET_AC";
+export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
+export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
+export const TEST_API = "TEST_API";
 
+const apiUrl = "http://10.25.150.228:8000/homie/homie/device/turn-on-ac";
+const loginUrl =
+  "http://10.25.150.228:8000/homie/homie/user/verify-credentials";
+const verifyUrl = "http://10.25.150.228:8000/homie/homie/user/sign-in";
+const apiUrlTest = "http://10.25.150.228:5000/temp";
+const getAcUrl =
+  "http://10.25.150.228:8000/homie/homie/device/get-all-users-ac";
+
+import {
+  AC_ON,
+  AC_OFF,
+  GET_AC,
+  GET_AC_STATUS,
+  OLD_TODO
+} from "./actionType";
+
+const deviceUrl = "http://10.25.150.228:8000/homie/device/";
+const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
+const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
+const getAcStatusUrl =
+  "http://10.25.150.228:8000/homie/device/get-ac-by-device-id";
 const httpOptions = {
   headers: {
     "Content-type": "application/form-data",
@@ -19,31 +42,20 @@ const httpOptions = {
   }
 };
 
-function turnOnAc(deviceID) {
+function turnOnAc() {
   return {
     type: AC_ON,
-    acOnPayload: new Promise(resolve => {
-      axios
-        .get(apiUrl + "turn-on-ac", {
-          headers: {
-            "Content-type": "application/form-data",
-            mandatory: localStorage.getItem("token")
-          },
-          params: {
-            deviceID: deviceID,
-            accessToken: localStorage.getItem("token")
-          }
-        })
-        .then(response => resolve(response.data));
+    payload: new Promise(resolve => {
+      axios.get(deviceUrl).then(response => resolve(response.data));
     })
   };
 }
-function turnOffAc() {
+function oldTodo() {
   console.log(httpOptions);
   return {
-    type: AC_OFF,
-    acOffPayload: new Promise(resolve => {
-      axios.get(apiUrl + "turn-off-ac", httpOptions).then(response => {
+    type: OLD_TODO,
+    oldPayload: new Promise(resolve => {
+      axios.get(apiUrl, httpOptions).then(response => {
         console.log(response);
         return resolve(response);
       });
@@ -55,7 +67,7 @@ function getAc() {
   return {
     type: GET_AC,
     getacPayload: new Promise(resolve => {
-      axios.get(apiUrl + "get-all-users-ac", httpOptions).then(response => {
+      axios.get(getAcUrl, httpOptions).then(response => {
         console.log(response);
         return resolve(response);
       });
@@ -68,7 +80,7 @@ function getAcStatus(id) {
     type: GET_AC_STATUS,
     getAcStatus: new Promise(resolve => {
       axios
-        .get(apiUrl + "get-ac-by-device-id", {
+        .get(getAcStatusUrl, {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
@@ -101,7 +113,7 @@ function getAcStatus(id) {
 // }
 export {
   turnOnAc,
-  turnOffAc,
+  oldTodo,
   getAc,
   getAcStatus
   // newTodoFailure,

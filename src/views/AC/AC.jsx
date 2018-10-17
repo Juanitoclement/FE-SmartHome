@@ -17,6 +17,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
+
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -25,16 +26,13 @@ import {
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
-import store from "../../redux/store/configureStore";
-import {
-  getAc,
-  getAcStatus,
-  turnOnAc,
-  turnOffAc
-} from "../../redux/actions/actions";
 
+import store from "../../redux/store/configureStore";
+import { getAc, getAcStatus, oldTodo } from "../../redux/actions/actions";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+
+const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
 const styles = {
   cardColorTest: {
@@ -57,28 +55,25 @@ const CustomTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
-const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
-
 class AC extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-    // noinspection JSAnnotator
     this.state = {
       value: 0,
-      acStatus: 0,
-      power: "ON",
-      temperatureNow: 26,
-      ac: [],
-      options: [],
-      initOption: "",
-      index: "",
+      acstatus: 0,
       schedulerstatus: "toggle_off",
+      temperatureNow: 26,
       hourFrom: "12:00",
       hourTo: "13:00"
     };
   }
-
-  // What will happen before render
+      hourTo: "13:00",
+      ac: [],
+      options: [],
+      initOption: "",
+      index: ""
+    };
+  }
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
     abc.getacPayload.then(res => {
@@ -92,17 +87,12 @@ class AC extends React.Component {
       console.log(this.state);
     });
   }
-
   showUI() {
     window.location = "/table";
   }
 
-  // Turn AC ON/OFF
-  // acStatus:
-  // 0 = On
-  // 1 = Off
   handleColor = int => {
-    if (this.state.acStatus === 0) {
+    if (this.state.acstatus === 0) {
       return "info";
     } else {
       return "rose";
@@ -111,53 +101,31 @@ class AC extends React.Component {
 
   turnAc = () => {
     console.log(this.state.index);
-    if (this.state.acStatus === 0) {
-      const abc = store.store.dispatch(turnOnAc(this.state.index));
-      abc.acOnPayload.then(res => {
-        console.log(res);
-      });
+    const abc = store.store.dispatch(oldTodo());
+    abc.oldPayload.then(res => {
+      console.log(res);
+    });
+    if (this.state.acstatus === 0) {
       this.setState({
-        acStatus: 1,
-        power: "Off"
+        acstatus: 1
       });
-      console.log(this.state.acStatus)
     } else {
-      const abc = store.store.dispatch(turnOffAc(this.state.index));
-      abc.acOffPayload.then(res => {
-        console.log(res);
-      });
       this.setState({
-        acStatus: 0,
-        power: "On"
+        acstatus: 0
       });
-      console.log(this.state.acStatus)
     }
   };
 
-  onChange = () => {
-    const abc = store.store.dispatch(
-      getAcStatus(document.getElementById("selectAc").value)
-    );
-    abc.getAcStatus.then(res => {
-      this.setState({
-        temperatureNow: res.data.data.temperature,
-        index: res.data.data.id
-      });
-    });
-    console.log(this.state.index);
-  };
-
-  // Scheduler
-  handleTimeFrom = event => {
+  handleTimeFrom = (event) => {
     this.setState({
       hourFrom: event.target.value
     });
-  };
-  handleTimeTo = event => {
+  }
+  handleTimeTo = (event) => {
     this.setState({
       hourTo: event.target.value
     });
-  };
+  }
 
   handleStatus = () => {
     if (this.state.schedulerstatus === "toggle_off") {
@@ -169,7 +137,23 @@ class AC extends React.Component {
         schedulerstatus: "toggle_off"
       });
     }
+<<<<<<< HEAD
+  }
+=======
   };
+  onChange = () => {
+    const abc = store.store.dispatch(
+      getAcStatus(document.getElementById("Testing").value)
+    );
+    abc.getAcStatus.then(res => {
+      this.setState({
+        temperatureNow: res.data.data.temperature,
+        index: res.data.data.id
+      });
+    });
+    console.log(this.state.index);
+  };
+>>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
 
   render() {
     const { classes } = this.props;
@@ -183,7 +167,7 @@ class AC extends React.Component {
               <CardHeader color="info" stats topIcon>
                 <CardIcon
                   onClick={this.turnAc}
-                  color={this.handleColor(this.state.acStatus)}
+                  color={this.handleColor(this.state.acstatus)}
                 >
                   <Icon>power_settings_new</Icon>
                   <p>{this.state.power}</p>
@@ -193,26 +177,9 @@ class AC extends React.Component {
               <CardBody>
                 {/* Seperate The 2 card inside */}
                 <GridContainer>
-                  {/* Dropdown Menu */}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Select AC:</h3>
-                    <select id="selectAc" onChange={this.onChange}>
-                      {this.state.options.map(item => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                    {/*<Dropdown*/}
-                    {/*options={this.state.options.map(item => item.name)}*/}
-                    {/*onChange={this.onChange.bind(this.item)}*/}
-                    {/*value={this.state.initOption}*/}
-                    {/*placeholder="TEsting123"*/}
-                    {/*/>*/}
-                  </GridItem>
-
                   {/* For Temperature Display */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <p align="center" style={{fontSize: 40}}>{this.state.TemperatureNow} &#8451;</p>
                     <p align="center" style={{ fontSize: 40 }}>
                       {this.state.temperatureNow} &#8451;
                     </p>
@@ -249,10 +216,34 @@ class AC extends React.Component {
                     </Card>
                   </GridItem>
 
+                  {/* Dropdown Menu */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <h3>Select AC:</h3>
+                    <Dropdown
+                      options={options}
+                      onChange={this._onSelect}
+                      value={options[0]}
+                      placeholder="TEsting123"
+                    />
+                    <select id="Testing" onChange={this.onChange}>
+                      {this.state.options.map(item => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button onClick={this.onChange}>Testing</button>
+                    {/*<Dropdown*/}
+                    {/*options={this.state.options.map(item => item.name)}*/}
+                    {/*onChange={this.onChange.bind(this.item)}*/}
+                    {/*value={this.state.initOption}*/}
+                    {/*placeholder="TEsting123"*/}
+                    {/*/>*/}
+                  </GridItem>
                   {/* Scheduler Menu */}
-                  <GridItem xs={9} sm={6} md={12} lg={12}>
+                  <GridItem xs={9} sm={12} md={12} lg={12}>
                     <h3>Schedule</h3>
-                    <Table border="1px">
+                    <Table border='1px'>
                       <TableHead>
                         <TableRow>
                           <CustomTableCell>From</CustomTableCell>
@@ -263,17 +254,15 @@ class AC extends React.Component {
                       <TableBody>
                         <TableRow>
                           <CustomTableCell>
-                            <input
-                              type="time"
-                              onChange={this.handleTimeFrom.bind(this)}
-                              value={this.state.hourFrom}
+                            <input type="time"
+                                   onChange={this.handleTimeFrom.bind(this)}
+                                   value={this.state.hourFrom}
                             />
                           </CustomTableCell>
                           <CustomTableCell>
-                            <input
-                              type="time"
-                              onChange={this.handleTimeTo.bind(this)}
-                              value={this.state.hourTo}
+                            <input type="time"
+                                   onChange={this.handleTimeTo.bind(this)}
+                                   value={this.state.hourTo}
                             />
                           </CustomTableCell>
                           <CustomTableCell>

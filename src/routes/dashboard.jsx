@@ -15,30 +15,41 @@ import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.js";
 import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
-import Environmental from "views/Environmental/Environmental";
 
-const routes = [
+const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
     navbarName: "SmartHome Panel",
     icon: Dashboard,
-    component: DashboardPage,
-    private: true
+    component: DashboardPage
+  },
+  {
+    path: "/user",
+    sidebarName: "User Profile",
+    navbarName: "Profile",
+    icon: Person,
+    component: UserProfile
+  },
+  {
+    path: "/icons",
+    sidebarName: "Icons",
+    navbarName: "Icons",
+    icon: BubbleChart,
+    component: Icons
   },
   {
     path: "/notifications",
     sidebarName: "Notifications",
     navbarName: "Notifications",
     icon: Notifications,
-    component: NotificationsPage,
-    private: true
+    component: NotificationsPage
   },
   {
     path: "/contact-us",
     sidebarName: "Contact Us",
     navbarName: "Contact Us",
-    icon: Person,
+    icon: Unarchive,
     component: ContactUs
   },
   {
@@ -46,42 +57,30 @@ const routes = [
     sidebarName: "Air Conditioner",
     navbarName: "Air Conditioner",
     icon: Unarchive,
-    component: AC,
-    private: true
+    component: AC
   },
   {
     path: "/tv",
     sidebarName: "TV",
     navbarName: "TV",
     icon: Unarchive,
-    component: TV,
-    private: true
+    component: TV
   },
   {
     path: "/login",
     sidebarName: "Login",
     navbarName: "Login",
-    icon: Person,
-    component: Login,
-    private: false
+    icon: Unarchive,
+    component: Login
   },
   {
     path: "/light",
     sidebarName: "Light",
     navbarName: "Light",
-    icon: BubbleChart,
-    component: Light,
-    private: true
-  },
-  {
-    path: "/environmental",
-    sidebarName: "Environmental",
-    navbarName: "Environmental",
     icon: Unarchive,
-    component: Environmental,
-    private: true
+    component: Light
   },
-  { redirect: true, path: "/", to: "/login", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
-export default routes;
+export default dashboardRoutes;

@@ -1,11 +1,11 @@
 import axios from "axios/index";
 import { DO_VERIFY, DO_LOGIN, DO_LOGOUT } from "./actionType";
 
-const loginUrl = "http://10.25.151.75:8000/homie/user/";
+const loginUrl = "http://10.25.150.228:8000/homie/user/";
 
 const httpOptions = {
   headers: {
-    "Content-type": "application/form-data"
+    "Content-type": "application/form-data",
     // mandatory: localStorage.getItem("token")
   }
 };
