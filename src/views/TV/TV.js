@@ -92,7 +92,7 @@ class tv extends React.Component {
                       </CardHeader>
                     </Card>
                   </GridItem>
-                  <GridItem  xs={4} sm={6} md={3} lg={4}>
+                  <GridItem xs={4} sm={6} md={3} lg={4}>
                   </GridItem>
                   <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
                     <p>Change Program</p>
