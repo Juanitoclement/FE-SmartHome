@@ -1,5 +1,5 @@
 import axios from "axios/index";
-<<<<<<< HEAD
+
 export const NEW_TODO = "NEW_TODO";
 export const OLD_TODO = "OLD_TODO";
 export const DO_LOGIN = "DO_LOGIN";
@@ -17,7 +17,7 @@ const verifyUrl = "http://10.25.150.228:8000/homie/homie/user/sign-in";
 const apiUrlTest = "http://10.25.150.228:5000/temp";
 const getAcUrl =
   "http://10.25.150.228:8000/homie/homie/device/get-all-users-ac";
-=======
+
 import {
   AC_ON,
   AC_OFF,
@@ -25,7 +25,6 @@ import {
   GET_AC_STATUS,
   OLD_TODO
 } from "./actionType";
->>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
 
 const deviceUrl = "http://10.25.150.228:8000/homie/device/";
 const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";

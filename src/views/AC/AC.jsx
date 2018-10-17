@@ -26,12 +26,9 @@ import {
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
-<<<<<<< HEAD
-=======
+
 import store from "../../redux/store/configureStore";
 import { getAc, getAcStatus, oldTodo } from "../../redux/actions/actions";
-
->>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
@@ -67,12 +64,9 @@ class AC extends React.Component {
       schedulerstatus: "toggle_off",
       temperatureNow: 26,
       hourFrom: "12:00",
-<<<<<<< HEAD
       hourTo: "13:00"
     };
   }
-
-=======
       hourTo: "13:00",
       ac: [],
       options: [],
@@ -80,7 +74,6 @@ class AC extends React.Component {
       index: ""
     };
   }
-
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
     abc.getacPayload.then(res => {
@@ -94,8 +87,6 @@ class AC extends React.Component {
       console.log(this.state);
     });
   }
-
->>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
   showUI() {
     window.location = "/table";
   }
@@ -188,13 +179,10 @@ class AC extends React.Component {
                 <GridContainer>
                   {/* For Temperature Display */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
-<<<<<<< HEAD
                     <p align="center" style={{fontSize: 40}}>{this.state.TemperatureNow} &#8451;</p>
-=======
                     <p align="center" style={{ fontSize: 40 }}>
                       {this.state.temperatureNow} &#8451;
                     </p>
->>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
                   </GridItem>
                   {/* Minus Temperature Button */}
                   <GridItem xs={6} sm={6} md={6} lg={6}>
@@ -231,14 +219,12 @@ class AC extends React.Component {
                   {/* Dropdown Menu */}
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select AC:</h3>
-<<<<<<< HEAD
                     <Dropdown
                       options={options}
                       onChange={this._onSelect}
                       value={options[0]}
                       placeholder="TEsting123"
                     />
-=======
                     <select id="Testing" onChange={this.onChange}>
                       {this.state.options.map(item => (
                         <option key={item.id} value={item.id}>
@@ -253,7 +239,6 @@ class AC extends React.Component {
                     {/*value={this.state.initOption}*/}
                     {/*placeholder="TEsting123"*/}
                     {/*/>*/}
->>>>>>> 3f1216e1ebd57cf75aa8b2bc426a063d0f756bee
                   </GridItem>
                   {/* Scheduler Menu */}
                   <GridItem xs={9} sm={12} md={12} lg={12}>
