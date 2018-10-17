@@ -89,8 +89,6 @@ class AC extends React.Component {
         initOption: res.data.data[0].id,
         temperatureNow: res.data.data[0].temperature
       });
-      console.log(res.data.data);
-      console.log(this.state);
     });
   }
 
@@ -121,7 +119,6 @@ class AC extends React.Component {
         acStatus: 1,
         power: "Off"
       });
-      console.log(this.state.acStatus)
     } else {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
@@ -131,7 +128,6 @@ class AC extends React.Component {
         acStatus: 0,
         power: "On"
       });
-      console.log(this.state.acStatus)
     }
   };
 
@@ -204,12 +200,6 @@ class AC extends React.Component {
                         </option>
                       ))}
                     </select>
-                    {/*<Dropdown*/}
-                    {/*options={this.state.options.map(item => item.name)}*/}
-                    {/*onChange={this.onChange.bind(this.item)}*/}
-                    {/*value={this.state.initOption}*/}
-                    {/*placeholder="TEsting123"*/}
-                    {/*/>*/}
                   </GridItem>
 
                   {/* For Temperature Display */}
