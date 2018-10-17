@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Table , Button } from 'reactstrap';
+import TimeInput from 'material-ui-time-picker';
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
@@ -11,10 +13,6 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import {
@@ -35,6 +33,7 @@ import {
 
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+
 
 const styles = {
   cardColorTest: {
@@ -67,15 +66,15 @@ class AC extends React.Component {
       acstatus: 0,
       schedulerstatus: "toggle_off",
       value: 0,
-      acStatus: 0,
       power: "ON",
       temperatureNow: 26,
       ac: [],
       options: [],
       initOption: "",
       index: "",
-      hourFrom: "12:00",
-      hourTo: "13:00"
+      hourFrom: "12:00pm",
+      hourTo: "1:00pm"
+
     };
   }
 
@@ -86,10 +85,13 @@ class AC extends React.Component {
       this.setState({
         ac: res.data.data,
         options: res.data.data,
-        initOption: res.data.data[0].id,
-        temperatureNow: res.data.data[0].temperature
+        index: res.data.data[0].id,
+        temperatureNow: res.data.data[0].temperature,
+        power: res.data.data[0].status
       });
     });
+
+
   }
 
   showUI() {
@@ -112,18 +114,17 @@ class AC extends React.Component {
     console.log(this.state.index);
     if (this.state.acStatus === 0) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
-      abc.acOnPayload.then(res => {
-        console.log(res);
-      });
       this.setState({
         acStatus: 1,
         power: "Off"
       });
+      abc.acOnPayload.then(res => {console.log(res);});
+
     } else {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
-      });
+    });
       this.setState({
         acStatus: 0,
         power: "On"
@@ -138,24 +139,25 @@ class AC extends React.Component {
     abc.getAcStatus.then(res => {
       this.setState({
         temperatureNow: res.data.data.temperature,
-        index: res.data.data.id
+        index: res.data.data.id,
+        power: res.data.data.status
       });
     });
-    console.log(this.state.index);
   };
 
   // Scheduler
-  handleTimeFrom = event => {
+  handleTimeFrom(time) {
     this.setState({
-      hourFrom: event.target.value
+      hourFrom: time
     });
-  };
-  handleTimeTo = event => {
+  }
+  handleTimeTo(time) {
     this.setState({
-      hourTo: event.target.value
+      hourTo: time
     });
   }
 
+  /* handle the toggle in the table */
   handleStatus = () => {
     if (this.state.schedulerstatus === "toggle_off") {
       this.setState({
@@ -241,40 +243,45 @@ class AC extends React.Component {
                   </GridItem>
 
                   {/* Scheduler Menu */}
-                  <GridItem xs={9} sm={6} md={12} lg={12}>
-                    <h3>Schedule</h3>
-                    <Table border="1px">
-                      <TableHead>
-                        <TableRow>
-                          <CustomTableCell>From</CustomTableCell>
-                          <CustomTableCell>To</CustomTableCell>
-                          <CustomTableCell>Button</CustomTableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow>
-                          <CustomTableCell>
-                            <input
-                              type="time"
-                              onChange={this.handleTimeFrom.bind(this)}
-                              value={this.state.hourFrom}
-                            />
-                          </CustomTableCell>
-                          <CustomTableCell>
-                            <input
-                              type="time"
-                              onChange={this.handleTimeTo.bind(this)}
-                              value={this.state.hourTo}
-                            />
-                          </CustomTableCell>
-                          <CustomTableCell>
-                            <CardIcon onClick={this.handleStatus}>
-                              <Icon>{this.state.schedulerstatus}</Icon>
-                            </CardIcon>
-                          </CustomTableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    {/*<h3>Schedule</h3>*/}
+                    <Card>
+                      <CardHeader>
+                        <h3>Scheduler</h3>
+                      </CardHeader>
+                      <CardBody>
+                        <Table border="1px solid black" width="100%">
+                          <thead>
+                          <tr>
+                            <th>Hour From</th>
+                            <th>Hour To</th>
+                            <th>Submit</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>
+                                Hour From
+                              </th>
+                              <td>
+                                <TimeInput
+                                  mode='12h'
+                                  onChange={(time) => this.handleTimeFrom(time)}
+                                />
+                              </td>
+                              <td colSpan={2}><Button>Submit</Button></td>
+                            </tr>
+                            <tr>
+                              <th>Hour To</th>
+                              <td> <TimeInput
+                                mode='12h'
+                                onChange={(time) => this.handleTimeTo(time)}
+                              /></td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </CardBody>
+                    </Card>
                   </GridItem>
                 </GridContainer>
               </CardBody>
