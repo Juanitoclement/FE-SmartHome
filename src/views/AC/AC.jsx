@@ -65,9 +65,10 @@ class AC extends React.Component {
     // noinspection JSAnnotator
     this.state = {
       value: 0,
-      acStatus: 0,
+      // acStatus: 0,
+      acStatus: true,
       power: "ON",
-      temperatureNow: 26,
+      temperatureNow: 0,
       ac: [],
       options: [],
       initOption: "",
@@ -86,6 +87,7 @@ class AC extends React.Component {
         ac: res.data.data,
         options: res.data.data,
         initOption: res.data.data[0].id,
+        index: res.data.data[0].id,
         temperatureNow: res.data.data[0].temperature
       });
       console.log(res.data.data);
@@ -111,26 +113,40 @@ class AC extends React.Component {
 
   turnAc = () => {
     console.log(this.state.index);
-    if (this.state.acStatus === 0) {
-      const abc = store.store.dispatch(turnOnAc(this.state.index));
-      abc.acOnPayload.then(res => {
-        console.log(res);
-      });
+    // if (this.state.acStatus === 0) {
+    //   const abc = store.store.dispatch(turnOnAc(this.state.index));
+    //   abc.acOnPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 1,
+    //     power: "Off"
+    //   });
+    //   console.log(this.state.acStatus);
+    // } else {
+    //   const abc = store.store.dispatch(turnOffAc(this.state.index));
+    //   abc.acOffPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 0,
+    //     power: "On"
+    //   });
+    //   console.log(this.state.acStatus)
+    if (this.state.acStatus === true) {
+      const abc = store.store.dispatch(turnOffAc(this.state.index));
+      abc.acOffPayload.then(res => {console.log(res);});
       this.setState({
-        acStatus: 1,
+        acStatus: false,
         power: "Off"
       });
-      console.log(this.state.acStatus)
-    } else {
-      const abc = store.store.dispatch(turnOffAc(this.state.index));
-      abc.acOffPayload.then(res => {
-        console.log(res);
-      });
+    } else if (this.state.acStatus === false) {
+      const abc = store.store.dispatch(turnOnAc(this.state.index));
+      abc.acOnPayload.then(res => {console.log(res);});
       this.setState({
-        acStatus: 0,
+        acStatus: true,
         power: "On"
       });
-      console.log(this.state.acStatus)
     }
   };
 
@@ -144,6 +160,7 @@ class AC extends React.Component {
         index: res.data.data.id
       });
     });
+    console.log(this.state.temperatureNow);
     console.log(this.state.index);
   };
 
