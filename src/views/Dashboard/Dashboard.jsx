@@ -29,7 +29,10 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
 import { turnOnAc, turnOffAc } from "../../redux/actions/actions";
-
+import {
+  initializeFirebase,
+  askForPermissioToReceiveNotifications
+} from "../../firebase/push-notification";
 import { bugs, website, server } from "variables/general";
 
 import {
@@ -52,7 +55,7 @@ class Dashboard extends React.Component {
       powerLig: "OFF",
       powerAc: "OFF",
       items: 0,
-      items2: [],
+      items2: []
     };
   }
 
@@ -159,6 +162,9 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={6} sm={6} md={4}>
             <Card>
+              <button onClick={askForPermissioToReceiveNotifications}>
+                Clique aqui para receber notificações
+              </button>
               <CardHeader
                 color={this.handleColorTv(this.state.tvStatus)}
                 stats
@@ -388,7 +394,7 @@ class Dashboard extends React.Component {
     );
   }
 }
-
+initializeFirebase();
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
