@@ -155,7 +155,7 @@ class HeaderLinks extends React.Component {
           </Hidden>
         </Button>
         <Button
-          size="large"
+          size="lg"
           color="primary"
           variant="contained"
           type="button"
