@@ -4,6 +4,30 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
+import ChartistGraph from "react-chartist";
+import ArrowUpward from "@material-ui/core/SvgIcon/SvgIcon";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Table from "components/Table/Table.jsx";
+import Tasks from "components/Tasks/Tasks.jsx";
+import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
+import Danger from "components/Typography/Danger.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import CardFooter from "components/Card/CardFooter.jsx";
+import AccessTime from "@material-ui/icons/AccessTime";
+
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart
+} from "variables/charts";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const cardHeader = {
   border: "0",
@@ -43,6 +67,7 @@ class Environmental extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
     const params = {
       navigation: {
         nextEl: ".swiper-button-next",
@@ -51,10 +76,60 @@ class Environmental extends React.Component {
     };
     return (
       <div>
-        {/*<Swiper {...params}>*/}
-          {/*<div style={cardHeader}>Slide 1</div>*/}
-          {/*<div style={cardHeader}>Slide 2</div>*/}
-        {/*</Swiper>*/}
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={4}>
+            <Card chart>
+              <CardHeader color="success">
+                <Carousel>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                  <div>
+                    <ChartistGraph
+                      className="ct-chart"
+                      data={dailySalesChart.data}
+                      type="Line"
+                      options={dailySalesChart.options}
+                      listener={dailySalesChart.animation}
+                    />
+                    <img src="" />
+                  </div>
+                </Carousel>
+              </CardHeader>
+              <CardBody>
+                <h4 className={classes.cardTitle}>Room Temperature</h4>
+                <p className={classes.cardCategory}>
+                  <span className={classes.successText}>
+                    <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                  </span>{" "}
+                  increase in today avaerage temperature.
+                </p>
+              </CardBody>
+              <CardFooter chart>
+                <div className={classes.stats}>
+                  <AccessTime /> updated 4 minutes ago
+                </div>
+              </CardFooter>
+            </Card>
+          </GridItem>
+        </GridContainer>
       </div>
     );
   }
