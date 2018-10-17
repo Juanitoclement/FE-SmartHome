@@ -12,7 +12,7 @@ import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 
-import dashboardRoutes from "routes/dashboard.jsx";
+import routes from "routes/dashboard.jsx";
 
 import dashboardStyle from "assets/jss/smart-home-react/layouts/dashboardStyle.jsx";
 
@@ -22,14 +22,22 @@ import homie from "assets/img/Homie_logo.png";
 
 
 const switchRoutes = (
-  <Switch>
-    {dashboardRoutes.map((prop, key) => {
-      if(prop.hidden !== true) {
+  <Switch>{
+    routes.map((prop, key) => {
+      if (localStorage.getItem("token") !== null && prop.private !== false) {
+        console.log(prop.redirect);
         if (prop.redirect)
-          return <Redirect from={prop.path} to={prop.to} key={key}/>;
+          return <Redirect from={prop.path} to={"/dashboard"} key={key}/>;
         return <Route path={prop.path} component={prop.component} key={key}/>;
       }
-    })}
+      if (localStorage.getItem("token") == null && prop.private !== true) {
+        console.log(prop.redirect);
+        if (prop.redirect)
+          return <Redirect from={prop.path} to={"/login"} key={key}/>;
+        return <Route path={prop.path} component={prop.component} key={key}/>;
+      }
+    })
+  }
   </Switch>
 );
 
@@ -74,7 +82,7 @@ class App extends React.Component {
     return (
       <div className={classes.wrapper}>
         <Sidebar
-          routes={dashboardRoutes}
+          routes={routes}
           // logoText={"Hommie"}
           logo={homie}
           image={image}
@@ -85,7 +93,7 @@ class App extends React.Component {
         />
         <div className={classes.mainPanel} ref="mainPanel">
           <Header
-            routes={dashboardRoutes}
+            routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
             {...rest}
           />
