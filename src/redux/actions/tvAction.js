@@ -1,8 +1,18 @@
 import axios from "axios/index";
-import { TV_ON, TV_OFF, GET_TV, GET_TV_STATUS } from "./actionType";
+import {
+  TV_ON,
+  TV_OFF,
+  GET_TV,
+  GET_TV_STATUS,
+  UP_CHANNEL,
+  DOWN_CHANNEL,
+  UP_VOLUME,
+  DOWN_VOLUME,
+  MUTE_VOLUME
+} from "./actionType";
 
-const apiUrl = "http://10.25.150.228:8000/homie/device/";
-const tvUrl = "http://10.25.150.228:8000/homie/TV/";
+const apiUrl = "http://10.25.150.13:8000/homie/device/";
+const tvUrl = "http://10.25.150.13:8000/homie/TV/";
 
 const httpOptions = {
   headers: {
@@ -61,13 +71,99 @@ function turnOffTv(id) {
   };
 }
 
-function upChannel() {}
+function upChannel(id) {
+  return {
+    type: UP_CHANNEL,
+    upChannelPayload: new Promise(resolve => {
+      axios
+        .get(tvUrl + "program-up", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
 
-function downChannel() {}
+function downChannel(id) {
+  return {
+    type: DOWN_CHANNEL,
+    downChannelPayload: new Promise(resolve => {
+      axios
+        .get(tvUrl + "program-down", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
 
-function upVolume() {}
+function upVolume(id) {
+  return {
+    type: UP_VOLUME,
+    upVolumePayload: new Promise(resolve => {
+      axios
+        .get(tvUrl + "volume-up", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
 
-function downVolume() {}
+function downVolume(id) {
+  return {
+    type: DOWN_VOLUME,
+    downVolumePayload: new Promise(resolve => {
+      axios
+        .get(tvUrl + "volume-down", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
+
+function muteVolume() {}
 
 function getTv() {
   return {
@@ -84,7 +180,7 @@ function getTv() {
 function getTvStatus(id) {
   return {
     type: GET_TV_STATUS,
-    getAcStatus: new Promise(resolve => {
+    getTvStatus: new Promise(resolve => {
       axios
         .get(apiUrl + "get-tv-by-device-id", {
           headers: {
@@ -111,6 +207,7 @@ export {
   downChannel,
   upVolume,
   downVolume,
+  muteVolume,
   getTv,
   getTvStatus
 };

@@ -12,7 +12,7 @@ import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
-import TV from "views/TV/TV.js";
+import TV from "views/TV/TV.jsx";
 import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
 import Environmental from "views/Environmental/Environmental";
