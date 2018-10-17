@@ -17,20 +17,22 @@ import Login from "views/Login/Login.jsx";
 import Light from "views/Light/Light.jsx";
 import Environmental from "views/Environmental/Environmental";
 
-const dashboardRoutes = [
+const routes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
     navbarName: "SmartHome Panel",
     icon: Dashboard,
-    component: DashboardPage
+    component: DashboardPage,
+    private: true
   },
   {
     path: "/notifications",
     sidebarName: "Notifications",
     navbarName: "Notifications",
     icon: Notifications,
-    component: NotificationsPage
+    component: NotificationsPage,
+    private: true
   },
   {
     path: "/contact-us",
@@ -45,37 +47,41 @@ const dashboardRoutes = [
     navbarName: "Air Conditioner",
     icon: Unarchive,
     component: AC,
-    hidden: false
+    private: true
   },
   {
     path: "/tv",
     sidebarName: "TV",
     navbarName: "TV",
     icon: Unarchive,
-    component: TV
+    component: TV,
+    private: true
   },
   {
     path: "/login",
     sidebarName: "Login",
     navbarName: "Login",
     icon: Person,
-    component: Login
+    component: Login,
+    private: false
   },
   {
     path: "/light",
     sidebarName: "Light",
     navbarName: "Light",
     icon: BubbleChart,
-    component: Light
+    component: Light,
+    private: true
   },
   {
     path: "/environmental",
     sidebarName: "Environmental",
     navbarName: "Environmental",
     icon: Unarchive,
-    component: Environmental
+    component: Environmental,
+    private: true
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/login", navbarName: "Redirect" }
 ];
 
-export default dashboardRoutes;
+export default routes;
