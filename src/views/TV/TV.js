@@ -11,10 +11,12 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
 // core components
-import { Table } from 'reactstrap';
-import TimeInput from 'material-ui-time-picker';
-
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -31,6 +33,7 @@ import {
   turnOffAc
 } from "../../redux/actions/actions";
 
+import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 const styles = {
@@ -38,6 +41,21 @@ const styles = {
     backgroundColor: "rgba(255,255,255,.62)"
   }
 };
+
+// const CustomTableHead = withStyles(theme => ({
+//   head: {
+//     backgroundColor: theme.palette.common.black,
+//     color: theme.palette.common.white,
+//     borderBottomColor: theme.palette.common.black
+//   }
+// }))(TableCell);
+
+const CustomTableCell = withStyles(theme => ({
+  body: {
+    fontSize: 14,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
 
 const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
@@ -83,35 +101,51 @@ class AC extends React.Component {
 
   // Turn AC ON/OFF
   // acStatus:
-  // true = On
-  // false = Off
-  handleColor = () => {
-    if (this.state.acStatus === true) {
+  // 0 = On
+  // 1 = Off
+  handleColor = int => {
+    if (this.state.acStatus === 0) {
       return "info";
-    } else if (this.state.acStatus === false) {
+    } else {
       return "rose";
     }
   };
 
   turnAc = () => {
     console.log(this.state.index);
+    // if (this.state.acStatus === 0) {
+    //   const abc = store.store.dispatch(turnOnAc(this.state.index));
+    //   abc.acOnPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 1,
+    //     power: "Off"
+    //   });
+    //   console.log(this.state.acStatus);
+    // } else {
+    //   const abc = store.store.dispatch(turnOffAc(this.state.index));
+    //   abc.acOffPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 0,
+    //     power: "On"
+    //   });
+    //   console.log(this.state.acStatus)
     if (this.state.acStatus === true) {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
-      abc.acOffPayload.then(res => {
-          console.log(res);
-          this.setState({
-            acStatus: false,
-            power: "Off"
-          });
+      abc.acOffPayload.then(res => {console.log(res);});
+      this.setState({
+        acStatus: false,
+        power: "Off"
       });
     } else if (this.state.acStatus === false) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
-      abc.acOnPayload.then(res => {
-        console.log(res);
-        this.setState({
-          acStatus: true,
-          power: "On"
-        });
+      abc.acOnPayload.then(res => {console.log(res);});
+      this.setState({
+        acStatus: true,
+        power: "On"
       });
     }
   };
@@ -129,23 +163,18 @@ class AC extends React.Component {
     console.log(this.state.temperatureNow);
     console.log(this.state.index);
   };
-  formatDate(s) {
-
-  }
 
   // Scheduler
-  handleTimeFrom(time) {
-    let formattedDate = this.formatDate(time);
+  handleTimeFrom = event => {
     this.setState({
-      hourFrom: formattedDate
+      hourFrom: event.target.value
     });
-  }
-  handleTimeTo(time) {
+  };
+  handleTimeTo = event => {
     this.setState({
-      hourTo: time
+      hourTo: event.target.value
     });
-    console.log(time);
-  }
+  };
 
   handleStatus = () => {
     if (this.state.schedulerstatus === "toggle_off") {
@@ -158,12 +187,6 @@ class AC extends React.Component {
       });
     }
   };
-
-  // acTemp(n) {
-  //   if(n === 1) {
-  //     let abc = store.store.dispatch(setTemperature(this.state.temperatureNow + 1));
-  //   }
-  // }
 
   render() {
     const { classes } = this.props;
@@ -215,10 +238,15 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="warning" onClick={this.acTemp(1)}>
+                        <CardIcon color="warning">
                           <Icon>remove_circle</Icon>
                         </CardIcon>
                       </CardHeader>
+                      <CardBody>
+                        <CardIcon>
+                          <button>Decrease Temperature</button>
+                        </CardIcon>
+                      </CardBody>
                     </Card>
                   </GridItem>
 
@@ -226,39 +254,53 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="success" onClick={this.acTemp(2)}>
+                        <CardIcon color="success">
                           <Icon>add_circle</Icon>
                         </CardIcon>
                       </CardHeader>
+                      <CardBody>
+                        <CardIcon>
+                          <button>Increase Temperature </button>
+                        </CardIcon>
+                      </CardBody>
                     </Card>
                   </GridItem>
 
                   {/* Scheduler Menu */}
                   <GridItem xs={9} sm={6} md={12} lg={12}>
-                    <h3 align="center">Schedule</h3>
-                    <Table border="1px solid black" style={{width: '50%', margin: 'auto'}}>
-                      <tbody>
-                        <tr>
-                          <th><h6>Hour From</h6></th>
-                          <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={(time) => this.handleTimeFrom(time)}
+                    <h3>Schedule</h3>
+                    <Table border="1px">
+                      <TableHead>
+                        <TableRow>
+                          <CustomTableCell>From</CustomTableCell>
+                          <CustomTableCell>To</CustomTableCell>
+                          <CustomTableCell>Button</CustomTableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <CustomTableCell>
+                            <input
+                              type="time"
+                              onChange={this.handleTimeFrom.bind(this)}
+                              value={this.state.hourFrom}
                             />
-                          </td>
-                        </tr>
-                        <tr>
-                          <th><h6>Hour From</h6></th>
-                          <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={(time) => this.handleTimeTo(time)}
+                          </CustomTableCell>
+                          <CustomTableCell>
+                            <input
+                              type="time"
+                              onChange={this.handleTimeTo.bind(this)}
+                              value={this.state.hourTo}
                             />
-                          </td>
-                        </tr>
-                      </tbody>
+                          </CustomTableCell>
+                          <CustomTableCell>
+                            <CardIcon onClick={this.handleStatus}>
+                              <Icon>{this.state.schedulerstatus}</Icon>
+                            </CardIcon>
+                          </CustomTableCell>
+                        </TableRow>
+                      </TableBody>
                     </Table>
-                    <p align="center"><button>Submit</button></p>
                   </GridItem>
                 </GridContainer>
               </CardBody>
