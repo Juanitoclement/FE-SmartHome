@@ -4,17 +4,8 @@ import Icon from "@material-ui/core/Icon";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-<<<<<<< HEAD
-=======
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardIconCustom from "components/Card/CardIconCustom.jsx";
-import CardBody from "components/Card/CardBody.jsx";
 
-import Dropdown from "react-dropdown";
-import tvStyle from "assets/jss/smart-home-react/tvStyle";
->>>>>>> 4652c55f729341d8ffa0ff2db070b9d6e1c317ea
+import tvStyle from "assets/jss/customStyle";
 
 import store from "../../redux/store/configureStore";
 import {
@@ -27,79 +18,6 @@ import {
   upVolume,
   downVolume
 } from "../../redux/actions/tvAction";
-
-// const cardStyle = {
-//   border: "0",
-//   marginBottom: "30px",
-//   marginTop: "30px",
-//   paddingBottom: "100px",
-//   borderRadius: "30%",
-//   color: "rgba(0, 0, 0, 0.87)",
-//   background: "#fff",
-//   width: "100%",
-//   boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
-//   position: "relative",
-//   display: "flex",
-//   flexDirection: "column",
-//   minWidth: "0",
-//   wordWrap: "break-word",
-//   fontSize: ".875rem",
-//   textAlign: "center"
-// }
-//
-// const powerButton = {
-//   background: "#ed1a3d",
-//   border: "none",
-//   color: "#ffffff",
-//   padding: "50px",
-//   textAlign: "center",
-//   textDecoration: "none",
-//   display: "inline-block",
-//   fontSize: "25px",
-//   marginTop: "35px",
-//   cursor: "pointer",
-//   borderRadius: "100%",
-//   boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
-// };
-//
-// const buttonStyle = {
-//   background: "#ffffff",
-//   border: "none",
-//   color: "#000000",
-//   padding: "25px",
-//   textAlign: "center",
-//   textDecoration: "none",
-//   display: "inline-block",
-//   fontSize: "20px",
-//   marginTop: "10px",
-//   marginLeft: "2px",
-//   cursor: "pointer",
-//   borderRadius: "100%",
-//   boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
-// };
-//
-// const backStyle = {
-//   background: "#000000",
-//   border: "none",
-//   color: "#ffffff",
-//   padding: "20px",
-//   textAlign: "center",
-//   textDecoration: "none",
-//   display: "inline-block",
-//   fontSize: "10px",
-//   margin: "auto",
-//   cursor: "pointer",
-//   borderRadius: "50%",
-//   boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
-// }
-//
-// const pStyle = {
-//   fontSize: "24px"
-// }
-//
-// const divStyle = {
-//   textAlign: "center"
-// }
 
 class TV extends React.Component {
   state = {
@@ -135,7 +53,7 @@ class TV extends React.Component {
 
   // ON&OFF
   handlePower = () => {
-    if (this.state.power === "ON") {
+    if (this.state.power === "OFF") {
       const abc = store.store.dispatch(turnOnTv(this.state.deviceID));
       abc.tvOnPayload.then(res => console.log(res));
     } else {
@@ -173,15 +91,15 @@ class TV extends React.Component {
     abc.getTvStatus.then(res => {
       console.log(res);
       this.setState({
-        tv: res.data.data,
+        name: res.data.data.name,
         deviceID: res.data.data.id,
         power: res.data.data.status,
         channel: res.data.data.channelNumber,
         volume: res.data.data.volume,
         muted: res.data.data.muted
       });
+      console.log(this.state);
     });
-    console.log(this.state);
   };
 
   //rendering process down here
