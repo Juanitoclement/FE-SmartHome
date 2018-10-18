@@ -12,8 +12,8 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 // core components
-import { Table } from 'reactstrap';
-import TimeInput from 'material-ui-time-picker';
+import { Table } from "reactstrap";
+import TimeInput from "material-ui-time-picker";
 
 import {
   dailySalesChart,
@@ -29,7 +29,7 @@ import {
   getAcStatus,
   turnOnAc,
   turnOffAc
-} from "../../redux/actions/actions";
+} from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
 
@@ -98,11 +98,11 @@ class AC extends React.Component {
     if (this.state.acStatus === true) {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
-          console.log(res);
-          this.setState({
-            acStatus: false,
-            power: "Off"
-          });
+        console.log(res);
+        this.setState({
+          acStatus: false,
+          power: "Off"
+        });
       });
     } else if (this.state.acStatus === false) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
@@ -129,9 +129,7 @@ class AC extends React.Component {
     console.log(this.state.temperatureNow);
     console.log(this.state.index);
   };
-  formatDate(s) {
-
-  }
+  formatDate(s) {}
 
   // Scheduler
   handleTimeFrom(time) {
@@ -236,29 +234,38 @@ class AC extends React.Component {
                   {/* Scheduler Menu */}
                   <GridItem xs={9} sm={6} md={12} lg={12}>
                     <h3 align="center">Schedule</h3>
-                    <Table border="1px solid black" style={{width: '50%', margin: 'auto'}}>
+                    <Table
+                      border="1px solid black"
+                      style={{ width: "50%", margin: "auto" }}
+                    >
                       <tbody>
                         <tr>
-                          <th><h6>Hour From</h6></th>
+                          <th>
+                            <h6>Hour From</h6>
+                          </th>
                           <td>
                             <TimeInput
                               mode="12h"
-                              onChange={(time) => this.handleTimeFrom(time)}
+                              onChange={time => this.handleTimeFrom(time)}
                             />
                           </td>
                         </tr>
                         <tr>
-                          <th><h6>Hour From</h6></th>
+                          <th>
+                            <h6>Hour From</h6>
+                          </th>
                           <td>
                             <TimeInput
                               mode="12h"
-                              onChange={(time) => this.handleTimeTo(time)}
+                              onChange={time => this.handleTimeTo(time)}
                             />
                           </td>
                         </tr>
                       </tbody>
                     </Table>
-                    <p align="center"><button>Submit</button></p>
+                    <p align="center">
+                      <button>Submit</button>
+                    </p>
                   </GridItem>
                 </GridContainer>
               </CardBody>

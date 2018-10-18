@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { LAMP_ON, LAMP_OFF, GET_LAMP, GET_LAMP_STATUS } from "./actionType";
 
-const apiUrl = "http://10.25.150.228:8000/homie/device/";
+const apiUrl = "http://10.25.150.13:8000/homie/device/";
 
 const httpOptions = {
   headers: {
@@ -9,7 +9,6 @@ const httpOptions = {
     mandatory: localStorage.getItem("token")
   },
   params: {
-    deviceID: "5bc41d6a2b7302a70769955a",
     accessToken: localStorage.getItem("token")
   }
 };

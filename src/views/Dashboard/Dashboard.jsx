@@ -28,7 +28,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
-import { turnOnAc, turnOffAc } from "../../redux/actions/actions";
+import { turnOnAc, turnOffAc } from "../../redux/actions/acActions";
 import { bugs, website, server } from "variables/general";
 
 import {
