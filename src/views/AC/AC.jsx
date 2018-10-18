@@ -97,17 +97,21 @@ class AC extends React.Component {
     console.log(this.state.index);
     if (this.state.acStatus === true) {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
-      abc.acOffPayload.then(res => {console.log(res);});
-      this.setState({
-        acStatus: false,
-        power: "Off"
+      abc.acOffPayload.then(res => {
+          console.log(res);
+          this.setState({
+            acStatus: false,
+            power: "Off"
+          });
       });
     } else if (this.state.acStatus === false) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
-      abc.acOnPayload.then(res => {console.log(res);});
-      this.setState({
-        acStatus: true,
-        power: "On"
+      abc.acOnPayload.then(res => {
+        console.log(res);
+        this.setState({
+          acStatus: true,
+          power: "On"
+        });
       });
     }
   };
@@ -125,13 +129,17 @@ class AC extends React.Component {
     console.log(this.state.temperatureNow);
     console.log(this.state.index);
   };
+  formatDate(s) {
+
+  }
 
   // Scheduler
-  handleTimeFrom = event => {
+  handleTimeFrom(time) {
+    let formattedDate = this.formatDate(time);
     this.setState({
-      hourFrom: event.target.value
+      hourFrom: formattedDate
     });
-  };
+  }
   handleTimeTo(time) {
     this.setState({
       hourTo: time
@@ -150,6 +158,12 @@ class AC extends React.Component {
       });
     }
   };
+
+  // acTemp(n) {
+  //   if(n === 1) {
+  //     let abc = store.store.dispatch(setTemperature(this.state.temperatureNow + 1));
+  //   }
+  // }
 
   render() {
     const { classes } = this.props;
@@ -201,15 +215,10 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="warning">
+                        <CardIcon color="warning" onClick={this.acTemp(1)}>
                           <Icon>remove_circle</Icon>
                         </CardIcon>
                       </CardHeader>
-                      <CardBody>
-                        <CardIcon>
-                          <button>Decrease Temperature</button>
-                        </CardIcon>
-                      </CardBody>
                     </Card>
                   </GridItem>
 
@@ -217,15 +226,10 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="success">
+                        <CardIcon color="success" onClick={this.acTemp(2)}>
                           <Icon>add_circle</Icon>
                         </CardIcon>
                       </CardHeader>
-                      <CardBody>
-                        <CardIcon>
-                          <button>Increase Temperature </button>
-                        </CardIcon>
-                      </CardBody>
                     </Card>
                   </GridItem>
 
@@ -233,24 +237,26 @@ class AC extends React.Component {
                   <GridItem xs={9} sm={6} md={12} lg={12}>
                     <h3 align="center">Schedule</h3>
                     <Table border="1px solid black" style={{width: '50%', margin: 'auto'}}>
-                      <tr>
-                        <th><h6>Hour From</h6></th>
-                        <td>
-                          <TimeInput
-                            mode="12h"
-                            onChange={(time) => this.handleTimeFrom(time)}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th><h6>Hour From</h6></th>
-                        <td>
-                          <TimeInput
-                            mode="12h"
-                            onChange={(time) => this.handleTimeTo(time)}
-                          />
-                        </td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <th><h6>Hour From</h6></th>
+                          <td>
+                            <TimeInput
+                              mode="12h"
+                              onChange={(time) => this.handleTimeFrom(time)}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th><h6>Hour From</h6></th>
+                          <td>
+                            <TimeInput
+                              mode="12h"
+                              onChange={(time) => this.handleTimeTo(time)}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
                     </Table>
                     <p align="center"><button>Submit</button></p>
                   </GridItem>
