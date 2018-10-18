@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
-
 import "assets/css/smart-home-react.css?v=1.4.1";
+import { initializeFirebase } from "./firebase/push-notification";
 
 import indexRoutes from "routes/index.jsx";
 
@@ -19,3 +19,4 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
+initializeFirebase();
