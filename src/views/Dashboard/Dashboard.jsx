@@ -29,10 +29,6 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
 import { turnOnAc, turnOffAc } from "../../redux/actions/actions";
-import {
-  initializeFirebase,
-  askForPermissioToReceiveNotifications
-} from "../../firebase/push-notification";
 import { bugs, website, server } from "variables/general";
 
 import {
@@ -43,6 +39,7 @@ import {
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
+import { askForPermissioToReceiveNotifications} from "../../firebase/push-notification";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -162,9 +159,7 @@ class Dashboard extends React.Component {
         <GridContainer>
           <GridItem xs={6} sm={6} md={4}>
             <Card>
-              <button onClick={askForPermissioToReceiveNotifications}>
-                Clique aqui para receber notificações
-              </button>
+              <button onClick={askForPermissioToReceiveNotifications}>anc</button>
               <CardHeader
                 color={this.handleColorTv(this.state.tvStatus)}
                 stats
@@ -394,7 +389,6 @@ class Dashboard extends React.Component {
     );
   }
 }
-initializeFirebase();
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };

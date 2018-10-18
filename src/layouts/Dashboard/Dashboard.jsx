@@ -25,13 +25,11 @@ const switchRoutes = (
   <Switch>{
     routes.map((prop, key) => {
       if (localStorage.getItem("token") !== null && prop.private !== false) {
-        console.log(prop.redirect);
         if (prop.redirect)
           return <Redirect from={prop.path} to={"/dashboard"} key={key}/>;
         return <Route path={prop.path} component={prop.component} key={key}/>;
       }
       if (localStorage.getItem("token") == null && prop.private !== true) {
-        console.log(prop.redirect);
         if (prop.redirect)
           return <Redirect from={prop.path} to={"/login"} key={key}/>;
         return <Route path={prop.path} component={prop.component} key={key}/>;
