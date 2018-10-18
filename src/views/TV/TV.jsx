@@ -4,13 +4,6 @@ import Icon from "@material-ui/core/Icon";
 
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardIconCustom from "components/Card/CardIconCustom.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-
-import Dropdown from "react-dropdown";
 
 import store from "../../redux/store/configureStore";
 import {
