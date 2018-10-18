@@ -219,6 +219,7 @@ class AC extends React.Component {
                     <hr />
                   </div>
                 </GridItem>
+                /* Scheduler For AC */
                 <GridItem xs={9} sm={6} md={12} lg={12}>
                   <div style={acStyle.divStyle}>
                     <div style={acStyle.tableStyle}>
