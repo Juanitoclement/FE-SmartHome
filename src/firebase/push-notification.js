@@ -1,7 +1,14 @@
 import firebase from "firebase";
 export const initializeFirebase = () => {
+  console.log("sdasdasdadsadsa");
+
   firebase.initializeApp({
-    messagingSenderId: "your messagingSenderId"
+    apiKey: "AIzaSyAeM1YvCtKhi6xqXTUMsZ8HxC-fAgXutBU",
+    authDomain: "homie-6702b.firebaseapp.com",
+    databaseURL: "https://homie-6702b.firebaseio.com",
+    projectId: "homie-6702b",
+    storageBucket: "homie-6702b.appspot.com",
+    messagingSenderId: "654798426208"
   });
 };
 export const askForPermissioToReceiveNotifications = async () => {
@@ -16,13 +23,3 @@ export const askForPermissioToReceiveNotifications = async () => {
     console.error(error);
   }
 };
-// export const inicializarFirebase = () => {
-//   firebase.initializeApp({
-//     messagingSenderId: 'your messagingSenderId'
-//   });
-//   navigator.serviceWorker
-//     .register('/my-sw.js')
-//     .then((registration) => {
-//       firebase.messaging().useServiceWorker(registration);
-//     });
-// }
