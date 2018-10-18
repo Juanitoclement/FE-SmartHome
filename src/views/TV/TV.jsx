@@ -127,7 +127,7 @@ class TV extends React.Component {
                     ))}
                   </select>
                 </GridItem>
-                {/* TV CHANNEL */}
+                {/* AC Temperature */}
                 <GridItem xs={6} sm={6} md={6} lg={6}>
                   <div style={tvStyle.divStyle}>
                     <div style={tvStyle.backStyle}>
