@@ -94,7 +94,10 @@ class Login extends React.Component {
     };
     console.log(data);
     const abc = store.store.dispatch(doVerify(data));
-    console.log(abc);
+    abc.verifyPayload.then(res => {
+      console.log(res);
+      window.location.reload();
+    });
   }
 
   handleLogout() {

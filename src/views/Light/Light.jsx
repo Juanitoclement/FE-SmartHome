@@ -31,7 +31,7 @@ const styles = {
   }
 };
 
-class AC extends React.Component {
+class Light extends React.Component {
   state = {
     value: 0,
     acstatus: 0
@@ -136,8 +136,8 @@ class AC extends React.Component {
   }
 }
 
-AC.propTypes = {
+Light.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(AC);
+export default withStyles(dashboardStyle)(Light);

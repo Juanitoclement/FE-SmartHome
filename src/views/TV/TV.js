@@ -1,7 +1,9 @@
-import React from 'react';
-
+import React from "react";
+import PropTypes from "prop-types";
+// @material-ui/core
+import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
-
+// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
@@ -9,131 +11,296 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+// core components
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart
+} from "variables/charts";
+
+import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
+
+import store from "../../redux/store/configureStore";
+import {
+  getAc,
+  getAcStatus,
+  turnOnAc,
+  turnOffAc
+} from "../../redux/actions/actions";
 
 import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
-// for choice of TV Place
-const room = [ 'Bedroom', 'Master Room', 'Living Room'];
+const styles = {
+  cardColorTest: {
+    backgroundColor: "rgba(255,255,255,.62)"
+  }
+};
 
-class tv extends React.Component {
-  state = {
-    device: room[0],
-    tvstatus: 0,
-    power: "OFF",
-    programNumber: 1,
-    Volume: 7
-  };
+// const CustomTableHead = withStyles(theme => ({
+//   head: {
+//     backgroundColor: theme.palette.common.black,
+//     color: theme.palette.common.white,
+//     borderBottomColor: theme.palette.common.black
+//   }
+// }))(TableCell);
 
-  _onSelect(event) {
-    this.setState({
-      device: event.target.value
+const CustomTableCell = withStyles(theme => ({
+  body: {
+    fontSize: 14,
+    borderBottomColor: theme.palette.common.black
+  }
+}))(TableCell);
+
+const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
+
+class AC extends React.Component {
+  constructor(props) {
+    super(props);
+    // noinspection JSAnnotator
+    this.state = {
+      value: 0,
+      // acStatus: 0,
+      acStatus: true,
+      power: "ON",
+      temperatureNow: 0,
+      ac: [],
+      options: [],
+      initOption: "",
+      index: "",
+      schedulerstatus: "toggle_off",
+      hourFrom: "12:00",
+      hourTo: "13:00"
+    };
+  }
+
+  // What will happen before render
+  componentWillMount() {
+    const abc = store.store.dispatch(getAc());
+    abc.getacPayload.then(res => {
+      this.setState({
+        ac: res.data.data,
+        options: res.data.data,
+        initOption: res.data.data[0].id,
+        index: res.data.data[0].id,
+        temperatureNow: res.data.data[0].temperature
+      });
+      console.log(res.data.data);
+      console.log(this.state);
     });
   }
-
-  button = () =>{
-    if(this.state.tvstatus === 0){
-      this.setState({
-        tvstatus: 1,
-        power: "ON"
-      });
-    } else {
-      this.setState({
-        tvstatus: 0,
-        power: "OFF"
-      });
-    }
-  }
-
-  handleColor = () => {
-    if(this.state.tvstatus === 0){
-      return "info";
-    }
-    else {
-      return "rose";
-    }
-  }
-
-  upProgram = () => {
-    this.setState({ programNumber: this.state.programNumber + 1 });
-  };
 
   showUI() {
     window.location = "/table";
   }
 
+  // Turn AC ON/OFF
+  // acStatus:
+  // 0 = On
+  // 1 = Off
+  handleColor = int => {
+    if (this.state.acStatus === 0) {
+      return "info";
+    } else {
+      return "rose";
+    }
+  };
 
-  //rendering process down here
+  turnAc = () => {
+    console.log(this.state.index);
+    // if (this.state.acStatus === 0) {
+    //   const abc = store.store.dispatch(turnOnAc(this.state.index));
+    //   abc.acOnPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 1,
+    //     power: "Off"
+    //   });
+    //   console.log(this.state.acStatus);
+    // } else {
+    //   const abc = store.store.dispatch(turnOffAc(this.state.index));
+    //   abc.acOffPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 0,
+    //     power: "On"
+    //   });
+    //   console.log(this.state.acStatus)
+    if (this.state.acStatus === true) {
+      const abc = store.store.dispatch(turnOffAc(this.state.index));
+      abc.acOffPayload.then(res => {console.log(res);});
+      this.setState({
+        acStatus: false,
+        power: "Off"
+      });
+    } else if (this.state.acStatus === false) {
+      const abc = store.store.dispatch(turnOnAc(this.state.index));
+      abc.acOnPayload.then(res => {console.log(res);});
+      this.setState({
+        acStatus: true,
+        power: "On"
+      });
+    }
+  };
+
+  onChange = () => {
+    const abc = store.store.dispatch(
+      getAcStatus(document.getElementById("selectAc").value)
+    );
+    abc.getAcStatus.then(res => {
+      this.setState({
+        temperatureNow: res.data.data.temperature,
+        index: res.data.data.id
+      });
+    });
+    console.log(this.state.temperatureNow);
+    console.log(this.state.index);
+  };
+
+  // Scheduler
+  handleTimeFrom = event => {
+    this.setState({
+      hourFrom: event.target.value
+    });
+  };
+  handleTimeTo = event => {
+    this.setState({
+      hourTo: event.target.value
+    });
+  };
+
+  handleStatus = () => {
+    if (this.state.schedulerstatus === "toggle_off") {
+      this.setState({
+        schedulerstatus: "toggle_on"
+      });
+    } else {
+      this.setState({
+        schedulerstatus: "toggle_off"
+      });
+    }
+  };
+
   render() {
     const { classes } = this.props;
-    let allRoom = room;
-    const roomList = allRoom.map((x) => {return(<option key={x}>{x}</option>)});
     return (
       <div>
         <GridContainer>
+          {/*Power Off button*/}
           <GridItem xs={12} sm={6} md={3} lg={12}>
             <Card>
-              <CardHeader color="rose" stats icon>
-                <CardIconCustom onClick={this.button} color={this.handleColor(this.state.tvstatus)}>
+              {/* Power Off / Main Card */}
+              <CardHeader color="info" stats topIcon>
+                <CardIcon
+                  onClick={this.turnAc}
+                  color={this.handleColor(this.state.acStatus)}
+                >
                   <Icon>power_settings_new</Icon>
-                </CardIconCustom>
+                  <p>{this.state.power}</p>
+                </CardIcon>
               </CardHeader>
+
               <CardBody>
+                {/* Seperate The 2 card inside */}
                 <GridContainer>
-                  <GridItem xs={4} sm={5} md={3} lg={4}>
+                  {/* Dropdown Menu */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <h3>Select AC:</h3>
+                    <select id="selectAc" onChange={this.onChange}>
+                      {this.state.options.map(item => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {/*<Dropdown*/}
+                    {/*options={this.state.options.map(item => item.name)}*/}
+                    {/*onChange={this.onChange.bind(this.item)}*/}
+                    {/*value={this.state.initOption}*/}
+                    {/*placeholder="TEsting123"*/}
+                    {/*/>*/}
+                  </GridItem>
+
+                  {/* For Temperature Display */}
+                  <GridItem xs={12} sm={12} md={12} lg={12}>
+                    <p align="center" style={{ fontSize: 40 }}>
+                      {this.state.temperatureNow} &#8451;
+                    </p>
+                  </GridItem>
+                  {/* Minus Temperature Button */}
+                  <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon color="warning">
-                          <Icon>keyboard_arrow_up</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem  xs={4} sm={2} md={3} lg={4}>
-                  </GridItem>
-                  <GridItem  xs={4} sm={5} md={3} lg={4}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.upProgram} color="warning">
-                          <Icon>add_circle</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem xs={4} sm={5} md={3} lg={4} height={"2px"}>
-                    <p>Change Program</p>
-                  </GridItem>
-                  <GridItem xs={4} sm={2} md={3} lg={4} height={"2px"}>
-                  </GridItem>
-                  <GridItem xs={4} sm={5} md={3} lg={4} height={"2px"}>
-                    <p>Change Volume</p>
-                  </GridItem>
-                  <GridItem xs={4} sm={5} md={3} lg={4}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon color="warning">
-                          <Icon>keyboard_arrow_down</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem xs={4} sm={2} md={3} lg={4}>
-                  </GridItem>
-                  <GridItem xs={4} sm={5} md={3} lg={4}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
+                      <CardHeader color="rose" stats icon>
                         <CardIcon color="warning">
                           <Icon>remove_circle</Icon>
                         </CardIcon>
                       </CardHeader>
+                      <CardBody>
+                        <CardIcon>
+                          <button>Decrease Temperature</button>
+                        </CardIcon>
+                      </CardBody>
                     </Card>
-                    /*Selection of TV*/
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Select TV:</h3>
-                    {/*<Dropdown options={room} onChange={this._onSelect} value={this.state.device} placeholder="Choose a room..." />*/}
-                    <select onChange={this._onSelect.bind(this)} value={this.state.device} style={{width: '50%'}}>
-                      {roomList}
-                    </select>
+
+                  {/* Add Temperature button */}
+                  <GridItem xs={6} sm={6} md={6} lg={6}>
+                    <Card>
+                      <CardHeader color="rose" stats icon>
+                        <CardIcon color="success">
+                          <Icon>add_circle</Icon>
+                        </CardIcon>
+                      </CardHeader>
+                      <CardBody>
+                        <CardIcon>
+                          <button>Increase Temperature </button>
+                        </CardIcon>
+                      </CardBody>
+                    </Card>
+                  </GridItem>
+
+                  {/* Scheduler Menu */}
+                  <GridItem xs={9} sm={6} md={12} lg={12}>
+                    <h3>Schedule</h3>
+                    <Table border="1px">
+                      <TableHead>
+                        <TableRow>
+                          <CustomTableCell>From</CustomTableCell>
+                          <CustomTableCell>To</CustomTableCell>
+                          <CustomTableCell>Button</CustomTableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <CustomTableCell>
+                            <input
+                              type="time"
+                              onChange={this.handleTimeFrom.bind(this)}
+                              value={this.state.hourFrom}
+                            />
+                          </CustomTableCell>
+                          <CustomTableCell>
+                            <input
+                              type="time"
+                              onChange={this.handleTimeTo.bind(this)}
+                              value={this.state.hourTo}
+                            />
+                          </CustomTableCell>
+                          <CustomTableCell>
+                            <CardIcon onClick={this.handleStatus}>
+                              <Icon>{this.state.schedulerstatus}</Icon>
+                            </CardIcon>
+                          </CustomTableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
                   </GridItem>
                 </GridContainer>
               </CardBody>
@@ -145,4 +312,8 @@ class tv extends React.Component {
   }
 }
 
-export default tv;
+AC.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(dashboardStyle)(AC);

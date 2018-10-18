@@ -66,8 +66,10 @@ class AC extends React.Component {
       acstatus: 0,
       schedulerstatus: "toggle_off",
       value: 0,
+      // acStatus: 0,
+      acStatus: true,
       power: "ON",
-      temperatureNow: 26,
+      temperatureNow: 0,
       ac: [],
       options: [],
       initOption: "",
@@ -87,7 +89,10 @@ class AC extends React.Component {
         options: res.data.data,
         index: res.data.data[0].id,
         temperatureNow: res.data.data[0].temperature,
-        power: res.data.data[0].status
+        power: res.data.data[0].status,
+        initOption: res.data.data[0].id,
+        index: res.data.data[0].id,
+        temperatureNow: res.data.data[0].temperature
       });
     });
 
@@ -112,21 +117,38 @@ class AC extends React.Component {
 
   turnAc = () => {
     console.log(this.state.index);
-    if (this.state.acStatus === 0) {
-      const abc = store.store.dispatch(turnOnAc(this.state.index));
+    // if (this.state.acStatus === 0) {
+    //   const abc = store.store.dispatch(turnOnAc(this.state.index));
+    //   abc.acOnPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 1,
+    //     power: "Off"
+    //   });
+    //   console.log(this.state.acStatus);
+    // } else {
+    //   const abc = store.store.dispatch(turnOffAc(this.state.index));
+    //   abc.acOffPayload.then(res => {
+    //     console.log(res);
+    //   });
+    //   this.setState({
+    //     acStatus: 0,
+    //     power: "On"
+    //   });
+    //   console.log(this.state.acStatus)
+    if (this.state.acStatus === true) {
+      const abc = store.store.dispatch(turnOffAc(this.state.index));
+      abc.acOffPayload.then(res => {console.log(res);});
       this.setState({
-        acStatus: 1,
+        acStatus: false,
         power: "Off"
       });
+    } else if (this.state.acStatus === false) {
+      const abc = store.store.dispatch(turnOnAc(this.state.index));
       abc.acOnPayload.then(res => {console.log(res);});
-
-    } else {
-      const abc = store.store.dispatch(turnOffAc(this.state.index));
-      abc.acOffPayload.then(res => {
-        console.log(res);
-    });
       this.setState({
-        acStatus: 0,
+        acStatus: true,
         power: "On"
       });
     }
@@ -143,6 +165,8 @@ class AC extends React.Component {
         power: res.data.data.status
       });
     });
+    console.log(this.state.temperatureNow);
+    console.log(this.state.index);
   };
 
   // Scheduler
