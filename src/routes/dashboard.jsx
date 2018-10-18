@@ -70,7 +70,7 @@ const routes = [
     navbarName: "Login",
     icon: Person,
     component: Login,
-    private: true
+    private: false
   },
   {
     path: "/light",
