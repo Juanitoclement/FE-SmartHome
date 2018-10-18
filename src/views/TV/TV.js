@@ -31,7 +31,7 @@ import {
   getAcStatus,
   turnOnAc,
   turnOffAc
-} from "../../redux/actions/actions";
+} from "../../redux/actions/acActions";
 
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";

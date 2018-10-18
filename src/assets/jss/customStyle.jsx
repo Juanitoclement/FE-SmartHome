@@ -1,4 +1,4 @@
-const tvStyle = {
+const customStyle = {
   cardStyle: {
     border: "0",
     marginBottom: "30px",
@@ -68,4 +68,4 @@ const tvStyle = {
   }
 };
 
-export default tvStyle;
+export default customStyle;
