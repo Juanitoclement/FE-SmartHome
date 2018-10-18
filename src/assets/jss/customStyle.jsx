@@ -1,3 +1,4 @@
+/* ui for tv display */
 const customStyle = {
   cardStyle: {
     border: "0",
@@ -28,7 +29,7 @@ const customStyle = {
     fontSize: "25px",
     marginTop: "35px",
     cursor: "pointer",
-    borderRadius: "100%",
+    borderRadius: "50%",
     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
   },
   buttonStyle: {
@@ -65,6 +66,9 @@ const customStyle = {
   },
   divStyle: {
     textAlign: "center"
+  },
+  tableStyle: {
+    marginLeft: "10%"
   }
 };
 
