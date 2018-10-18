@@ -24,8 +24,27 @@ import {
   downVolume
 } from "../../redux/actions/tvAction";
 
+const cardStyle = {
+  border: "0",
+  marginBottom: "30px",
+  marginTop: "30px",
+  paddingBottom: "100px",
+  borderRadius: "30%",
+  color: "rgba(0, 0, 0, 0.87)",
+  background: "#fff",
+  width: "100%",
+  boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  minWidth: "0",
+  wordWrap: "break-word",
+  fontSize: ".875rem",
+  textAlign: "center"
+}
+
 const powerButton = {
-  background: "#4CAF50",
+  background: "#ed1a3d",
   border: "none",
   color: "#ffffff",
   padding: "50px",
@@ -33,28 +52,51 @@ const powerButton = {
   textDecoration: "none",
   display: "inline-block",
   fontSize: "25px",
-  marginTop: "4px",
-  marginLeft: "2px",
+  marginTop: "35px",
   cursor: "pointer",
   borderRadius: "100%",
   boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
-}
+};
 
 const buttonStyle = {
-  background: "#4CAF50",
+  background: "#ffffff",
   border: "none",
-  color: "#ffffff",
+  color: "#000000",
   padding: "25px",
   textAlign: "center",
   textDecoration: "none",
   display: "inline-block",
-  fontSize: "25px",
-  marginTop: "4px",
+  fontSize: "20px",
+  marginTop: "10px",
   marginLeft: "2px",
   cursor: "pointer",
   borderRadius: "100%",
   boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
+};
+
+const backStyle = {
+  background: "#000000",
+  border: "none",
+  color: "#ffffff",
+  padding: "20px",
+  textAlign: "center",
+  textDecoration: "none",
+  display: "inline-block",
+  fontSize: "10px",
+  margin: "auto",
+  cursor: "pointer",
+  borderRadius: "50%",
+  boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.5)"
 }
+
+const pStyle = {
+  fontSize: "24px"
+}
+
+const divStyle = {
+  textAlign: "center"
+}
+
 
 class TV extends React.Component {
   state = {
@@ -66,7 +108,7 @@ class TV extends React.Component {
     muted: false,
     tv: [],
     options: [],
-    deviceID: "",
+    deviceID: ""
   };
 
   // What will happen before render
@@ -89,27 +131,15 @@ class TV extends React.Component {
   }
 
   // ON&OFF
-  button = () => {
-    if (this.state.tvStatus === 0) {
-      this.setState({
-        tvStatus: 1,
-        power: "ON"
-      });
+  handlePower = () => {
+    if (this.state.power === "ON") {
+      const abc = store.store.dispatch(turnOnTv(this.state.deviceID));
+      abc.tvOnPayload.then(res => console.log(res));
     } else {
-      this.setState({
-        tvStatus: 0,
-        power: "OFF"
-      });
+      const abc = store.store.dispatch(turnOffTv(this.state.deviceID));
+      abc.tvOffPayload.then(res => console.log(res));
     }
-  };
-
-  handleColor = int => {
-    if (this.state.power === 0) {
-      return "info";
-    } else {
-      return "rose";
-    }
-  };
+  }
 
   // Channels
   upProgram = () => {
@@ -153,92 +183,63 @@ class TV extends React.Component {
 
   //rendering process down here
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <GridContainer>
           <GridItem xs={12} sm={6} md={3} lg={12}>
-            <Card>
-              <CardHeader color="rose" stats icon>
-                <CardIconCustom
-                  onClick={this.button}
-                  color={this.handleColor(this.state.tvStatus)}
-                >
+            <div style={cardStyle}>
+              <div style={divStyle}>
+                {/* POWER BUTTON */}
+                <button style={powerButton} onClick={this.button}>
                   <Icon>power_settings_new</Icon>
-                </CardIconCustom>
-                <button style={powerButton}><Icon>power_settings_new</Icon></button>
-                <button style={buttonStyle}><Icon>power_settings_new</Icon></button>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  {/*Select TV*/}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Select TV:</h3>
-                    <select id="selectTv" onChange={this.selectChange}>
-                      {this.state.options.map(item => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                    {/*<Dropdown*/}
-                    {/*options={room}*/}
-                    {/*onChange={this._onSelect}*/}
-                    {/*value={room[0]}*/}
-                    {/*placeholder="Choose a room..."*/}
-                    {/*/>*/}
-                  </GridItem>
-                  <GridItem xs={6} sm={6} md={6} lg={6}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.upProgram} color="warning">
-                          <Icon>keyboard_arrow_up</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem xs={6} sm={6} md={6} lg={6}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.upVolume} color="warning">
-                          <Icon>add_circle</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4} />
-                  <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
-                    <p>Channel</p>
-                    <br />
-                    <p>{this.state.channel}</p>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4} height={"2px"}>
-                    <p>Volume</p>
-                    <br />
-                    <p>{this.state.volume}</p>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4} />
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.downProgram} color="warning">
-                          <Icon>keyboard_arrow_down</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                  <GridItem xs={4} sm={6} md={3} lg={4}>
-                    <Card>
-                      <CardHeader color="warning" stats icon>
-                        <CardIcon onClick={this.downVolume} color="warning">
-                          <Icon>remove_circle</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-            </Card>
+                </button>
+              </div>
+              <GridContainer>
+                {/*Select TV*/}
+                <GridItem xs={12} sm={12} md={12} lg={12}>
+                  <h3>Select TV:</h3>
+                  <select id="selectTv" onChange={this.selectChange}>
+                    {this.state.options.map(item => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </GridItem>
+                {/* TV CHANNEL */}
+                <GridItem xs={6} sm={6} md={6} lg={6}>
+                  <div style={divStyle}>
+                    <div style={backStyle}>
+                      <button style={buttonStyle} onClick={this.upProgram}>
+                        <Icon>add</Icon>
+                      </button>
+                      <p style={pStyle}>Channel</p>
+                      <br />
+                      <p style={pStyle}>{this.state.channel}</p>
+                      <button style={buttonStyle} onClick={this.downProgram}>
+                        <Icon>remove</Icon>
+                      </button>
+                    </div>
+                  </div>
+                </GridItem>
+                {/* TV VOLUME */}
+                <GridItem xs={6} sm={6} md={6} lg={6}>
+                  <div style={divStyle}>
+                    <div style={backStyle}>
+                      <button style={buttonStyle} onClick={this.upVolume}>
+                        <Icon>volume_up</Icon>
+                      </button>
+                      <p style={pStyle}>Volume</p>
+                      <br />
+                      <p style={pStyle}>{this.state.volume}</p>
+                      <button style={buttonStyle} onClick={this.downVolume}>
+                        <Icon>volume_down</Icon>
+                      </button>
+                    </div>
+                  </div>
+                </GridItem>
+              </GridContainer>
+            </div>
           </GridItem>
         </GridContainer>
       </div>
