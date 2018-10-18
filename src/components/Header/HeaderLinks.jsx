@@ -19,6 +19,8 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/smart-home-react/components/headerLinksStyle";
+import store from "../../redux/store/configureStore";
+import { doLogout } from "../../redux/actions/authAction";
 
 class HeaderLinks extends React.Component {
   state = {
@@ -37,7 +39,12 @@ class HeaderLinks extends React.Component {
   };
   handleSubmit = () => {
     console.log("hi");
-};
+  };
+  handleLogout() {
+    const abc = store.store.dispatch(doLogout());
+    console.log(abc);
+    window.location.reload();
+  }
 
   render() {
     const { classes } = this.props;
@@ -146,6 +153,15 @@ class HeaderLinks extends React.Component {
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Profile</p>
           </Hidden>
+        </Button>
+        <Button
+          size="lg"
+          color="primary"
+          variant="contained"
+          type="button"
+          onClick={this.handleLogout}
+        >
+          Logout
         </Button>
       </div>
     );
