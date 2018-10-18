@@ -215,7 +215,7 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="warning" onClick={this.acTemp(1)}>
+                        <CardIcon color="warning">
                           <Icon>remove_circle</Icon>
                         </CardIcon>
                       </CardHeader>
@@ -226,7 +226,7 @@ class AC extends React.Component {
                   <GridItem xs={6} sm={6} md={6} lg={6}>
                     <Card>
                       <CardHeader color="rose" stats icon>
-                        <CardIcon color="success" onClick={this.acTemp(2)}>
+                        <CardIcon color="success">
                           <Icon>add_circle</Icon>
                         </CardIcon>
                       </CardHeader>
