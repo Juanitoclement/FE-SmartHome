@@ -10,7 +10,11 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardIconLig from "components/Card/CardIconLig.jsx"
+import CardIconLig from "components/Card/CardIconLig.jsx";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
   dailySalesChart,
@@ -30,6 +34,107 @@ const styles = {
     backgroundColor: "rgba(255,255,255,.62)"
   }
 };
+
+function ButtonSizes(props) {
+  const { classes } = props;
+  return (
+    <div>
+      <div>
+        <Button size="small" className={classes.button}>
+          Small
+        </Button>
+        <Button size="medium" className={classes.button}>
+          Medium
+        </Button>
+        <Button size="large" className={classes.button}>
+          Large
+        </Button>
+      </div>
+      <div>
+        <Button
+          variant="outlined"
+          size="small"
+          color="primary"
+          className={classes.button}
+        >
+          Small
+        </Button>
+        <Button
+          variant="outlined"
+          size="medium"
+          color="primary"
+          className={classes.button}
+        >
+          Medium
+        </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          color="primary"
+          className={classes.button}
+        >
+          Large
+        </Button>
+      </div>
+      <div>
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          className={classes.button}
+        >
+          Small
+        </Button>
+        <Button
+          variant="contained"
+          size="medium"
+          color="primary"
+          className={classes.button}
+        >
+          Medium
+        </Button>
+        <Button
+          variant="contained"
+          size="large"
+          color="primary"
+          className={classes.button}
+        >
+          Large
+        </Button>
+      </div>
+      <div>
+        <Button
+          variant="fab"
+          mini
+          color="secondary"
+          aria-label="Add"
+          className={classes.button}
+        >
+          <AddIcon />
+        </Button>
+        <Button
+          variant="fab"
+          color="secondary"
+          aria-label="Add"
+          className={classes.button}
+        >
+          <AddIcon />
+        </Button>
+      </div>
+      <div>
+        <IconButton aria-label="Delete" className={classes.button}>
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+        <IconButton aria-label="Delete" className={classes.button}>
+          <DeleteIcon />
+        </IconButton>
+        <IconButton aria-label="Delete" className={classes.button}>
+          <DeleteIcon fontSize="large" />
+        </IconButton>
+      </div>
+    </div>
+  );
+}
 
 class AC extends React.Component {
   state = {
@@ -67,7 +172,7 @@ class AC extends React.Component {
       m: 0,
       s: 0
     });
-  }
+  };
   handleInput = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -95,8 +200,6 @@ class AC extends React.Component {
 
               <CardBody>
                 <GridContainer>
-
-
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select Light:</h3>
                     <Dropdown
@@ -105,6 +208,14 @@ class AC extends React.Component {
                       value={options[0]}
                       placeholder="TEsting123"
                     />
+                    <Button
+                      variant="fab"
+                      color="primary"
+                      aria-label="Add"
+                      className={classes.button}
+                    >
+                      <AddIcon />
+                    </Button>
                   </GridItem>
 
                   {/* Timer Menu */}
@@ -122,8 +233,7 @@ class AC extends React.Component {
                         Submit
                       </button>
                       <br />
-                      h: {this.state.h} m: {this.state.m} s:{" "}
-                      {this.state.s}
+                      h: {this.state.h} m: {this.state.m} s: {this.state.s}
                     </form>
                   </GridItem>
                 </GridContainer>

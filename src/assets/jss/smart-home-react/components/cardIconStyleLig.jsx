@@ -15,7 +15,7 @@ const cardIconStyleLig = {
       marginTop: "-20px",
       marginLeft: "40%",
       marginRight: "15px",
-      float: "left",
+      float: "left"
     }
   },
   warningCardHeader,
