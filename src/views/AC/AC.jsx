@@ -6,14 +6,10 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardIconCustom from "components/Card/CardIconCustom.jsx";
-import CardBody from "components/Card/CardBody.jsx";
 // core components
 import { Table } from "reactstrap";
 import TimeInput from "material-ui-time-picker";
+import acStyle from "assets/jss/customStyle";
 
 import {
   dailySalesChart,
@@ -32,6 +28,7 @@ import {
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
+import { Container, Col, Row} from 'reactstrap';
 
 const styles = {
   cardColorTest: {
@@ -53,11 +50,11 @@ class AC extends React.Component {
       temperatureNow: 0,
       ac: [],
       options: [],
-      initOption: "",
-      index: "",
+      initOption: "12",
+      index: "12",
       schedulerstatus: "toggle_off",
-      hourFrom: "12:00",
-      hourTo: "13:00"
+      hourFrom: "2018-01-01 12:00",
+      hourTo: "2018-01-01 13:00"
     };
   }
 
@@ -129,147 +126,138 @@ class AC extends React.Component {
     console.log(this.state.temperatureNow);
     console.log(this.state.index);
   };
-  formatDate(s) {}
+  convertMonth(m) {
+    if (m === "Oct") {
+      return 10;
+    } else if (m === "Jan") {
+      return 1;
+    } else if (m === "Feb") {
+      return 2;
+    } else if (m === "Mar") {
+      return 3;
+    } else if (m === "Apr") {
+      return 4;
+    } else if (m === "May") {
+      return 5;
+    } else if (m === "Jun") {
+      return 6;
+    } else if (m === "Jul") {
+      return 7;
+    } else if (m === "Aug") {
+      return 8;
+    } else if (m === "Sep") {
+      return 9;
+    } else if (m === "Nov") {
+      return 11;
+    } else if (m === "Dec") {
+      return 12;
+    } else {
+      return -1;
+    }
+  }
+  formatDate(s) {
+    let stringDate = s.toString();
+    let myArray = stringDate.split(" ");
+    let month = this.convertMonth(myArray[1]);
+    let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
+    console.log(answer);
+    return answer;
+  };
 
   // Scheduler
   handleTimeFrom(time) {
-    let formattedDate = this.formatDate(time);
+    console.log(time);
+    let message = this.formatDate(time);
     this.setState({
-      hourFrom: formattedDate
+      hourFrom: message
     });
   }
   handleTimeTo(time) {
+    let message = this.formatDate(time);
     this.setState({
-      hourTo: time
+      hourTo: message
     });
-    console.log(time);
   }
-
-  handleStatus = () => {
-    if (this.state.schedulerstatus === "toggle_off") {
-      this.setState({
-        schedulerstatus: "toggle_on"
-      });
-    } else {
-      this.setState({
-        schedulerstatus: "toggle_off"
-      });
-    }
-  };
-
-  // acTemp(n) {
-  //   if(n === 1) {
-  //     let abc = store.store.dispatch(setTemperature(this.state.temperatureNow + 1));
-  //   }
-  // }
 
   render() {
     const { classes } = this.props;
     return (
       <div>
         <GridContainer>
-          {/*Power Off button*/}
           <GridItem xs={12} sm={6} md={3} lg={12}>
-            <Card>
-              {/* Power Off / Main Card */}
-              <CardHeader color="info" stats topIcon>
-                <CardIcon
-                  onClick={this.turnAc}
-                  color={this.handleColor(this.state.acStatus)}
-                >
+            <div style={acStyle.cardStyle}>
+              <div style={acStyle.divStyle}>
+                {/* POWER BUTTON */}
+                <button style={acStyle.powerButton}>
                   <Icon>power_settings_new</Icon>
-                  <p>{this.state.power}</p>
-                </CardIcon>
-              </CardHeader>
-
-              <CardBody>
-                {/* Seperate The 2 card inside */}
-                <GridContainer>
-                  {/* Dropdown Menu */}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <h3>Select AC:</h3>
-                    <select id="selectAc" onChange={this.onChange}>
-                      {this.state.options.map(item => (
-                        <option key={item.id} value={item.id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                    {/*<Dropdown*/}
-                    {/*options={this.state.options.map(item => item.name)}*/}
-                    {/*onChange={this.onChange.bind(this.item)}*/}
-                    {/*value={this.state.initOption}*/}
-                    {/*placeholder="TEsting123"*/}
-                    {/*/>*/}
-                  </GridItem>
-
-                  {/* For Temperature Display */}
-                  <GridItem xs={12} sm={12} md={12} lg={12}>
-                    <p align="center" style={{ fontSize: 40 }}>
-                      {this.state.temperatureNow} &#8451;
-                    </p>
-                  </GridItem>
-                  {/* Minus Temperature Button */}
-                  <GridItem xs={6} sm={6} md={6} lg={6}>
-                    <Card>
-                      <CardHeader color="rose" stats icon>
-                        <CardIcon color="warning">
-                          <Icon>remove_circle</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-
-                  {/* Add Temperature button */}
-                  <GridItem xs={6} sm={6} md={6} lg={6}>
-                    <Card>
-                      <CardHeader color="rose" stats icon>
-                        <CardIcon color="success">
-                          <Icon>add_circle</Icon>
-                        </CardIcon>
-                      </CardHeader>
-                    </Card>
-                  </GridItem>
-
-                  {/* Scheduler Menu */}
-                  <GridItem xs={9} sm={6} md={12} lg={12}>
-                    <h3 align="center">Schedule</h3>
-                    <Table
-                      border="1px solid black"
-                      style={{ width: "50%", margin: "auto" }}
-                    >
-                      <tbody>
-                        <tr>
-                          <th>
-                            <h6>Hour From</h6>
-                          </th>
-                          <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={time => this.handleTimeFrom(time)}
-                            />
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>
-                            <h6>Hour From</h6>
-                          </th>
-                          <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={time => this.handleTimeTo(time)}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                    <p align="center">
-                      <button>Submit</button>
-                    </p>
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-            </Card>
+                </button>
+              </div>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12} lg={12}>
+                  <h3>Select AC:</h3>
+                  <select id="selectAc" onChange={this.onChange}>
+                    {this.state.options.map(item => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12} lg={12}>
+                  <div style={acStyle.divStyle}>
+                    <hr />
+                    <div style={acStyle.backStyle}>
+                      <button style={acStyle.buttonStyle}>
+                        <Icon>add</Icon>
+                      </button>
+                      <br />
+                      <p style={acStyle.pStyle}>{this.state.temperatureNow} &#8451;</p>
+                      <button style={acStyle.buttonStyle}>
+                        <Icon>remove</Icon>
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                </GridItem>
+                <GridItem xs={9} sm={6} md={12} lg={12}>
+                  <div style={acStyle.divStyle}>
+                    <div style={acStyle.tableStyle}>
+                      <h3 align="center">Schedule</h3>
+                      <Table
+                        border="1px solid black"
+                        style={{ width: "50%", margin: "auto" }}
+                      >
+                        <tbody>
+                          <tr>
+                            <th>
+                              <h6>Hour From</h6>
+                            </th>
+                            <td>
+                              <TimeInput
+                                mode="12h"
+                                onChange={time => this.handleTimeFrom(time)}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              <h6>Hour From</h6>
+                            </th>
+                            <td>
+                              <TimeInput
+                                mode="12h"
+                                onChange={time => this.handleTimeTo(time)}
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                      <p style={acStyle.pStyle}><button>Submit</button></p>
+                    </div>
+                  </div>
+                </GridItem>
+              </GridContainer>
+            </div>
           </GridItem>
         </GridContainer>
       </div>

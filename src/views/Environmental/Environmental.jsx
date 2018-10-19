@@ -87,9 +87,10 @@ class Environmental extends React.Component {
             <Card chart>
               <CardHeader color="success">
                 <Carousel>
-                  <div>
+                  <div color={"white"}>
                     <ChartistGraph
                       className="ct-chart"
+                      style={{color: 'red'}}
                       data={dailySalesChart.data}
                       type="Line"
                       options={dailySalesChart.options}
