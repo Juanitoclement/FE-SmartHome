@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS } from "./actionType";
 
-const apiUrl = "http://10.25.150.13:8000/homie/device/";
+const apiUrl = "http://10.25.150.23:8000/homie/device/";
 // const deviceUrl = "http://10.25.150.228:8000/homie/device/";
 // const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
 // const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
