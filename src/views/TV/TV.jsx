@@ -114,6 +114,8 @@ class TV extends React.Component {
                 <button style={tvStyle.powerButton} onClick={this.button}>
                   <Icon>power_settings_new</Icon>
                 </button>
+                <br/>
+                <h3>{this.state.power}</h3>
               </div>
               <GridContainer>
                 {/*Select TV*/}

@@ -132,7 +132,7 @@ class Dashboard extends React.Component {
     console.log(store.store.dispatch(turnOffAc()));
   }
   onAc = () => {
-    const abc = store.store.dispatch(turnOnAc());
+    // const abc = store.store.dispatch(turnOnAc());
     // abc.oldPayload.then(test => {
     //   this.setState({
     //     items: test

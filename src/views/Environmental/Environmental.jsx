@@ -51,6 +51,12 @@ const cardHeader = {
 };
 
 class Environmental extends React.Component {
+  componentWillMount() {
+    console.log(dailySalesChart.data);
+    console.log(dailySalesChart.options);
+    console.log(dailySalesChart.animation);
+  }
+
   handleSubmit() {
     alert("Logging you in");
   }
