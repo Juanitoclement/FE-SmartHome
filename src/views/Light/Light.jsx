@@ -1,21 +1,14 @@
 import React from "react";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
+// @material-ui/core]
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
-
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 import lightStyle from "assets/jss/customStyle";
 
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 import store from "../../redux/store/configureStore";

@@ -126,3 +126,47 @@ Try running "npm install" in your functions directory before deploying.
 
 Try running "npm install" in your functions directory before deploying.
 [debug] [2018-10-20T04:38:19.110Z] 
+[debug] [2018-10-20T14:00:25.825Z] ----------------------------------------------------------------------
+[debug] [2018-10-20T14:00:25.854Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\juani\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-10-20T14:00:25.855Z] CLI Version:   5.1.1
+[debug] [2018-10-20T14:00:25.855Z] Platform:      win32
+[debug] [2018-10-20T14:00:25.855Z] Node Version:  v8.10.0
+[debug] [2018-10-20T14:00:25.855Z] Time:          Sat Oct 20 2018 21:00:25 GMT+0700 (SE Asia Standard Time)
+[debug] [2018-10-20T14:00:25.856Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-20T14:00:25.904Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-20T14:00:25.908Z] > authorizing via signed-in user
+[debug] [2018-10-20T14:00:25.908Z] [iam] checking project homie-6702b for permissions ["firebase.projects.get"]
+[debug] [2018-10-20T14:00:25.921Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-20T14:00:25.922Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-10-20T14:00:28.202Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:00:28.220Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/homie-6702b:testIamPermissions  
+
+[debug] [2018-10-20T14:00:30.334Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:00:30.335Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/homie-6702b  
+ 
+[debug] [2018-10-20T14:00:31.780Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\juani\Documents\FE-SmartHome'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-20T14:00:36.505Z] Fetching environment
+[debug] [2018-10-20T14:00:36.512Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/654798426208:getServerAppConfig  
+ 
+[debug] [2018-10-20T14:00:36.513Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/654798426208/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-20T14:00:37.157Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T14:00:37.158Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-20T14:00:37.353Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+[debug] [2018-10-20T14:00:41.242Z] Parsing function triggers
+[warn] !  functions: Failed to load functions source code. Ensure that you have the latest SDK by running npm i --save firebase-functions inside the functions directory.
+[debug] [2018-10-20T14:00:41.540Z] Error during trigger parsing:  Error parsing triggers: Cannot find module 'firebase-functions'
+
+Try running "npm install" in your functions directory before deploying.
+[warn] !  functions: Error from emulator. Error parsing triggers: Cannot find module 'firebase-functions'
+
+Try running "npm install" in your functions directory before deploying.
+[debug] [2018-10-20T14:00:41.542Z] 

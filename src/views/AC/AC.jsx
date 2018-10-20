@@ -11,12 +11,6 @@ import { Table } from "reactstrap";
 import TimeInput from "material-ui-time-picker";
 import acStyle from "assets/jss/customStyle";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
-
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
@@ -29,15 +23,6 @@ import {
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
-import { Container, Col, Row} from 'reactstrap';
-
-const styles = {
-  cardColorTest: {
-    backgroundColor: "rgba(255,255,255,.62)"
-  }
-};
-
-const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
 class AC extends React.Component {
   constructor(props) {
@@ -163,7 +148,7 @@ class AC extends React.Component {
     let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
     console.log(answer);
     return answer;
-  };
+  }
 
   // Scheduler
   handleTimeFrom(time) {
@@ -189,7 +174,6 @@ class AC extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <GridContainer>
@@ -220,7 +204,9 @@ class AC extends React.Component {
                         <Icon>add</Icon>
                       </button>
                       <br />
-                      <p style={acStyle.pStyle}>{this.state.temperatureNow} &#8451;</p>
+                      <p style={acStyle.pStyle}>
+                        {this.state.temperatureNow} &#8451;
+                      </p>
                       <button style={acStyle.buttonStyle}>
                         <Icon>remove</Icon>
                       </button>
@@ -262,6 +248,9 @@ class AC extends React.Component {
                         </tbody>
                       </Table>
                       <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}>
+                        <button>Submit</button>
+                      </p>
                     </div>
                   </div>
                 </GridItem>
