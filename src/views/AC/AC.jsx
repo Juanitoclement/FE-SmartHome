@@ -66,7 +66,6 @@ class AC extends React.Component {
       this.setState({
         ac: res.data.data,
         options: res.data.data,
-        initOption: res.data.data[0].id,
         index: res.data.data[0].id,
         temperatureNow: res.data.data[0].temperature
       });
