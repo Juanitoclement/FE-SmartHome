@@ -11,7 +11,6 @@ export const GET_TV = "GET_TV";
 export const GET_TV_STATUS = "GET_TV_STATUS";
 export const GET_LAMP = "GET_TV";
 export const GET_LAMP_STATUS = "GET_TV_STATUS";
-export const SET_TIMER = "SET TIMER";
 
 export const UP_CHANNEL = "UP_CHANNEL";
 export const DOWN_CHANNEL = "DOWN_CHANNEL";

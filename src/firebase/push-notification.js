@@ -1,9 +1,6 @@
 import firebase from "firebase";
 import store from "../redux/store/configureStore";
 import { notificationToken } from "../redux/actions/firebaseAction";
-import Button from "components/CustomButtons/Button.jsx";
-import Snackbar from "components/Snackbar/Snackbar.jsx";
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 export const config = {
   apiKey: "AIzaSyAeM1YvCtKhi6xqXTUMsZ8HxC-fAgXutBU",

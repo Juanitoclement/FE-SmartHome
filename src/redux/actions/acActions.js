@@ -1,7 +1,7 @@
 import axios from "axios/index";
-import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS, SET_TIMER } from "./actionType";
+import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS } from "./actionType";
 
-const apiUrl = "http://192.168.30.101:8000/homie/device/";
+const apiUrl = "http://10.25.150.23:8000/homie/device/";
 // const deviceUrl = "http://10.25.150.228:8000/homie/device/";
 // const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
 // const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
@@ -91,31 +91,6 @@ function getAcStatus(id) {
     })
   };
 }
-
-function setTimer(id, start, end) {
-  return {
-    type: SET_TIMER,
-    setACTime: new Promise(resolve => {
-      axios
-        .get(apiUrl + "set-timer-ac", {
-          headers: {
-            "Content-type": "application/form-data",
-            mandatory: localStorage.getItem("token")
-          },
-          params: {
-            deviceID: id,
-            StringStart: start,
-            StringEnd: end,
-            accessToken: localStorage.getItem("token")
-          }
-        })
-        .then(response => {
-          console.log(response);
-          return resolve(response);
-        });
-    })
-  };
-}
 //
 // function newTodoSuccess(data) {
 //   return {
@@ -134,8 +109,7 @@ export {
   turnOnAc,
   turnOffAc,
   getAc,
-  getAcStatus,
-  setTimer
+  getAcStatus
   // newTodoFailure,
   // newTodoSuccess
 };
