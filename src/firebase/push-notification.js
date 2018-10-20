@@ -1,4 +1,5 @@
 import firebase from "firebase";
+
 export const initializeFirebase = () => {
   console.log("sdasdasdadsadsa");
 
@@ -11,12 +12,22 @@ export const initializeFirebase = () => {
     messagingSenderId: "654798426208"
   });
 };
-export const askForPermissioToReceiveNotifications = async () => {
+export const askForPermissionToReceiveNotifications = async () => {
   try {
     const messaging = firebase.messaging();
-    await messaging.requestPermission();
+    await messaging
+      .requestPermission()
+      .then(function() {
+        console.log("granted");
+      })
+      .catch(function(err) {
+        console.log("error", err);
+      });
+    messaging.onMessage(function(payload) {
+      console.log("onMessage: ", payload.notification);
+    });
     const token = await messaging.getToken();
-    console.log("token do usuário:", token);
+    console.log("token:", token);
 
     return token;
   } catch (error) {
