@@ -232,6 +232,9 @@ class Dashboard extends React.Component {
                 <p className={classes.cardCategory} onClick={this.redirectToTv}>
                   TV
                 </p>
+                <h3 className={classes.cardTitle} onClick={this.redirectToTv}>
+                  {this.state.powerTv} - <small>Bedroom</small>
+                </h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>

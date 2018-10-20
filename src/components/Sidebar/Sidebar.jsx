@@ -26,8 +26,6 @@ const Sidebar = ({ ...props }) => {
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (prop.redirect) return null;
-        if (prop.path != "/login" && localStorage.getItem("token") == null) return null;
-        if (prop.path == "/login" && localStorage.getItem("token") != null) return null;
         var activePro = " ";
         var listItemClasses;
         if (prop.path === "/contact-us") {
