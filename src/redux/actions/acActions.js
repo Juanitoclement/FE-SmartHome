@@ -14,7 +14,6 @@ const httpOptions = {
     mandatory: localStorage.getItem("token")
   },
   params: {
-    deviceID: "5bc41d6a2b7302a70769955a",
     accessToken: localStorage.getItem("token")
   }
 };
@@ -38,15 +37,22 @@ function turnOnAc(deviceID) {
     })
   };
 }
-function turnOffAc() {
-  console.log(httpOptions);
+function turnOffAc(deviceID) {
   return {
     type: AC_OFF,
     acOffPayload: new Promise(resolve => {
-      axios.get(apiUrl + "turn-off-ac", httpOptions).then(response => {
-        console.log(response);
-        return resolve(response);
-      });
+      axios
+        .get(apiUrl + "turn-off-ac", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: deviceID,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => resolve(response.data));
     })
   };
 }
