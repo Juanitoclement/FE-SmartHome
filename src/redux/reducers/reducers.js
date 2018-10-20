@@ -14,6 +14,8 @@ import {
   GET_TV_STATUS,
   GET_LAMP,
   GET_LAMP_STATUS,
+  GET_TEMPERATURE,
+  GET_HUMIDITY,
   NOTIF_TOKEN
 } from "../actions/actionType";
 
@@ -54,6 +56,10 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, getLampPayload: action.getLampPayload };
     case GET_LAMP_STATUS:
       return { ...state, getLampStatus: action.getLampStatus };
+    case GET_TEMPERATURE:
+      return { ...state, getTemperaturePayload: action.getTemperaturePayload };
+    case GET_HUMIDITY:
+      return { ...state, getHumidityPayload: action.getHumidityPayload };
     case NOTIF_TOKEN:
       return { ...state, notifPayload: action.notifPayload };
     // case NEW_TODO_SUCCESS: // return list of posts and make loading = false

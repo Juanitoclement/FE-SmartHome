@@ -22,6 +22,9 @@ export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";
 
+export const GET_TEMPERATURE = "GET_TEMPERATURE";
+export const GET_HUMIDITY = "GET_HUMIDITY";
+
 export const NOTIF_TOKEN = "NOTIF_TOKEN";
 
 // export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
