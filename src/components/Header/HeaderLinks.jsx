@@ -37,10 +37,9 @@ class HeaderLinks extends React.Component {
 
     this.setState({ open: false });
   };
-
-  Login() {
-    window.location.reload();
-  }
+  handleSubmit = () => {
+    console.log("hi");
+  };
   handleLogout() {
     const abc = store.store.dispatch(doLogout());
     console.log(abc);
@@ -155,37 +154,15 @@ class HeaderLinks extends React.Component {
             <p className={classes.linkText}>Profile</p>
           </Hidden>
         </Button>
-        {localStorage.getItem("token") == null ?
-          <Button
-            size="lg"
-            color="primary"
-            variant="contained"
-            type="button"
-            onClick={this.Login}
-          >
-          Login
-          </Button> :
-          <Button
-            size="lg"
-            color="primary"
-            variant="contained"
-            type="button"
-            onClick={this.handleLogout}
-          >
-            Logout
-          </Button>
-        }
-
-
-        {/*<Button*/}
-          {/*size="lg"*/}
-          {/*color="primary"*/}
-          {/*variant="contained"*/}
-          {/*type="button"*/}
-          {/*onClick={this.handleLogout}*/}
-        {/*>*/}
-          {/*Logout*/}
-        {/*</Button>*/}
+        <Button
+          size="lg"
+          color="primary"
+          variant="contained"
+          type="button"
+          onClick={this.handleLogout}
+        >
+          Logout
+        </Button>
       </div>
     );
   }
