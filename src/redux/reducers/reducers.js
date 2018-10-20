@@ -13,7 +13,8 @@ import {
   GET_TV,
   GET_TV_STATUS,
   GET_LAMP,
-  GET_LAMP_STATUS
+  GET_LAMP_STATUS,
+  NOTIF_TOKEN
 } from "../actions/actionType";
 
 const INITIAL_STATE = {
@@ -53,6 +54,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, getLampPayload: action.getLampPayload };
     case GET_LAMP_STATUS:
       return { ...state, getLampStatus: action.getLampStatus };
+    case NOTIF_TOKEN:
+      return { ...state, notifPayload: action.notifPayload };
     // case NEW_TODO_SUCCESS: // return list of posts and make loading = false
     //   return {
     //     ...state,
