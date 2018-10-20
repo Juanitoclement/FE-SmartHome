@@ -24,7 +24,8 @@ import {
   getAc,
   getAcStatus,
   turnOnAc,
-  turnOffAc
+  turnOffAc,
+  setTimer
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
@@ -179,6 +180,14 @@ class AC extends React.Component {
     });
   }
 
+  submitSchedule = () => {
+    const abc = store.store.dispatch( setTimer(this.state.index,this.state.hourFrom, this.state.hourTo));
+    abc.setACTime.then(res => {
+      console.log(res);
+      alert("Schedule has been submitted");
+    });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -252,7 +261,7 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button>Submit</button></p>
+                      <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
                     </div>
                   </div>
                 </GridItem>
