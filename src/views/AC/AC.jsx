@@ -24,8 +24,7 @@ import {
   getAc,
   getAcStatus,
   turnOnAc,
-  turnOffAc,
-  setTimer
+  turnOffAc
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
@@ -92,6 +91,7 @@ class AC extends React.Component {
   };
 
   turnAc = () => {
+    console.log(this.state.index);
     if (this.state.acStatus === true) {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
@@ -179,14 +179,6 @@ class AC extends React.Component {
     });
   }
 
-  submitSchedule = () => {
-    const abc = store.store.dispatch( setTimer(this.state.index,this.state.hourFrom, this.state.hourTo));
-    abc.setACTime.then(res => {
-      console.log(res);
-      alert("Schedule has been submitted");
-    });
-  }
-
   render() {
     const { classes } = this.props;
     return (
@@ -196,7 +188,7 @@ class AC extends React.Component {
             <div style={acStyle.cardStyle}>
               <div style={acStyle.divStyle}>
                 {/* POWER BUTTON */}
-                <button style={acStyle.powerButton} onClick={this.turnAc}>
+                <button style={acStyle.powerButton}>
                   <Icon>power_settings_new</Icon>
                 </button>
               </div>
@@ -227,7 +219,6 @@ class AC extends React.Component {
                     <hr />
                   </div>
                 </GridItem>
-                {/* Scheduler For AC */}
                 <GridItem xs={9} sm={6} md={12} lg={12}>
                   <div style={acStyle.divStyle}>
                     <div style={acStyle.tableStyle}>
@@ -261,7 +252,7 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button onSubmit={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}><button>Submit</button></p>
                     </div>
                   </div>
                 </GridItem>
