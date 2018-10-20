@@ -262,13 +262,7 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-<<<<<<< HEAD
-                      <p style={acStyle.pStyle}>
-                        <button>Submit</button>
-                      </p>
-=======
                       <p style={acStyle.pStyle}><button onSubmit={this.submitSchedule}>Submit</button></p>
->>>>>>> 68de6f08cabb21f7c68c10a75465353caca368f1
                     </div>
                   </div>
                 </GridItem>
