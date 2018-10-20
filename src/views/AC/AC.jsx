@@ -93,6 +93,7 @@ class AC extends React.Component {
 
   turnAc = () => {
     if (this.state.acStatus === true) {
+      console.log(this.state.index);
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
@@ -261,7 +262,7 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button onSubmit={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
                     </div>
                   </div>
                 </GridItem>

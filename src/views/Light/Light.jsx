@@ -29,10 +29,15 @@ import {
   turnOnLamp,
   turnOffLamp,
   getLamp,
-  getLampStatus
+  getLampStatus,
+  setTimer
 } from "../../redux/actions/lightAction";
 import TV from "../TV/TV";
 import { getTvStatus, turnOffTv, turnOnTv } from "../../redux/actions/tvAction";
+
+import { Table } from "reactstrap";
+import TimeInput from "material-ui-time-picker";
+import tvStyle from "assets/jss/customStyle";
 
 const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
@@ -42,13 +47,16 @@ const styles = {
   }
 };
 
+
 class Light extends React.Component {
   state = {
     lamp: [],
     options: [],
     name: "",
     power: "OFF",
-    deviceID: ""
+    deviceID: "",
+    hourFrom: "2018-01-01 12:00",
+    hourTo: "2018-01-01 13:00"
   };
 
   componentWillMount() {
@@ -63,6 +71,65 @@ class Light extends React.Component {
       });
       console.log(res.data.data);
       console.log(this.state);
+    });
+  }
+
+  // Scheduler
+  convertMonth(m) {
+    if (m === "Oct") {
+      return 10;
+    } else if (m === "Jan") {
+      return 1;
+    } else if (m === "Feb") {
+      return 2;
+    } else if (m === "Mar") {
+      return 3;
+    } else if (m === "Apr") {
+      return 4;
+    } else if (m === "May") {
+      return 5;
+    } else if (m === "Jun") {
+      return 6;
+    } else if (m === "Jul") {
+      return 7;
+    } else if (m === "Aug") {
+      return 8;
+    } else if (m === "Sep") {
+      return 9;
+    } else if (m === "Nov") {
+      return 11;
+    } else if (m === "Dec") {
+      return 12;
+    } else {
+      return -1;
+    }
+  }
+  formatDate(s) {
+    let stringDate = s.toString();
+    let myArray = stringDate.split(" ");
+    let month = this.convertMonth(myArray[1]);
+    let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
+    console.log(answer);
+    return answer;
+  }
+  handleTimeFrom(time) {
+    console.log(time);
+    let message = this.formatDate(time);
+    this.setState({
+      hourFrom: message
+    });
+  }
+  handleTimeTo(time) {
+    let message = this.formatDate(time);
+    this.setState({
+      hourTo: message
+    });
+  }
+  submitSchedule = () => {
+    const abc = store.store.dispatch( setTimer(this.state.deviceID,this.state.hourFrom, this.state.hourTo));
+    abc.setACTime.then(res => {
+      console.log(res);
+      alert("Schedule has been submitted");
     });
   }
 
@@ -93,15 +160,6 @@ class Light extends React.Component {
     });
   };
 
-  // Timer
-  handleTimer = () => {
-    this.setState({
-      h: this.state.number,
-      m: 0,
-      s: 0
-    });
-  };
-
   render() {
     return (
       <div>
@@ -129,6 +187,44 @@ class Light extends React.Component {
                       ))}
                     </select>
                   </GridItem>
+                </div>
+              </GridItem>
+              {/* Scheduler For AC */}
+              <GridItem xs={9} sm={6} md={12} lg={12}>
+                <div style={tvStyle.divStyle}>
+                  <div style={tvStyle.tableStyle}>
+                    <h3 align="center">Schedule</h3>
+                    <Table
+                      border="1px solid black"
+                      style={{ width: "50%", margin: "auto" }}
+                    >
+                      <tbody>
+                        <tr>
+                          <th>
+                            <h6>Hour From</h6>
+                          </th>
+                          <td>
+                            <TimeInput
+                              mode="12h"
+                              onChange={time => this.handleTimeFrom(time)}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>
+                            <h6>Hour From</h6>
+                          </th>
+                          <td>
+                            <TimeInput
+                              mode="12h"
+                              onChange={time => this.handleTimeTo(time)}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                    <p style={tvStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                  </div>
                 </div>
               </GridItem>
             </div>
