@@ -59,6 +59,7 @@ function turnOffLamp(id) {
   };
 }
 
+{/* get All Lamp for that particular user */}
 function getLamp() {
   return {
     type: GET_LAMP,
