@@ -29,8 +29,8 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
 import { turnOnAc, turnOffAc } from "../../redux/actions/acActions";
+import { notificationToken } from "../../redux/actions/firebaseAction";
 import { bugs, website, server } from "variables/general";
-import firebase from "firebase";
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -40,9 +40,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import Snackbar from "components/Snackbar/Snackbar.jsx";
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
-import {
-  askForPermissionToReceiveNotifications
-} from "../../firebase/push-notification";
+import { askForPermissionToReceiveNotifications } from "../../firebase/push-notification";
 import AddAlert from "@material-ui/icons/AddAlert";
 class Dashboard extends React.Component {
   constructor(props) {
@@ -64,10 +62,21 @@ class Dashboard extends React.Component {
   componentWillUnmount() {
     this.clearAlertTimeout();
   }
+  componentWillMount() {
+    this.firebaseToken();
+  }
   clearAlertTimeout() {
     if (this.alertTimeout !== null) {
       clearTimeout(this.alertTimeout);
     }
+  }
+  firebaseToken() {
+    console.log("hi");
+    store.store.dispatch(
+      notificationToken(
+        "APA91bH3IIjPmZt2fOkRyc09jAxihIl3tJISOR8JINjN2FhhavegJWbzQWzsW2f5nDZygZnDM_nw0QBMB7BHmvvINim6lvOcsMtDc_AuAI0WksaLTTpxRXdYiYwP0esq4EVqe4B8euR-"
+      )
+    );
   }
   showNotification(place) {
     var x = [];
@@ -180,7 +189,6 @@ class Dashboard extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const { abc } = askForPermissionToReceiveNotifications()
     return (
       <div>
         <GridContainer>
@@ -192,7 +200,9 @@ class Dashboard extends React.Component {
             >
               Top Right
             </Button>
-            <button onClick={askForPermissionToReceiveNotifications}>abc</button>
+            <button onClick={askForPermissionToReceiveNotifications}>
+              abc
+            </button>
             <Snackbar
               place="tr"
               color="info"
