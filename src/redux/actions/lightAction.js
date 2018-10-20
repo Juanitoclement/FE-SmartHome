@@ -1,7 +1,7 @@
 import axios from "axios/index";
-import { LAMP_ON, LAMP_OFF, GET_LAMP, GET_LAMP_STATUS } from "./actionType";
+import { LAMP_ON, LAMP_OFF, GET_LAMP, GET_LAMP_STATUS, SET_TIMER } from "./actionType";
 
-const apiUrl = "http://10.25.150.13:8000/homie/device/";
+const apiUrl = "http://192.168.30.101:8000/homie/device/";
 
 const httpOptions = {
   headers: {
@@ -59,6 +59,7 @@ function turnOffLamp(id) {
   };
 }
 
+{/* get All Lamp for that particular user */}
 function getLamp() {
   return {
     type: GET_LAMP,
@@ -94,9 +95,35 @@ function getLampStatus(id) {
   };
 }
 
+function setTimer(id, start, end) {
+  return {
+    type: SET_TIMER,
+    setACTime: new Promise(resolve => {
+      axios
+        .get(apiUrl + "set-timer-lamp", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            StringStart: start,
+            StringEnd: end,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
+
 export {
   turnOnLamp,
   turnOffLamp,
   getLamp,
-  getLampStatus
+  getLampStatus,
+  setTimer
 };
