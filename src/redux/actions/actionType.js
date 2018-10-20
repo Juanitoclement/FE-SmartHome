@@ -7,6 +7,7 @@ export const LAMP_OFF = "LIGHT_OFF";
 
 export const GET_AC = "GET_AC";
 export const GET_AC_STATUS = "GET_AC_STATUS";
+export const SET_AC_TIMER = "SET AC TIMER";
 export const GET_TV = "GET_TV";
 export const GET_TV_STATUS = "GET_TV_STATUS";
 export const GET_LAMP = "GET_TV";
