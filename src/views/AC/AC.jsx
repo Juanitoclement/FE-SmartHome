@@ -28,7 +28,7 @@ import {
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
-import { Container, Col, Row} from 'reactstrap';
+import { Container, Col, Row } from "reactstrap";
 
 const styles = {
   cardColorTest: {
@@ -162,7 +162,7 @@ class AC extends React.Component {
     let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
     console.log(answer);
     return answer;
-  };
+  }
 
   // Scheduler
   handleTimeFrom(time) {
@@ -180,7 +180,6 @@ class AC extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <GridContainer>
@@ -211,7 +210,9 @@ class AC extends React.Component {
                         <Icon>add</Icon>
                       </button>
                       <br />
-                      <p style={acStyle.pStyle}>{this.state.temperatureNow} &#8451;</p>
+                      <p style={acStyle.pStyle}>
+                        {this.state.temperatureNow} &#8451;
+                      </p>
                       <button style={acStyle.buttonStyle}>
                         <Icon>remove</Icon>
                       </button>
@@ -252,7 +253,9 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button>Submit</button></p>
+                      <p style={acStyle.pStyle}>
+                        <button>Submit</button>
+                      </p>
                     </div>
                   </div>
                 </GridItem>
@@ -265,8 +268,4 @@ class AC extends React.Component {
   }
 }
 
-AC.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(dashboardStyle)(AC);
+export default AC;

@@ -134,60 +134,6 @@ class Light extends React.Component {
             </div>
           </GridItem>
         </GridContainer>
-
-        {/*OLD*/}
-        {/*<GridContainer>*/}
-        {/*/!*Power Off button*!/*/}
-        {/*<GridItem xs={12} sm={6} md={3} lg={12}>*/}
-        {/*<Card>*/}
-        {/*/!* Power Off / Main Card *!/*/}
-        {/*<CardHeader color="info" stats icon>*/}
-        {/*<CardIconLig*/}
-        {/*onClick={this.button}*/}
-        {/*color={this.handleColor(this.state.acstatus)}*/}
-        {/*>*/}
-        {/*<Icon>power_settings_new</Icon>*/}
-        {/*<p>{this.state.power}</p>*/}
-        {/*</CardIconLig>*/}
-        {/*</CardHeader>*/}
-
-        {/*<CardBody>*/}
-        {/*<GridContainer>*/}
-
-        {/*<GridItem xs={12} sm={12} md={12} lg={12}>*/}
-        {/*<h3>Select Light:</h3>*/}
-        {/*<Dropdown*/}
-        {/*options={options}*/}
-        {/*onChange={this.onSelect}*/}
-        {/*value={options[0]}*/}
-        {/*placeholder="TEsting123"*/}
-        {/*/>*/}
-        {/*</GridItem>*/}
-
-        {/*/!* Timer Menu *!/*/}
-        {/*<GridItem xs={12} sm={12} md={12} lg={12}>*/}
-        {/*<h3>Timer</h3>*/}
-        {/*<form>*/}
-        {/*<input*/}
-        {/*name="number"*/}
-        {/*type="number"*/}
-        {/*placeholder="Time in hours"*/}
-        {/*onChange={event => this.handleInput(event)}*/}
-        {/*/>*/}
-        {/*/!*<p>{this.state.number}</p>*!/*/}
-        {/*<button type="button" onClick={this.handleTimer}>*/}
-        {/*Submit*/}
-        {/*</button>*/}
-        {/*<br />*/}
-        {/*h: {this.state.h} m: {this.state.m} s:{" "}*/}
-        {/*{this.state.s}*/}
-        {/*</form>*/}
-        {/*</GridItem>*/}
-        {/*</GridContainer>*/}
-        {/*</CardBody>*/}
-        {/*</Card>*/}
-        {/*</GridItem>*/}
-        {/*</GridContainer>*/}
       </div>
     );
   }
