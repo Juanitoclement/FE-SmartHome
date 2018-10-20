@@ -19,6 +19,9 @@ export const UP_VOLUME = "UP_VOLUME";
 export const DOWN_VOLUME = "DOWN_VOLUME";
 export const MUTE_VOLUME = "MUTE_VOLUME";
 
+export const GET_TEMPERATURE = "GET_TEMPERATURE";
+export const GET_HUMIDITY = "GET_HUMIDITY";
+
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";
