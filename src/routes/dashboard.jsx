@@ -1,11 +1,8 @@
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import Home from "@material-ui/icons/Home";
-import BubbleChart from "@material-ui/icons/BubbleChart";
 import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
 import LiveTv from "@material-ui/icons/LiveTv";
 import Help from "@material-ui/icons/Help";
 import AirCon from "@material-ui/icons/Toys";
@@ -14,8 +11,6 @@ import Environment from "@material-ui/icons/Wallpaper";
 
 // core components/views
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
-import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";

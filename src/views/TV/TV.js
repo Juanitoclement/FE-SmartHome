@@ -9,7 +9,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
-import CardIconCustom from "components/Card/CardIconCustom.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -17,11 +16,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
 
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
@@ -33,31 +27,13 @@ import {
   turnOffAc
 } from "../../redux/actions/acActions";
 
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-
-const styles = {
-  cardColorTest: {
-    backgroundColor: "rgba(255,255,255,.62)"
-  }
-};
-
-// const CustomTableHead = withStyles(theme => ({
-//   head: {
-//     backgroundColor: theme.palette.common.black,
-//     color: theme.palette.common.white,
-//     borderBottomColor: theme.palette.common.black
-//   }
-// }))(TableCell);
-
 const CustomTableCell = withStyles(theme => ({
   body: {
     fontSize: 14,
     borderBottomColor: theme.palette.common.black
   }
 }))(TableCell);
-
-const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
 class AC extends React.Component {
   constructor(props) {

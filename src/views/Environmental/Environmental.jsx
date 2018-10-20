@@ -9,9 +9,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 
-import {
-  dailySalesChart
-} from "variables/charts";
+import { dailySalesChart } from "variables/charts";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -120,13 +118,6 @@ class Environmental extends React.Component {
   };
 
   render() {
-    const params = {
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      }
-    };
-
     return (
       <div>
         <GridContainer>

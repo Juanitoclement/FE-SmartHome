@@ -12,7 +12,7 @@ import Poppers from "@material-ui/core/Popper";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
-import Dashboard from "@material-ui/icons/Dashboard";
+
 import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -37,9 +37,7 @@ class HeaderLinks extends React.Component {
 
     this.setState({ open: false });
   };
-  handleSubmit = () => {
-    console.log("hi");
-  };
+
   handleLogout() {
     const abc = store.store.dispatch(doLogout());
     console.log(abc);

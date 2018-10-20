@@ -1,27 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
+// @material-ui/core]
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardIconLig from "components/Card/CardIconLig.jsx";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
-
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 import lightStyle from "assets/jss/customStyle";
 
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 import store from "../../redux/store/configureStore";
@@ -31,16 +16,6 @@ import {
   getLamp,
   getLampStatus
 } from "../../redux/actions/lightAction";
-import TV from "../TV/TV";
-import { getTvStatus, turnOffTv, turnOnTv } from "../../redux/actions/tvAction";
-
-const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
-
-const styles = {
-  cardColorTest: {
-    backgroundColor: "rgba(255,255,255,.62)"
-  }
-};
 
 class Light extends React.Component {
   state = {
