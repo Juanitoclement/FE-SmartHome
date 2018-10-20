@@ -29,17 +29,19 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
 import { turnOnAc, turnOffAc } from "../../redux/actions/acActions";
+import { notificationToken } from "../../redux/actions/firebaseAction";
 import { bugs, website, server } from "variables/general";
-
 import {
   dailySalesChart,
   emailsSubscriptionChart,
   completedTasksChart
 } from "variables/charts";
-
+import Button from "components/CustomButtons/Button.jsx";
+import Snackbar from "components/Snackbar/Snackbar.jsx";
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
-import { askForPermissioToReceiveNotifications} from "../../firebase/push-notification";
+import { askForPermissionToReceiveNotifications } from "../../firebase/push-notification";
+import AddAlert from "@material-ui/icons/AddAlert";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -52,8 +54,42 @@ class Dashboard extends React.Component {
       powerLig: "OFF",
       powerAc: "OFF",
       items: 0,
-      items2: []
+      items2: [],
+      messages: [],
+      tr: false
     };
+  }
+  componentWillUnmount() {
+    this.clearAlertTimeout();
+  }
+  componentWillMount() {
+    this.firebaseToken();
+  }
+  clearAlertTimeout() {
+    if (this.alertTimeout !== null) {
+      clearTimeout(this.alertTimeout);
+    }
+  }
+  firebaseToken() {
+    console.log("hi");
+    store.store.dispatch(
+      notificationToken(
+        "APA91bH3IIjPmZt2fOkRyc09jAxihIl3tJISOR8JINjN2FhhavegJWbzQWzsW2f5nDZygZnDM_nw0QBMB7BHmvvINim6lvOcsMtDc_AuAI0WksaLTTpxRXdYiYwP0esq4EVqe4B8euR-"
+      )
+    );
+  }
+  showNotification(place) {
+    var x = [];
+    x[place] = true;
+    this.setState(x);
+    this.clearAlertTimeout();
+    this.alertTimeout = setTimeout(
+      function() {
+        x[place] = false;
+        this.setState(x);
+      }.bind(this),
+      3000
+    );
   }
 
   handleChange = (event, value) => {
@@ -151,15 +187,37 @@ class Dashboard extends React.Component {
   redirectToLig = () => {
     this.props.history.push("light");
   };
-
   render() {
     const { classes } = this.props;
     return (
       <div>
         <GridContainer>
+          <GridItem xs={12} sm={12} md={4}>
+            <Button
+              fullWidth
+              color="primary"
+              onClick={() => this.showNotification("tr")}
+            >
+              Top Right
+            </Button>
+            <button onClick={askForPermissionToReceiveNotifications}>
+              abc
+            </button>
+            <Snackbar
+              place="tr"
+              color="info"
+              icon={AddAlert}
+              message="Welcome to MATERIAL DASHBOARD React - a beautiful freebie for every web developer."
+              open={this.state.tr}
+              closeNotification={() => this.setState({ tr: false })}
+              close
+            />
+          </GridItem>
           <GridItem xs={6} sm={6} md={4}>
             <Card>
-              <button onClick={askForPermissioToReceiveNotifications}>anc</button>
+              {/*<button onClick={askForPermissionToReceiveNotifications}>*/}
+              {/*anc*/}
+              {/*</button>*/}
               <CardHeader
                 color={this.handleColorTv(this.state.tvStatus)}
                 stats

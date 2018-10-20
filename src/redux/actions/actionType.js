@@ -7,6 +7,7 @@ export const LAMP_OFF = "LIGHT_OFF";
 
 export const GET_AC = "GET_AC";
 export const GET_AC_STATUS = "GET_AC_STATUS";
+export const SET_AC_TIMER = "SET AC TIMER";
 export const GET_TV = "GET_TV";
 export const GET_TV_STATUS = "GET_TV_STATUS";
 export const GET_LAMP = "GET_TV";
@@ -21,6 +22,8 @@ export const MUTE_VOLUME = "MUTE_VOLUME";
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";
+
+export const NOTIF_TOKEN = "NOTIF_TOKEN";
 
 // export const NEW_TODO_SUCCESS = "NEW_TODO_SUCCESS";
 // export const NEW_TODO_FAILURE = "NEW_TODO_FAILURE";
