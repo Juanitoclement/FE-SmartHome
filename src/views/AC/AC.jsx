@@ -66,18 +66,24 @@ class AC extends React.Component {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
-        this.setState({
-          acStatus: false,
-          power: "Off"
+        // this.selectChange();
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature,
+          });
         });
       });
     } else if (this.state.acStatus === false) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
       abc.acOnPayload.then(res => {
         console.log(res);
-        this.setState({
-          acStatus: true,
-          power: "On"
+        // this.selectChange();
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature,
+          });
         });
       });
     }
@@ -121,7 +127,7 @@ class AC extends React.Component {
     }
   };
 
-  onChange = () => {
+  selectChange = () => {
     const abc = store.store.dispatch(
       getAcStatus(document.getElementById("selectAc").value)
     );
@@ -212,7 +218,7 @@ class AC extends React.Component {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
                   <h3>Select AC:</h3>
-                  <select id="selectAc" onChange={this.onChange}>
+                  <select id="selectAc" onChange={this.selectChange}>
                     {this.state.options.map(item => (
                       <option key={item.id} value={item.id}>
                         {item.name}
@@ -224,14 +230,20 @@ class AC extends React.Component {
                   <div style={acStyle.divStyle}>
                     <hr />
                     <div style={acStyle.backStyle}>
-                      <button style={acStyle.buttonStyle} onClick={this.temperatureUp}>
+                      <button
+                        style={acStyle.buttonStyle}
+                        onClick={this.temperatureUp}
+                      >
                         <Icon>add</Icon>
                       </button>
                       <br />
                       <p style={acStyle.pStyle}>
                         {this.state.temperatureNow} &#8451;
                       </p>
-                      <button style={acStyle.buttonStyle} onClick={this.temperatureDown}>
+                      <button
+                        style={acStyle.buttonStyle}
+                        onClick={this.temperatureDown}
+                      >
                         <Icon>remove</Icon>
                       </button>
                     </div>

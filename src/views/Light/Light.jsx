@@ -105,23 +105,47 @@ class Light extends React.Component {
     });
   }
   submitSchedule = () => {
-    const abc = store.store.dispatch( setTimer(this.state.deviceID,this.state.hourFrom, this.state.hourTo));
+    const abc = store.store.dispatch(
+      setTimer(this.state.deviceID, this.state.hourFrom, this.state.hourTo)
+    );
     abc.setACTime.then(res => {
       console.log(res);
       alert("Schedule has been submitted");
     });
-  }
+  };
 
   // Power
   handlePower = () => {
     if (this.state.power === "OFF") {
       const abc = store.store.dispatch(turnOnLamp(this.state.deviceID));
-      abc.lampOnPayload.then(res => console.log(res));
+      abc.lampOnPayload.then(res => {
+        console.log(res);
+        // this.selectChange();
+        const def = store.store.dispatch(getLampStatus(this.state.deviceID));
+        def.getLampStatus.then(res => {
+          console.log(res);
+          this.setState({
+            power: res.data.data.status
+          });
+          console.log(this.state);
+        });
+      });
     } else {
       const abc = store.store.dispatch(turnOffLamp(this.state.deviceID));
-      abc.lampOffPayload.then(res => console.log(res));
+      abc.lampOffPayload.then(res => {
+        console.log(res);
+        // this.selectChange();
+        const def = store.store.dispatch(getLampStatus(this.state.deviceID));
+        def.getLampStatus.then(res => {
+          console.log(res);
+          this.setState({
+            power: res.data.data.status
+          });
+          console.log(this.state);
+        });
+      });
     }
-  }
+  };
 
   // Dropdown
   selectChange = () => {
@@ -156,7 +180,10 @@ class Light extends React.Component {
             <div style={lightStyle.cardStyle}>
               <div style={lightStyle.divStyle}>
                 {/* POWER BUTTON */}
-                <button style={lightStyle.powerButton} onClick={this.handlePower}>
+                <button
+                  style={lightStyle.powerButton}
+                  onClick={this.handlePower}
+                >
                   <Icon>power_settings_new</Icon>
                 </button>
                 <br />
@@ -164,7 +191,7 @@ class Light extends React.Component {
               </div>
               <GridItem xs={12} sm={6} md={3} lg={12}>
                 <div style={lightStyle.divStyle}>
-                  <hr/>
+                  <hr />
                   <GridItem xs={12} sm={12} md={12} lg={12}>
                     <h3>Select Lamp:</h3>
                     <select id="selectLamp" onChange={this.selectChange}>
@@ -210,7 +237,9 @@ class Light extends React.Component {
                         </tr>
                       </tbody>
                     </Table>
-                    <p style={lightStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                    <p style={lightStyle.pStyle}>
+                      <button onClick={this.submitSchedule}>Submit</button>
+                    </p>
                   </div>
                 </div>
               </GridItem>

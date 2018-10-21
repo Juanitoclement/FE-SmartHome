@@ -8,7 +8,7 @@ import {
   DOWN_CHANNEL,
   UP_VOLUME,
   DOWN_VOLUME,
-  // MUTE_VOLUME
+  MUTE_VOLUME
 } from "./actionType";
 
 const apiUrl = "http://10.25.150.13:8000/homie/device/";
@@ -162,8 +162,28 @@ function downVolume(id) {
   };
 }
 
-function muteVolume() {}
-
+function muteVolume(id) {
+  return {
+    type: MUTE_VOLUME,
+    muteVolumePayload: new Promise(resolve => {
+      axios
+        .get(tvUrl + "mute", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            deviceID: id,
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
 function getTv() {
   return {
     type: GET_TV,

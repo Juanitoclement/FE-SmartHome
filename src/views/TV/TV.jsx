@@ -16,7 +16,8 @@ import {
   upChannel,
   downChannel,
   upVolume,
-  downVolume
+  downVolume,
+  muteVolume
 } from "../../redux/actions/tvAction";
 
 class TV extends React.Component {
@@ -55,12 +56,34 @@ class TV extends React.Component {
   handlePower = () => {
     if (this.state.power === "OFF") {
       const abc = store.store.dispatch(turnOnTv(this.state.deviceID));
-      abc.tvOnPayload.then(res => console.log(res));
+      abc.tvOnPayload.then(res => {
+        console.log(res);
+        // this.selectChange();
+        const def = store.store.dispatch(getTvStatus(this.state.deviceID));
+        def.getTvStatus.then(res => {
+          console.log(res);
+          this.setState({
+            power: res.data.data.status
+          });
+          console.log(this.state);
+        });
+      });
     } else {
       const abc = store.store.dispatch(turnOffTv(this.state.deviceID));
-      abc.tvOffPayload.then(res => console.log(res));
+      abc.tvOffPayload.then(res => {
+        console.log(res);
+        // this.selectChange();
+        const def = store.store.dispatch(getTvStatus(this.state.deviceID));
+        def.getTvStatus.then(res => {
+          console.log(res);
+          this.setState({
+            power: res.data.data.status
+          });
+          console.log(this.state);
+        });
+      });
     }
-  }
+  };
 
   // Channels
   upProgram = () => {
@@ -81,6 +104,11 @@ class TV extends React.Component {
   downVolume = () => {
     const abc = store.store.dispatch(downVolume(this.state.deviceID));
     abc.downVolumePayload.then(res => console.log(res));
+  };
+
+  muteVolume = () => {
+    const abc = store.store.dispatch(muteVolume(this.state.deviceID));
+    abc.muteVolumePayload.then(res => console.log(res));
   };
 
   // Dropdown
@@ -114,7 +142,7 @@ class TV extends React.Component {
                 <button style={tvStyle.powerButton} onClick={this.button}>
                   <Icon>power_settings_new</Icon>
                 </button>
-                <br/>
+                <br />
                 <h3>{this.state.power}</h3>
               </div>
               <GridContainer>
@@ -133,13 +161,18 @@ class TV extends React.Component {
                 <GridItem xs={6} sm={6} md={6} lg={6}>
                   <div style={tvStyle.divStyle}>
                     <div style={tvStyle.backStyle}>
-                      <button style={tvStyle.buttonStyle} onClick={this.upProgram}>
+                      <button
+                        style={tvStyle.buttonStyle}
+                        onClick={this.upProgram}
+                      >
                         <Icon>add</Icon>
                       </button>
                       <p style={tvStyle.pStyle}>Channel</p>
                       <br />
-                      {/*<p style={tvStyle.pStyle}>{this.state.channel}</p>*/}
-                      <button style={tvStyle.buttonStyle} onClick={this.downProgram}>
+                      <button
+                        style={tvStyle.buttonStyle}
+                        onClick={this.downProgram}
+                      >
                         <Icon>remove</Icon>
                       </button>
                     </div>
@@ -149,14 +182,32 @@ class TV extends React.Component {
                 <GridItem xs={6} sm={6} md={6} lg={6}>
                   <div style={tvStyle.divStyle}>
                     <div style={tvStyle.backStyle}>
-                      <button style={tvStyle.buttonStyle} onClick={this.upVolume}>
+                      <button
+                        style={tvStyle.buttonStyle}
+                        onClick={this.upVolume}
+                      >
                         <Icon>volume_up</Icon>
                       </button>
                       <p style={tvStyle.pStyle}>Volume</p>
                       <br />
-                      {/*<p style={tvStyle.pStyle}>{this.state.volume}</p>*/}
-                      <button style={tvStyle.buttonStyle} onClick={this.downVolume}>
+                      <button
+                        style={tvStyle.buttonStyle}
+                        onClick={this.downVolume}
+                      >
                         <Icon>volume_down</Icon>
+                      </button>
+                    </div>
+                  </div>
+                </GridItem>
+                {/* Mute Button */}
+                <GridItem xs={12} sm={12} md={12} lg={12}>
+                  <div style={tvStyle.divStyle}>
+                    <div style={tvStyle.backStyle}>
+                      <button
+                        style={tvStyle.buttonStyle}
+                        onClick={this.muteVolume}
+                      >
+                        <Icon>volume_off</Icon>
                       </button>
                     </div>
                   </div>
