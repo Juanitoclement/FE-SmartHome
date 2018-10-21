@@ -19,7 +19,8 @@ import {
   getAcStatus,
   turnOnAc,
   turnOffAc,
-  setTimer
+  setTimer,
+  setAcTemperature
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
@@ -30,14 +31,13 @@ class AC extends React.Component {
     // noinspection JSAnnotator
     this.state = {
       value: 0,
-      // acStatus: 0,
       acStatus: true,
       power: "ON",
       temperatureNow: 0,
       ac: [],
       options: [],
-      initOption: "12",
-      index: "12",
+      initOption: "0",
+      index: "0",
       schedulerstatus: "toggle_off",
       hourFrom: "2018-01-01 12:00",
       hourTo: "2018-01-01 13:00"
@@ -47,7 +47,7 @@ class AC extends React.Component {
   // What will happen before render
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
-    abc.getacPayload.then(res => {
+    abc.getAcPayload.then(res => {
       this.setState({
         ac: res.data.data,
         options: res.data.data,
@@ -60,46 +60,74 @@ class AC extends React.Component {
     });
   }
 
-  showUI() {
-    window.location = "/table";
-  }
-
-  // Turn AC ON/OFF
-  // acStatus:
-  // true = On
-  // false = Off
-  handleColor = () => {
-    if (this.state.acStatus === true) {
-      return "info";
-    } else if (this.state.acStatus === false) {
-      return "rose";
-    }
-  };
-
   turnAc = () => {
     console.log(this.state.index);
     if (this.state.acStatus === true) {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
-        this.setState({
-          acStatus: false,
-          power: "Off"
+        // this.selectChange();
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature,
+          });
         });
       });
     } else if (this.state.acStatus === false) {
       const abc = store.store.dispatch(turnOnAc(this.state.index));
       abc.acOnPayload.then(res => {
         console.log(res);
-        this.setState({
-          acStatus: true,
-          power: "On"
+        // this.selectChange();
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature,
+          });
         });
       });
     }
   };
 
-  onChange = () => {
+  temperatureUp = () => {
+    if (this.state.temperatureNow + 1 < 31) {
+      const abc = store.store.dispatch(
+        setAcTemperature(this.state.index, this.state.temperatureNow + 1)
+      );
+      abc.setTemperaturePayload.then(res => {
+        console.log(res);
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature
+          });
+        });
+      });
+    } else {
+      alert("Temperature is too HIGH!");
+    }
+  };
+
+  temperatureDown = () => {
+    if (this.state.temperatureNow - 1 > 15) {
+      const abc = store.store.dispatch(
+        setAcTemperature(this.state.index, this.state.temperatureNow - 1)
+      );
+      abc.setTemperaturePayload.then(res => {
+        console.log(res);
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature
+          });
+        });
+      });
+    } else {
+      alert("Temperature is too LOW!");
+    }
+  };
+
+  selectChange = () => {
     const abc = store.store.dispatch(
       getAcStatus(document.getElementById("selectAc").value)
     );
@@ -166,12 +194,14 @@ class AC extends React.Component {
   }
 
   submitSchedule = () => {
-    const abc = store.store.dispatch( setTimer(this.state.index,this.state.hourFrom, this.state.hourTo));
+    const abc = store.store.dispatch(
+      setTimer(this.state.index, this.state.hourFrom, this.state.hourTo)
+    );
     abc.setACTime.then(res => {
       console.log(res);
       alert("Schedule has been submitted");
     });
-  }
+  };
 
   render() {
     return (
@@ -188,7 +218,7 @@ class AC extends React.Component {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
                   <h3>Select AC:</h3>
-                  <select id="selectAc" onChange={this.onChange}>
+                  <select id="selectAc" onChange={this.selectChange}>
                     {this.state.options.map(item => (
                       <option key={item.id} value={item.id}>
                         {item.name}
@@ -200,14 +230,20 @@ class AC extends React.Component {
                   <div style={acStyle.divStyle}>
                     <hr />
                     <div style={acStyle.backStyle}>
-                      <button style={acStyle.buttonStyle}>
+                      <button
+                        style={acStyle.buttonStyle}
+                        onClick={this.temperatureUp}
+                      >
                         <Icon>add</Icon>
                       </button>
                       <br />
                       <p style={acStyle.pStyle}>
                         {this.state.temperatureNow} &#8451;
                       </p>
-                      <button style={acStyle.buttonStyle}>
+                      <button
+                        style={acStyle.buttonStyle}
+                        onClick={this.temperatureDown}
+                      >
                         <Icon>remove</Icon>
                       </button>
                     </div>
@@ -247,7 +283,9 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}>
+                        <button onClick={this.submitSchedule}>Submit</button>
+                      </p>
                       <p style={acStyle.pStyle}>
                         <button>Submit</button>
                       </p>
@@ -263,8 +301,4 @@ class AC extends React.Component {
   }
 }
 
-AC.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(dashboardStyle)(AC);
+export default AC;

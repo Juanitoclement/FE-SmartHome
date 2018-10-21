@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { DO_VERIFY, DO_LOGIN, DO_LOGOUT } from "./actionType";
 
-const loginUrl = "http://192.168.5.51:8000/homie/user/";
+const loginUrl = "http://192.168.30.119:8000/homie/user/";
 
 const httpOptions = {
   headers: {

@@ -68,7 +68,7 @@ const customStyle = {
     textAlign: "center"
   },
   tableStyle: {
-    marginLeft: "10%"
+    margin: "auto"
   }
 };
 
