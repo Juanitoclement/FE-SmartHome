@@ -8,7 +8,7 @@ import {
   DOWN_CHANNEL,
   UP_VOLUME,
   DOWN_VOLUME,
-  MUTE_VOLUME
+  // MUTE_VOLUME
 } from "./actionType";
 
 const apiUrl = "http://10.25.150.13:8000/homie/device/";

@@ -28,7 +28,6 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import store from "../../redux/store/configureStore";
-import { turnOnAc, turnOffAc } from "../../redux/actions/acActions";
 import { notificationToken } from "../../redux/actions/firebaseAction";
 import { bugs, website, server } from "variables/general";
 import {
@@ -162,18 +161,6 @@ class Dashboard extends React.Component {
         powerLig: "OFF"
       });
     }
-  };
-  offAc() {
-    store.store.dispatch(turnOffAc());
-    console.log(store.store.dispatch(turnOffAc()));
-  }
-  onAc = () => {
-    // const abc = store.store.dispatch(turnOnAc());
-    // abc.oldPayload.then(test => {
-    //   this.setState({
-    //     items: test
-    //   });
-    // });
   };
 
   redirectToTv = () => {

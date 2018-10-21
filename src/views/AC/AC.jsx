@@ -11,12 +11,6 @@ import { Table } from "reactstrap";
 import TimeInput from "material-ui-time-picker";
 import acStyle from "assets/jss/customStyle";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
-
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
@@ -24,19 +18,11 @@ import {
   getAc,
   getAcStatus,
   turnOnAc,
-  turnOffAc
+  turnOffAc,
+  setTimer
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
-import { Container, Col, Row } from "reactstrap";
-
-const styles = {
-  cardColorTest: {
-    backgroundColor: "rgba(255,255,255,.62)"
-  }
-};
-
-const options = ["Bedroom", "Livingroom", "Kamar Pembantu"];
 
 class AC extends React.Component {
   constructor(props) {
@@ -179,6 +165,14 @@ class AC extends React.Component {
     });
   }
 
+  submitSchedule = () => {
+    const abc = store.store.dispatch( setTimer(this.state.index,this.state.hourFrom, this.state.hourTo));
+    abc.setACTime.then(res => {
+      console.log(res);
+      alert("Schedule has been submitted");
+    });
+  }
+
   render() {
     return (
       <div>
@@ -253,7 +247,10 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button>Submit</button></p>
+                      <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}>
+                        <button>Submit</button>
+                      </p>
                     </div>
                   </div>
                 </GridItem>

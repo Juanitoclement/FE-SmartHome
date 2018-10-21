@@ -11,6 +11,7 @@ export const GET_TV = "GET_TV";
 export const GET_TV_STATUS = "GET_TV_STATUS";
 export const GET_LAMP = "GET_TV";
 export const GET_LAMP_STATUS = "GET_TV_STATUS";
+export const SET_TIMER = "SET TIMER";
 
 export const UP_CHANNEL = "UP_CHANNEL";
 export const DOWN_CHANNEL = "DOWN_CHANNEL";
@@ -24,6 +25,9 @@ export const GET_HUMIDITY = "GET_HUMIDITY";
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
 export const DO_LOGOUT = "DO_LOGOUT";
+
+export const GET_TEMPERATURE = "GET_TEMPERATURE";
+export const GET_HUMIDITY = "GET_HUMIDITY";
 
 export const NOTIF_TOKEN = "NOTIF_TOKEN";
 
