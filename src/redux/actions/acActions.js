@@ -1,12 +1,7 @@
 import axios from "axios/index";
-import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS, SET_TIMER } from "./actionType";
+import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS, SET_TIMER, SET_TEMPERATURE } from "./actionType";
 
 const apiUrl = "http://10.25.150.23:8000/homie/device/";
-// const deviceUrl = "http://10.25.150.228:8000/homie/device/";
-// const apiUrl = "http://10.25.150.228:8000/homie/device/turn-on-ac";
-// const getAcUrl = "http://10.25.150.228:8000/homie/device/get-all-users-ac";
-// const getAcStatusUrl =
-//   "http://10.25.150.228:8000/homie/device/get-ac-by-device-id";
 
 const httpOptions = {
   headers: {
@@ -60,7 +55,7 @@ function turnOffAc(deviceID) {
 function getAc() {
   return {
     type: GET_AC,
-    getacPayload: new Promise(resolve => {
+    getAcPayload: new Promise(resolve => {
       axios.get(apiUrl + "get-all-users-ac", httpOptions).then(response => {
         console.log(response);
         return resolve(response);
@@ -115,12 +110,38 @@ function setTimer(id, start, end) {
     })
   };
 }
+
+function setAcTemperature(id, temperature) {
+  return {
+    type: SET_TEMPERATURE,
+    setTemperaturePayload: new Promise(resolve => {
+      axios
+        .get(apiUrl + "set-temp", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            accessToken: localStorage.getItem("token"),
+            deviceID: id,
+            temperature: temperature
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
+
 export {
   turnOnAc,
   turnOffAc,
   getAc,
   getAcStatus,
-  setTimer
+  setTimer,
+  setAcTemperature
   // newTodoFailure,
   // newTodoSuccess
 };

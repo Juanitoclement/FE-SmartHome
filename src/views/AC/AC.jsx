@@ -19,7 +19,8 @@ import {
   getAcStatus,
   turnOnAc,
   turnOffAc,
-  setTimer
+  setTimer,
+  setAcTemperature
 } from "../../redux/actions/acActions";
 
 import "react-dropdown/style.css";
@@ -30,14 +31,13 @@ class AC extends React.Component {
     // noinspection JSAnnotator
     this.state = {
       value: 0,
-      // acStatus: 0,
       acStatus: true,
       power: "ON",
       temperatureNow: 0,
       ac: [],
       options: [],
-      initOption: "12",
-      index: "12",
+      initOption: "0",
+      index: "0",
       schedulerstatus: "toggle_off",
       hourFrom: "2018-01-01 12:00",
       hourTo: "2018-01-01 13:00"
@@ -47,7 +47,7 @@ class AC extends React.Component {
   // What will happen before render
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
-    abc.getacPayload.then(res => {
+    abc.getAcPayload.then(res => {
       this.setState({
         ac: res.data.data,
         options: res.data.data,
@@ -59,22 +59,6 @@ class AC extends React.Component {
       console.log(this.state);
     });
   }
-
-  showUI() {
-    window.location = "/table";
-  }
-
-  // Turn AC ON/OFF
-  // acStatus:
-  // true = On
-  // false = Off
-  handleColor = () => {
-    if (this.state.acStatus === true) {
-      return "info";
-    } else if (this.state.acStatus === false) {
-      return "rose";
-    }
-  };
 
   turnAc = () => {
     console.log(this.state.index);
@@ -96,6 +80,44 @@ class AC extends React.Component {
           power: "On"
         });
       });
+    }
+  };
+
+  temperatureUp = () => {
+    if (this.state.temperatureNow + 1 < 31) {
+      const abc = store.store.dispatch(
+        setAcTemperature(this.state.index, this.state.temperatureNow + 1)
+      );
+      abc.setTemperaturePayload.then(res => {
+        console.log(res);
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature
+          });
+        });
+      });
+    } else {
+      alert("Temperature is too HIGH!");
+    }
+  };
+
+  temperatureDown = () => {
+    if (this.state.temperatureNow - 1 > 15) {
+      const abc = store.store.dispatch(
+        setAcTemperature(this.state.index, this.state.temperatureNow - 1)
+      );
+      abc.setTemperaturePayload.then(res => {
+        console.log(res);
+        const def = store.store.dispatch(getAcStatus(this.state.index));
+        def.getAcStatus.then(res => {
+          this.setState({
+            temperatureNow: res.data.data.temperature
+          });
+        });
+      });
+    } else {
+      alert("Temperature is too LOW!");
     }
   };
 
@@ -166,12 +188,14 @@ class AC extends React.Component {
   }
 
   submitSchedule = () => {
-    const abc = store.store.dispatch( setTimer(this.state.index,this.state.hourFrom, this.state.hourTo));
+    const abc = store.store.dispatch(
+      setTimer(this.state.index, this.state.hourFrom, this.state.hourTo)
+    );
     abc.setACTime.then(res => {
       console.log(res);
       alert("Schedule has been submitted");
     });
-  }
+  };
 
   render() {
     return (
@@ -200,14 +224,14 @@ class AC extends React.Component {
                   <div style={acStyle.divStyle}>
                     <hr />
                     <div style={acStyle.backStyle}>
-                      <button style={acStyle.buttonStyle}>
+                      <button style={acStyle.buttonStyle} onClick={this.temperatureUp}>
                         <Icon>add</Icon>
                       </button>
                       <br />
                       <p style={acStyle.pStyle}>
                         {this.state.temperatureNow} &#8451;
                       </p>
-                      <button style={acStyle.buttonStyle}>
+                      <button style={acStyle.buttonStyle} onClick={this.temperatureDown}>
                         <Icon>remove</Icon>
                       </button>
                     </div>
@@ -247,7 +271,9 @@ class AC extends React.Component {
                           </tr>
                         </tbody>
                       </Table>
-                      <p style={acStyle.pStyle}><button onClick={this.submitSchedule}>Submit</button></p>
+                      <p style={acStyle.pStyle}>
+                        <button onClick={this.submitSchedule}>Submit</button>
+                      </p>
                       <p style={acStyle.pStyle}>
                         <button>Submit</button>
                       </p>

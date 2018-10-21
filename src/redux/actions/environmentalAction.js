@@ -15,7 +15,6 @@ function getTemperatureData() {
           },
           params: {
             accessToken: localStorage.getItem("token"),
-            channelId: "WEB"
           }
         })
         .then(response => {
@@ -38,7 +37,6 @@ function getHumidityData() {
           },
           params: {
             accessToken: localStorage.getItem("token"),
-            channelId: "WEB"
           }
         })
         .then(response => {
