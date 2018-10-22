@@ -1,7 +1,13 @@
 import axios from "axios/index";
-import { LAMP_ON, LAMP_OFF, GET_LAMP, GET_LAMP_STATUS, SET_TIMER } from "./actionType";
+import {
+  LAMP_ON,
+  LAMP_OFF,
+  GET_LAMP,
+  GET_LAMP_STATUS,
+  SET_TIMER
+} from "./actionType";
 
-const apiUrl = "http://api.myhomie.me:8000/homie/device/";
+const apiUrl = "http://api.myhomie.me:8000/homie/deviceLamp/";
 
 const httpOptions = {
   headers: {
@@ -59,7 +65,9 @@ function turnOffLamp(id) {
   };
 }
 
-{/* get All Lamp for that particular user */}
+{
+  /* get All Lamp for that particular user */
+}
 function getLamp() {
   return {
     type: GET_LAMP,
@@ -120,10 +128,4 @@ function setTimer(id, start, end) {
   };
 }
 
-export {
-  turnOnLamp,
-  turnOffLamp,
-  getLamp,
-  getLampStatus,
-  setTimer
-};
+export { turnOnLamp, turnOffLamp, getLamp, getLampStatus, setTimer };

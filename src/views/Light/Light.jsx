@@ -1,7 +1,4 @@
 import React from "react";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
-// @material-ui/core]
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -20,8 +17,7 @@ import {
   setTimer
 } from "../../redux/actions/lightAction";
 
-import { Table } from "reactstrap";
-import TimeInput from "material-ui-time-picker";
+import { Table, Input } from "reactstrap";
 
 const styles = {
   cardColorTest: {
@@ -35,7 +31,9 @@ class Light extends React.Component {
     options: [],
     name: "",
     power: "OFF",
-    deviceID: ""
+    deviceID: "",
+    hourFrom: "",
+    hourTo: ""
   };
 
   componentWillMount() {
@@ -50,7 +48,9 @@ class Light extends React.Component {
           options: res.data.data,
           name: res.data.data[0].name,
           power: res.data.data[0].status,
-          deviceID: res.data.data[0].id
+          deviceID: res.data.data[0].id,
+          hourTo: "",
+          hourFrom: ""
         });
         console.log(res.data.data);
         console.log(this.state);
@@ -58,65 +58,103 @@ class Light extends React.Component {
     });
   }
 
-  // Scheduler
+  // Scheduler (TIMER)
   convertMonth(m) {
-    if (m === "Oct") {
-      return 10;
-    } else if (m === "Jan") {
-      return 1;
-    } else if (m === "Feb") {
-      return 2;
-    } else if (m === "Mar") {
-      return 3;
-    } else if (m === "Apr") {
-      return 4;
-    } else if (m === "May") {
-      return 5;
-    } else if (m === "Jun") {
-      return 6;
-    } else if (m === "Jul") {
-      return 7;
-    } else if (m === "Aug") {
-      return 8;
-    } else if (m === "Sep") {
-      return 9;
-    } else if (m === "Nov") {
-      return 11;
-    } else if (m === "Dec") {
-      return 12;
+    if (m === 1) {
+      return "01";
+    } else if (m === 2) {
+      return "02";
+    } else if (m === 3) {
+      return "03";
+    } else if (m === 4) {
+      return "04";
+    } else if (m === 5) {
+      return "05";
+    } else if (m === 6) {
+      return "06";
+    } else if (m === 7) {
+      return "07";
+    } else if (m === 8) {
+      return "08";
+    } else if (m === 9) {
+      return "09";
+    } else if (m === 10) {
+      return "10";
+    } else if (m === 11) {
+      return "11";
+    } else if (m === 12) {
+      return "12";
     } else {
       return -1;
     }
   }
-  formatDate(s) {
-    let stringDate = s.toString();
-    let myArray = stringDate.split(" ");
-    let month = this.convertMonth(myArray[1]);
-    let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
-    console.log(answer);
-    return answer;
-  }
-  handleTimeFrom(time) {
-    console.log(time);
-    let message = this.formatDate(time);
+
+  handleFromTime = e => {
+    let a = e.target.value;
+    console.log(a);
     this.setState({
-      hourFrom: message
+      hourFrom: a + ":00"
     });
-  }
-  handleTimeTo(time) {
-    let message = this.formatDate(time);
+  };
+
+  handleToTime = e => {
+    let a = e.target.value;
+    console.log(a);
     this.setState({
-      hourTo: message
+      hourTo: a + ":00"
     });
+  };
+
+  validateTime() {
+    let date = new Date();
+    let dd = date.getDate();
+    let mmRaw = date.getMonth();
+    let mm = this.convertMonth(mmRaw);
+    let yyyy = date.getFullYear();
+
+    let fromTime = this.state.hourFrom;
+    let toTime = this.state.hourTo;
+
+    let currentFromTime = yyyy + "-" + mm + "-" + dd + " " + fromTime + ":00";
+    let currentToTime = yyyy + "-" + mm + "-" + dd + " " + toTime + ":00";
+
+    let timeFrom = Date.parse(currentFromTime);
+    let timeTo = Date.parse(currentToTime);
+
+    console.log(currentFromTime);
+    console.log(currentToTime);
+    console.log(this.state);
+
+    if (timeFrom < timeTo) {
+      const abc = store.store.dispatch(
+        setTimer(this.state.deviceID, currentFromTime, currentToTime)
+      );
+      abc.setACTime.then(res => {
+        console.log(res);
+        alert("Schedule has been submitted");
+      });
+    } else {
+      let newDD = dd + 1;
+      currentToTime = yyyy + "-" + mm + "-" + newDD + " " + toTime + ":00";
+      console.log(currentToTime);
+      const abc = store.store.dispatch(
+        setTimer(this.state.deviceID, currentFromTime, currentToTime)
+      );
+      abc.setACTime.then(res => {
+        console.log(res);
+        alert("Schedule has been submitted");
+      });
+    }
   }
+
   submitSchedule = () => {
-    const abc = store.store.dispatch(
-      setTimer(this.state.deviceID, this.state.hourFrom, this.state.hourTo)
-    );
-    abc.setACTime.then(res => {
-      console.log(res);
-      alert("Schedule has been submitted");
-    });
+    console.log(this.state.hourFrom);
+    console.log(this.state.hourTo);
+    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+      alert("Input the time first!");
+    } else {
+      this.validateTime();
+    }
   };
 
   // Power
@@ -168,15 +206,6 @@ class Light extends React.Component {
     });
   };
 
-  // Timer
-  handleTimer = () => {
-    this.setState({
-      h: this.state.number,
-      m: 0,
-      s: 0
-    });
-  };
-
   render() {
     return (
       <div>
@@ -209,8 +238,9 @@ class Light extends React.Component {
                   </GridItem>
                 </div>
               </GridItem>
-              <GridItem xs={9} sm={6} md={12} lg={12}>
+              <GridItem xs={12} sm={12} md={12} lg={12}>
                 <div style={lightStyle.divStyle}>
+                  <hr />
                   <div style={lightStyle.tableStyle}>
                     <h3 align="center">Schedule</h3>
                     <Table
@@ -223,20 +253,34 @@ class Light extends React.Component {
                             <h6>Hour From</h6>
                           </th>
                           <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={time => this.handleTimeFrom(time)}
+                            {/*<TimeInput*/}
+                            {/*mode="12h"*/}
+                            {/*onChange={time => this.handleTimeFrom(time)}*/}
+                            {/*/>*/}
+                            <Input
+                              type="time"
+                              name="time"
+                              id="exampleTime"
+                              placeholder="time placeholder"
+                              onChange={this.handleFromTime}
                             />
                           </td>
                         </tr>
                         <tr>
                           <th>
-                            <h6>Hour From</h6>
+                            <h6>Hour To</h6>
                           </th>
                           <td>
-                            <TimeInput
-                              mode="12h"
-                              onChange={time => this.handleTimeTo(time)}
+                            {/*<TimeInput*/}
+                            {/*mode="12h"*/}
+                            {/*onChange={time => this.handleTimeTo(time)}*/}
+                            {/*/>*/}
+                            <Input
+                              type="time"
+                              name="time"
+                              id="exampleTime"
+                              placeholder="time placeholder"
+                              onChange={this.handleToTime}
                             />
                           </td>
                         </tr>

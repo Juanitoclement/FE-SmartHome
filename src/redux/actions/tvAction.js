@@ -11,8 +11,7 @@ import {
   MUTE_VOLUME
 } from "./actionType";
 
-const apiUrl = "http://api.myhomie.me:8000/homie/device/";
-const tvUrl = "http://api.myhomie.me:8000/homie/TV/";
+const apiUrl = "http://api.myhomie.me:8000/homie/device/TV";
 
 const httpOptions = {
   headers: {
@@ -75,7 +74,7 @@ function upChannel(id) {
     type: UP_CHANNEL,
     upChannelPayload: new Promise(resolve => {
       axios
-        .get(tvUrl + "program-up", {
+        .get(apiUrl + "program-up", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
@@ -98,7 +97,7 @@ function downChannel(id) {
     type: DOWN_CHANNEL,
     downChannelPayload: new Promise(resolve => {
       axios
-        .get(tvUrl + "program-down", {
+        .get(apiUrl + "program-down", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
@@ -121,7 +120,7 @@ function upVolume(id) {
     type: UP_VOLUME,
     upVolumePayload: new Promise(resolve => {
       axios
-        .get(tvUrl + "volume-up", {
+        .get(apiUrl + "volume-up", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
@@ -144,7 +143,7 @@ function downVolume(id) {
     type: DOWN_VOLUME,
     downVolumePayload: new Promise(resolve => {
       axios
-        .get(tvUrl + "volume-down", {
+        .get(apiUrl + "volume-down", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
@@ -167,7 +166,7 @@ function muteVolume(id) {
     type: MUTE_VOLUME,
     muteVolumePayload: new Promise(resolve => {
       axios
-        .get(tvUrl + "mute", {
+        .get(apiUrl + "mute", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")
