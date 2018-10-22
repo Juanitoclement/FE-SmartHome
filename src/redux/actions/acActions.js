@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { AC_ON, AC_OFF, GET_AC, GET_AC_STATUS, SET_TIMER, SET_TEMPERATURE } from "./actionType";
 
-const apiUrl = "http://10.25.150.23:8000/homie/device/";
+const apiUrl = "http://api.myhomie.me:8000/homie/device/AC/";
 
 const httpOptions = {
   headers: {
@@ -116,7 +116,7 @@ function setAcTemperature(id, temperature) {
     type: SET_TEMPERATURE,
     setTemperaturePayload: new Promise(resolve => {
       axios
-        .get(apiUrl + "set-temp", {
+        .get(apiUrl + "set-temperature", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")

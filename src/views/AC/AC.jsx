@@ -1,17 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 // @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 // core components
-import { Table } from "reactstrap";
-import TimeInput from "material-ui-time-picker";
+import { Table, Input } from "reactstrap";
 import acStyle from "assets/jss/customStyle";
-
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
 import {
@@ -30,13 +25,10 @@ class AC extends React.Component {
     super(props);
     // noinspection JSAnnotator
     this.state = {
-      value: 0,
-      acStatus: true,
       power: "ON",
       temperatureNow: 0,
       ac: [],
       options: [],
-      initOption: "0",
       index: "0",
       schedulerstatus: "toggle_off",
       hourFrom: "2018-01-01 12:00",
@@ -48,21 +40,27 @@ class AC extends React.Component {
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
     abc.getAcPayload.then(res => {
-      this.setState({
-        ac: res.data.data,
-        options: res.data.data,
-        initOption: res.data.data[0].id,
-        index: res.data.data[0].id,
-        temperatureNow: res.data.data[0].temperature
-      });
-      console.log(res.data.data);
-      console.log(this.state);
+      if (res.data.data.length == 0) {
+        alert("You have no AC!");
+        window.location.replace("/dashboard");
+      } else {
+        this.setState({
+          ac: res.data.data,
+          options: res.data.data,
+          power: res.data.data[0].status,
+          index: res.data.data[0].id,
+          temperatureNow: res.data.data[0].temperature
+        });
+        console.log(res.data.data);
+        console.log(this.state);
+      }
     });
   }
 
   turnAc = () => {
+    console.log("Matiin");
     console.log(this.state.index);
-    if (this.state.acStatus === true) {
+    if (this.state.power === "ON") {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
@@ -70,11 +68,14 @@ class AC extends React.Component {
         const def = store.store.dispatch(getAcStatus(this.state.index));
         def.getAcStatus.then(res => {
           this.setState({
-            temperatureNow: res.data.data.temperature,
+            power: res.data.data.status
           });
+          console.log(res.data.data);
+          console.log(this.state);
         });
       });
-    } else if (this.state.acStatus === false) {
+    } else if (this.state.power === "OFF") {
+      console.log("Nyalain");
       const abc = store.store.dispatch(turnOnAc(this.state.index));
       abc.acOnPayload.then(res => {
         console.log(res);
@@ -82,8 +83,9 @@ class AC extends React.Component {
         const def = store.store.dispatch(getAcStatus(this.state.index));
         def.getAcStatus.then(res => {
           this.setState({
-            temperatureNow: res.data.data.temperature,
+            power: res.data.data.status
           });
+          console.log(this.state);
         });
       });
     }
@@ -133,74 +135,112 @@ class AC extends React.Component {
     );
     abc.getAcStatus.then(res => {
       this.setState({
+        power: res.data.data.status,
         temperatureNow: res.data.data.temperature,
         index: res.data.data.id
       });
+      console.log(document.getElementById("selectAc").value);
+      console.log("Ganti", this.state);
     });
-    console.log(this.state.temperatureNow);
-    console.log(this.state.index);
   };
+
+  // Scheduler (TIMER)
   convertMonth(m) {
-    if (m === "Oct") {
-      return 10;
-    } else if (m === "Jan") {
-      return 1;
-    } else if (m === "Feb") {
-      return 2;
-    } else if (m === "Mar") {
-      return 3;
-    } else if (m === "Apr") {
-      return 4;
-    } else if (m === "May") {
-      return 5;
-    } else if (m === "Jun") {
-      return 6;
-    } else if (m === "Jul") {
-      return 7;
-    } else if (m === "Aug") {
-      return 8;
-    } else if (m === "Sep") {
-      return 9;
-    } else if (m === "Nov") {
-      return 11;
-    } else if (m === "Dec") {
-      return 12;
+    if (m === 1) {
+      return "01";
+    } else if (m === 2) {
+      return "02";
+    } else if (m === 3) {
+      return "03";
+    } else if (m === 4) {
+      return "04";
+    } else if (m === 5) {
+      return "05";
+    } else if (m === 6) {
+      return "06";
+    } else if (m === 7) {
+      return "07";
+    } else if (m === 8) {
+      return "08";
+    } else if (m === 9) {
+      return "09";
+    } else if (m === 10) {
+      return "10";
+    } else if (m === 11) {
+      return "11";
+    } else if (m === 12) {
+      return "12";
     } else {
       return -1;
     }
   }
-  formatDate(s) {
-    let stringDate = s.toString();
-    let myArray = stringDate.split(" ");
-    let month = this.convertMonth(myArray[1]);
-    let answer = myArray[3] + "-" + month + "-" + myArray[2] + " " + myArray[4];
-    console.log(answer);
-    return answer;
-  }
 
-  // Scheduler
-  handleTimeFrom(time) {
-    console.log(time);
-    let message = this.formatDate(time);
+  handleFromTime = e => {
+    let a = e.target.value;
+    console.log(a);
     this.setState({
-      hourFrom: message
+      hourFrom: a + ":00"
     });
-  }
-  handleTimeTo(time) {
-    let message = this.formatDate(time);
+  };
+
+  handleToTime = e => {
+    let a = e.target.value;
+    console.log(a);
     this.setState({
-      hourTo: message
+      hourTo: a + ":00"
     });
+  };
+
+  validateTime() {
+    let date = new Date();
+    let dd = date.getDate();
+    let mmRaw = date.getMonth();
+    let mm = this.convertMonth(mmRaw);
+    let yyyy = date.getFullYear();
+
+    let fromTime = this.state.hourFrom;
+    let toTime = this.state.hourTo;
+
+    let currentFromTime = yyyy + "-" + mm + "-" + dd + " " + fromTime + ":00";
+    let currentToTime = yyyy + "-" + mm + "-" + dd + " " + toTime + ":00";
+
+    let timeFrom = Date.parse(currentFromTime);
+    let timeTo = Date.parse(currentToTime);
+
+    console.log(currentFromTime);
+    console.log(currentToTime);
+    console.log(this.state);
+
+    if (timeFrom < timeTo) {
+      const abc = store.store.dispatch(
+        setTimer(this.state.deviceID, currentFromTime, currentToTime)
+      );
+      abc.setACTime.then(res => {
+        console.log(res);
+        alert("Schedule has been submitted");
+      });
+    } else {
+      let newDD = dd + 1;
+      currentToTime = yyyy + "-" + mm + "-" + newDD + " " + toTime + ":00";
+      console.log(currentToTime);
+      const abc = store.store.dispatch(
+        setTimer(this.state.deviceID, currentFromTime, currentToTime)
+      );
+      abc.setACTime.then(res => {
+        console.log(res);
+        alert("Schedule has been submitted");
+      });
+    }
   }
 
   submitSchedule = () => {
-    const abc = store.store.dispatch(
-      setTimer(this.state.index, this.state.hourFrom, this.state.hourTo)
-    );
-    abc.setACTime.then(res => {
-      console.log(res);
-      alert("Schedule has been submitted");
-    });
+    console.log(this.state.hourFrom);
+    console.log(this.state.hourTo);
+    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+      alert("Input the time first!");
+    } else {
+      this.validateTime();
+    }
   };
 
   render() {
@@ -211,9 +251,10 @@ class AC extends React.Component {
             <div style={acStyle.cardStyle}>
               <div style={acStyle.divStyle}>
                 {/* POWER BUTTON */}
-                <button style={acStyle.powerButton}>
+                <button style={acStyle.powerButton} onClick={this.turnAc}>
                   <Icon>power_settings_new</Icon>
                 </button>
+                <h3>{this.state.power}</h3>
               </div>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
@@ -250,7 +291,7 @@ class AC extends React.Component {
                     <hr />
                   </div>
                 </GridItem>
-                <GridItem xs={9} sm={6} md={12} lg={12}>
+                <GridItem xs={12} sm={12} md={12} lg={12}>
                   <div style={acStyle.divStyle}>
                     <div style={acStyle.tableStyle}>
                       <h3 align="center">Schedule</h3>
@@ -264,20 +305,34 @@ class AC extends React.Component {
                               <h6>Hour From</h6>
                             </th>
                             <td>
-                              <TimeInput
-                                mode="12h"
-                                onChange={time => this.handleTimeFrom(time)}
+                              {/*<TimeInput*/}
+                              {/*mode="12h"*/}
+                              {/*onChange={time => this.handleTimeFrom(time)}*/}
+                              {/*/>*/}
+                              <Input
+                                type="time"
+                                name="time"
+                                id="exampleTime"
+                                placeholder="time placeholder"
+                                onChange={this.handleFromTime}
                               />
                             </td>
                           </tr>
                           <tr>
                             <th>
-                              <h6>Hour From</h6>
+                              <h6>Hour To</h6>
                             </th>
                             <td>
-                              <TimeInput
-                                mode="12h"
-                                onChange={time => this.handleTimeTo(time)}
+                              {/*<TimeInput*/}
+                              {/*mode="12h"*/}
+                              {/*onChange={time => this.handleTimeTo(time)}*/}
+                              {/*/>*/}
+                              <Input
+                                type="time"
+                                name="time"
+                                id="exampleTime"
+                                placeholder="time placeholder"
+                                onChange={this.handleToTime}
                               />
                             </td>
                           </tr>
@@ -285,9 +340,6 @@ class AC extends React.Component {
                       </Table>
                       <p style={acStyle.pStyle}>
                         <button onClick={this.submitSchedule}>Submit</button>
-                      </p>
-                      <p style={acStyle.pStyle}>
-                        <button>Submit</button>
                       </p>
                     </div>
                   </div>

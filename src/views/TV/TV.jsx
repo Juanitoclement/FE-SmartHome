@@ -37,23 +37,29 @@ class TV extends React.Component {
   componentWillMount() {
     const abc = store.store.dispatch(getTv());
     abc.getTvPayload.then(res => {
-      this.setState({
-        tv: res.data.data,
-        options: res.data.data,
-        name: res.data.data[0].name,
-        deviceID: res.data.data[0].id,
-        power: res.data.data[0].status,
-        channel: res.data.data[0].channelNumber,
-        volume: res.data.data[0].volume,
-        muted: res.data.data[0].muted
-      });
-      console.log(res.data.data);
-      console.log(this.state);
+      if (res.data.data.length == 0) {
+        alert("You have no TV!");
+        window.location.replace("/dashboard");
+      } else {
+        this.setState({
+          tv: res.data.data,
+          options: res.data.data,
+          name: res.data.data[0].name,
+          deviceID: res.data.data[0].id,
+          power: res.data.data[0].status,
+          channel: res.data.data[0].channelNumber,
+          volume: res.data.data[0].volume,
+          muted: res.data.data[0].muted
+        });
+        console.log(res.data.data);
+        console.log(this.state);
+      }
     });
   }
 
   // ON&OFF
   handlePower = () => {
+    console.log("TEst Power");
     if (this.state.power === "OFF") {
       const abc = store.store.dispatch(turnOnTv(this.state.deviceID));
       abc.tvOnPayload.then(res => {
@@ -139,7 +145,7 @@ class TV extends React.Component {
             <div style={tvStyle.cardStyle}>
               <div style={tvStyle.divStyle}>
                 {/* POWER BUTTON */}
-                <button style={tvStyle.powerButton} onClick={this.button}>
+                <button style={tvStyle.powerButton} onClick={this.handlePower}>
                   <Icon>power_settings_new</Icon>
                 </button>
                 <br />
