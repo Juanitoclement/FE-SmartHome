@@ -11,7 +11,7 @@ import {
   MUTE_VOLUME
 } from "./actionType";
 
-const apiUrl = "http://api.myhomie.me:8000/homie/device/TV";
+const apiUrl = "http://api.myhomie.me:8000/homie/device/TV/";
 
 const httpOptions = {
   headers: {
