@@ -116,7 +116,7 @@ function setAcTemperature(id, temperature) {
     type: SET_TEMPERATURE,
     setTemperaturePayload: new Promise(resolve => {
       axios
-        .get(apiUrl + "set-temp", {
+        .get(apiUrl + "set-temperature", {
           headers: {
             "Content-type": "application/form-data",
             mandatory: localStorage.getItem("token")

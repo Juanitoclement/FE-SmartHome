@@ -41,15 +41,20 @@ class Light extends React.Component {
   componentWillMount() {
     const abc = store.store.dispatch(getLamp());
     abc.getLampPayload.then(res => {
-      this.setState({
-        lamp: res.data.data,
-        options: res.data.data,
-        name: res.data.data[0].name,
-        power: res.data.data[0].status,
-        deviceID: res.data.data[0].id
-      });
-      console.log(res.data.data);
-      console.log(this.state);
+      if (res.data.data.length == 0) {
+        alert("You have no Lamp!");
+        window.location.replace("/dashboard");
+      } else {
+        this.setState({
+          lamp: res.data.data,
+          options: res.data.data,
+          name: res.data.data[0].name,
+          power: res.data.data[0].status,
+          deviceID: res.data.data[0].id
+        });
+        console.log(res.data.data);
+        console.log(this.state);
+      }
     });
   }
 

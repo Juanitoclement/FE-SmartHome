@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 // @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -10,8 +8,6 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import { Table } from "reactstrap";
 import TimeInput from "material-ui-time-picker";
 import acStyle from "assets/jss/customStyle";
-
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
 
 import store from "../../redux/store/configureStore";
 import {
@@ -30,13 +26,10 @@ class AC extends React.Component {
     super(props);
     // noinspection JSAnnotator
     this.state = {
-      value: 0,
-      acStatus: true,
       power: "ON",
       temperatureNow: 0,
       ac: [],
       options: [],
-      initOption: "0",
       index: "0",
       schedulerstatus: "toggle_off",
       hourFrom: "2018-01-01 12:00",
@@ -48,21 +41,27 @@ class AC extends React.Component {
   componentWillMount() {
     const abc = store.store.dispatch(getAc());
     abc.getAcPayload.then(res => {
-      this.setState({
-        ac: res.data.data,
-        options: res.data.data,
-        initOption: res.data.data[0].id,
-        index: res.data.data[0].id,
-        temperatureNow: res.data.data[0].temperature
-      });
-      console.log(res.data.data);
-      console.log(this.state);
+      if (res.data.data.length == 0) {
+        alert("You have no AC!");
+        window.location.replace("/dashboard");
+      } else {
+        this.setState({
+          ac: res.data.data,
+          options: res.data.data,
+          power: res.data.data[0].status,
+          index: res.data.data[0].id,
+          temperatureNow: res.data.data[0].temperature
+        });
+        console.log(res.data.data);
+        console.log(this.state);
+      }
     });
   }
 
   turnAc = () => {
+    console.log("Matiin");
     console.log(this.state.index);
-    if (this.state.acStatus === true) {
+    if (this.state.power === "ON") {
       const abc = store.store.dispatch(turnOffAc(this.state.index));
       abc.acOffPayload.then(res => {
         console.log(res);
@@ -70,11 +69,14 @@ class AC extends React.Component {
         const def = store.store.dispatch(getAcStatus(this.state.index));
         def.getAcStatus.then(res => {
           this.setState({
-            temperatureNow: res.data.data.temperature,
+            power: res.data.data.status
           });
+          console.log(res.data.data);
+          console.log(this.state);
         });
       });
-    } else if (this.state.acStatus === false) {
+    } else if (this.state.power === "OFF") {
+      console.log("Nyalain");
       const abc = store.store.dispatch(turnOnAc(this.state.index));
       abc.acOnPayload.then(res => {
         console.log(res);
@@ -82,8 +84,9 @@ class AC extends React.Component {
         const def = store.store.dispatch(getAcStatus(this.state.index));
         def.getAcStatus.then(res => {
           this.setState({
-            temperatureNow: res.data.data.temperature,
+            power: res.data.data.status
           });
+          console.log(this.state);
         });
       });
     }
@@ -133,12 +136,13 @@ class AC extends React.Component {
     );
     abc.getAcStatus.then(res => {
       this.setState({
+        power: res.data.data.status,
         temperatureNow: res.data.data.temperature,
         index: res.data.data.id
       });
+      console.log(document.getElementById("selectAc").value);
+      console.log("Ganti", this.state);
     });
-    console.log(this.state.temperatureNow);
-    console.log(this.state.index);
   };
   convertMonth(m) {
     if (m === "Oct") {
@@ -211,9 +215,10 @@ class AC extends React.Component {
             <div style={acStyle.cardStyle}>
               <div style={acStyle.divStyle}>
                 {/* POWER BUTTON */}
-                <button style={acStyle.powerButton}>
+                <button style={acStyle.powerButton} onClick={this.turnAc}>
                   <Icon>power_settings_new</Icon>
                 </button>
+                <h3>{this.state.power}</h3>
               </div>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12} lg={12}>
