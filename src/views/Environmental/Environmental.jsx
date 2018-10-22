@@ -1,7 +1,7 @@
 import React from "react";
 
-import Humidity from "../../assets/img/humidity.jpg";
-import Temperature from "../../assets/img/temperature.jpg";
+import Humidity from "../../assets/img/humidity.png";
+import Temperature from "../../assets/img/temperature.png";
 
 import ChartistGraph from "react-chartist";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -18,6 +18,8 @@ import {
   getTemperatureData,
   getHumidityData
 } from "../../redux/actions/environmentalAction";
+
+var Chartist = require("chartist");
 
 var today = new Date();
 var dd = today.getDay();
@@ -62,6 +64,32 @@ class Environmental extends React.Component {
         weekDays[dd]
       ],
       series: [[12.5, 17.7, 1.9, 17, 23, 18, 38]]
+    },
+    temperatureGraph: {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 20,
+      high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      }
+    },
+    humidityGraph: {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 30,
+      high: 80, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      }
     }
   };
 
@@ -105,10 +133,6 @@ class Environmental extends React.Component {
       console.log(res.data.data);
       console.log(this.state);
     });
-
-    console.log(dailySalesChart.data);
-    console.log(dailySalesChart.options);
-    console.log(dailySalesChart.animation);
   }
 
   static defaultProps = {
@@ -121,7 +145,7 @@ class Environmental extends React.Component {
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={12} sm={12} md={12}>
             <Card chart>
               <CardHeader color="success">
                 <Carousel>
@@ -131,7 +155,7 @@ class Environmental extends React.Component {
                       style={{ color: "red" }}
                       data={this.state.temperatureData}
                       type="Line"
-                      options={dailySalesChart.options}
+                      options={this.state.temperatureGraph}
                       listener={dailySalesChart.animation}
                     />
                     <img src={Temperature} />
@@ -141,7 +165,7 @@ class Environmental extends React.Component {
                       className="ct-chart"
                       data={this.state.humidityData}
                       type="Line"
-                      options={dailySalesChart.options}
+                      options={this.state.humidityGraph}
                       listener={dailySalesChart.animation}
                     />
                     <img src={Humidity} />
