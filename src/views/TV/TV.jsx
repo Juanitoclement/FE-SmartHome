@@ -174,7 +174,6 @@ class TV extends React.Component {
                         <Icon>add</Icon>
                       </button>
                       <p style={tvStyle.pStyle}>Channel</p>
-                      <p>{this.state.channel}</p>
                       <br />
                       <button
                         style={tvStyle.buttonStyle}
@@ -196,7 +195,6 @@ class TV extends React.Component {
                         <Icon>volume_up</Icon>
                       </button>
                       <p style={tvStyle.pStyle}>Volume</p>
-                      <p>{this.state.volume}</p>
                       <br />
                       <button
                         style={tvStyle.buttonStyle}

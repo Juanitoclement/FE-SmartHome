@@ -1,7 +1,7 @@
 import React from "react";
 
-import Humidity from "../../assets/img/sidebar-1.jpg";
-import Temperature from "../../assets/img/sidebar-2.jpg";
+import Humidity from "../../assets/img/humidity.jpg";
+import Temperature from "../../assets/img/temperature.jpg";
 
 import ChartistGraph from "react-chartist";
 import GridItem from "components/Grid/GridItem.jsx";
