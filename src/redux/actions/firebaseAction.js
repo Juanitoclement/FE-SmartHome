@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { NOTIF_TOKEN } from "./actionType";
 
-const loginUrl = "http://192.168.5.51:8000/homie/user/";
+const loginUrl = "http://api.myhomie.me:8000/homie/user/";
 
 const httpOptions = {
   headers: {
