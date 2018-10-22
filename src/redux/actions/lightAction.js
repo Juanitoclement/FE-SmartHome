@@ -1,7 +1,7 @@
 import axios from "axios/index";
 import { LAMP_ON, LAMP_OFF, GET_LAMP, GET_LAMP_STATUS, SET_TIMER } from "./actionType";
 
-const apiUrl = "http://192.168.30.101:8000/homie/device/";
+const apiUrl = "http://api.myhomie.me:8000/homie/device/";
 
 const httpOptions = {
   headers: {
