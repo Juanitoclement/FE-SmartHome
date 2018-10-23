@@ -168,10 +168,15 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={tvGradient} onClick={this.redirectToTv}>
-              <i className="fas fa-tv fa-4x" />
-              <p>
-                <strong>Television</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-tv fa-4x" />
+                  <p>
+                    <strong>Television</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6} />
+              </GridContainer>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
