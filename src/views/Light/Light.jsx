@@ -150,7 +150,7 @@ class Light extends React.Component {
   submitSchedule = () => {
     console.log(this.state.hourFrom);
     console.log(this.state.hourTo);
-    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+    if (this.state.hourTo === "" || this.state.hourFrom === "") {
       alert("Input the time first!");
     } else {
       this.validateTime();

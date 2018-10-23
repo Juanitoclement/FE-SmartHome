@@ -100,11 +100,6 @@ class Login extends React.Component {
     });
   }
 
-  handleLogout() {
-    const abc = store.store.dispatch(doLogout());
-    console.log(abc);
-  }
-
   handleInput(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -117,7 +112,7 @@ class Login extends React.Component {
     return (
       <div>
         <div style={cardStyle}>
-          <div style={cardHeader}>Welcome!!!</div>
+          <div style={cardHeader}>Welcome!</div>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12} lg={12}>
               <form onSubmit={this.handleSubmit}>
@@ -147,15 +142,6 @@ class Login extends React.Component {
                     type="submit"
                   >
                     Login
-                  </Button>
-                  <Button
-                    size="large"
-                    color="primary"
-                    variant="contained"
-                    type="button"
-                    onClick={this.handleLogout}
-                  >
-                    Logout
                   </Button>
                 </GridItem>
               </form>
