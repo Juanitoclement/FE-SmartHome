@@ -1,5 +1,7 @@
 import React from "react";
 
+import Icon from "@material-ui/core/Icon";
+
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 
@@ -10,6 +12,8 @@ import { getAc } from "../../redux/actions/acActions";
 import { getLamp } from "../../redux/actions/lightAction";
 
 import { askForPermissioToReceiveNotifications } from "../../firebase/push-notification";
+
+import dashboardStyle from "assets/jss/customStyle";
 
 const acGradient = {
   width: "100%",
@@ -143,9 +147,6 @@ class Dashboard extends React.Component {
     return (
       <div>
         <GridContainer>
-          <button onClick={askForPermissioToReceiveNotifications}>
-            Clique aqui para receber notificações
-          </button>
           <GridItem xs={12} md={6}>
             <button style={acGradient} onClick={this.redirectToAc}>
               <GridContainer>
@@ -175,7 +176,17 @@ class Dashboard extends React.Component {
                     <strong>Television</strong>
                   </p>
                 </GridItem>
-                <GridItem xs={6} md={6} />
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>Status:</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.tvPower}</strong>
+                  </p>
+                  <button style={dashboardStyle.timerButton}>
+                    <Icon>power_settings_new</Icon>
+                  </button>
+                </GridItem>
               </GridContainer>
             </button>
           </GridItem>
