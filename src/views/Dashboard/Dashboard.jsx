@@ -9,6 +9,8 @@ import { getTv } from "../../redux/actions/tvAction";
 import { getAc } from "../../redux/actions/acActions";
 import { getLamp } from "../../redux/actions/lightAction";
 
+import { askForPermissioToReceiveNotifications } from "../../firebase/push-notification";
+
 const acGradient = {
   width: "100%",
   color: "#ffffff",
@@ -136,10 +138,14 @@ class Dashboard extends React.Component {
   redirectToEnvironment = () => {
     this.props.history.push("environmental");
   };
+
   render() {
     return (
       <div>
         <GridContainer>
+          <button onClick={askForPermissioToReceiveNotifications}>
+            Clique aqui para receber notificações
+          </button>
           <GridItem xs={12} md={6}>
             <button style={acGradient} onClick={this.redirectToAc}>
               <GridContainer>
