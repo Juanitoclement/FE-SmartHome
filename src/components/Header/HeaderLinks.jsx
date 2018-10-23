@@ -43,6 +43,8 @@ class HeaderLinks extends React.Component {
   handleLogout() {
     const abc = store.store.dispatch(doLogout());
     console.log(abc);
+    localStorage.removeItem("onesignal");
+    console.log(localStorage.getItem("onesignal"));
     window.location.reload();
   }
 
