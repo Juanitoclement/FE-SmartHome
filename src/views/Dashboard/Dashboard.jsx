@@ -1,10 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
-// core components
+
+import Icon from "@material-ui/core/Icon";
+
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+
+import store from "../../redux/store/configureStore";
+
+import { getTv } from "../../redux/actions/tvAction";
+import { getAc } from "../../redux/actions/acActions";
+import { getLamp } from "../../redux/actions/lightAction";
+import { getCurrentData } from "../../redux/actions/environmentalAction";
+
+import dashboardStyle from "assets/jss/customStyle";
 
 const acGradient = {
   width: "100%",
@@ -59,20 +67,96 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
-      tvStatus: 0,
-      acStatus: 0,
-      ligStatus: 0,
-      powerTv: "OFF",
-      powerLig: "OFF",
-      powerAc: "OFF",
-      items: 0,
-      items2: [],
-      messages: [],
-      tr: false
+      acTemperature: 0,
+      acDeviceID: "",
+      acPower: "ON",
+      tvDeviceID: "",
+      tvPower: "ON",
+      lightDeviceID: "",
+      lightPower: "ON",
+      currentTemperature: 0,
+      currentHumidity: 0
     };
   }
 
+  componentWillMount() {
+    // AC dashboard
+    const ac = store.store.dispatch(getAc());
+    ac.getAcPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          acPower: "You have no AC",
+          acTemperature: 0,
+          acDeviceID: ""
+        });
+      } else {
+        this.setState({
+          acDeviceID: res.data.data[0].id,
+          acTemperature: res.data.data[0].temperature,
+          acPower: res.data.data[0].status
+        });
+      }
+      console.log(this.state.acPower);
+      console.log(this.state.acDeviceID);
+    });
+
+    //  TV dashboard
+    const tv = store.store.dispatch(getTv());
+    tv.getTvPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          tvPower: "You have no TV",
+          tvDeviceID: ""
+        });
+      } else {
+        this.setState({
+          tvDeviceID: res.data.data[0].id,
+          tvPower: res.data.data[0].status
+        });
+      }
+      console.log(this.state.tvPower);
+      console.log(this.state.tvDeviceID);
+    });
+
+    // Light dashboard
+    const light = store.store.dispatch(getLamp());
+    light.getLampPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          lightPower: "You have no Lamp",
+          lightDeviceID: ""
+        });
+      } else {
+        this.setState({
+          lightPower: res.data.data[0].status,
+          lightDeviceID: res.data.data[0].id
+        });
+      }
+      console.log(this.state.lightPower);
+      console.log(this.state.lightDeviceID);
+    });
+
+    // Environment dashboard
+    const environment = store.store.dispatch(getCurrentData());
+    environment.getCurrentPayload.then(res => {
+      console.log(res);
+      if (res.data.data.length == 0) {
+        this.setState({
+          currentTemperature: 0,
+          currentHumidity: 0
+        });
+      } else {
+        this.setState({
+          currentTemperature: res.data.data[0],
+          currentHumidity: res.data.data[1]
+        });
+        console.log(this.state.currentTemperature);
+        console.log(this.state.currentHumidity);
+      }
+    });
+  }
+
+  // Redirect Dashboard
   redirectToTv = () => {
     this.props.history.push("tv");
   };
@@ -104,7 +188,10 @@ class Dashboard extends React.Component {
                 </GridItem>
                 <GridItem xs={6} md={6}>
                   <p>
-                    <strong>Current Temperature:</strong>
+                    <strong>{this.state.acTemperature} &#8451;</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.acPower}</strong>
                   </p>
                 </GridItem>
               </GridContainer>
@@ -112,18 +199,42 @@ class Dashboard extends React.Component {
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={tvGradient} onClick={this.redirectToTv}>
-              <i className="fas fa-tv fa-4x" />
-              <p>
-                <strong>Television</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-tv fa-4x" />
+                  <p>
+                    <strong>Television</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>Status:</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.tvPower}</strong>
+                  </p>
+                </GridItem>
+              </GridContainer>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={lightGradient} onClick={this.redirectToLight}>
-              <i className="fas fa-lightbulb fa-4x" />
-              <p>
-                <strong>Light</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-lightbulb fa-4x" />
+                  <p>
+                    <strong>Light</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>Status:</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.lightPower}</strong>
+                  </p>
+                </GridItem>
+              </GridContainer>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
@@ -131,10 +242,24 @@ class Dashboard extends React.Component {
               style={environmentGradient}
               onClick={this.redirectToEnvironment}
             >
-              <i className="fas fa-mountain fa-4x" />
-              <p>
-                <strong>Environment</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-mountain fa-4x" />
+                  <p>
+                    <strong>Environment</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>
+                      Temperature: {this.state.currentTemperature}
+                    </strong>
+                  </p>
+                  <p>
+                    <strong>Humidity: {this.state.currentHumidity}</strong>
+                  </p>
+                </GridItem>
+              </GridContainer>
             </button>
           </GridItem>
         </GridContainer>
