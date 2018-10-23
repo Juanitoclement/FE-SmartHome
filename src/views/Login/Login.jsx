@@ -15,9 +15,6 @@ const cardStyle = {
   marginBottom: "30px",
   marginTop: "30px",
   paddingBottom: "100px",
-  // paddingTop: "100px",
-  // paddingLeft: "-100px",
-  // paddingRight: "-100px",
   borderRadius: "6px",
   color: "rgba(0, 0, 0, 0.87)",
   background: "#fff",
@@ -92,9 +89,6 @@ class Login extends React.Component {
   }
 
   verifyLogin(c) {
-    console.log(this.state.email);
-    console.log(this.state.password);
-    console.log(this.state.code);
     let data = {
       email: this.state.email,
       password: this.state.password,
@@ -112,11 +106,6 @@ class Login extends React.Component {
       code: e.target.value
     });
   }
-
-  handleLogout() {
-    const abc = store.store.dispatch(doLogout());
-    console.log(abc);
-  }
   handleInput(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -129,7 +118,6 @@ class Login extends React.Component {
   };
 
   onOpenModal2 = (d) => {
-    console.log(d.email);
     this.setState({
       open2: true,
       // email: d.email,
@@ -190,10 +178,12 @@ class Login extends React.Component {
               <p>bye</p>
             </Modal>
             <Modal open={this.state.open2} onClose={this.onCloseModal2} center>
-              <h2>Insert Code from Your Email</h2>
+              <h4>Insert Code from Your Email</h4>
               <form onSubmit={this.onCloseModal2}>
-                <input type="text" id="code" onChange={this.handleCodeChange} value={this.state.code} />
-                <input type="submit"/>
+                {/*<input type="text" id="code" onChange={this.handleCodeChange} value={this.state.code} />*/}
+                <TextField id="code" onChange={this.handleCodeChange} value={this.state.code} />
+                <br /> <br />
+                <input type="submit" />
               </form>
             </Modal>
           </GridContainer>
