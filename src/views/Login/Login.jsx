@@ -96,6 +96,8 @@ class Login extends React.Component {
     const abc = store.store.dispatch(doVerify(data));
     abc.verifyPayload.then(res => {
       console.log(res);
+      localStorage.setItem("onesignal", data.email);
+      console.log(localStorage.getItem("onesignal"));
       window.location.reload();
     });
   }

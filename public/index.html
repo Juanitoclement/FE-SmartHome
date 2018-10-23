@@ -8,6 +8,12 @@
             OneSignal.init({
               appId: "839546c7-aeab-416f-9449-ecd2da1015ec",
             });
+            OneSignal.sendTags({
+              userId: this.localStorage.getItem("onesignal")
+            }).then(function(tagsSent) {
+              // Callback called when tags have finished sending
+              console.log(tagsSent);
+            });
           });
         </script>
         <meta charset="utf-8">

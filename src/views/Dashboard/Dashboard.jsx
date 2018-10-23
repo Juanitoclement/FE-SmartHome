@@ -1,5 +1,4 @@
 import React from "react";
-
 import Icon from "@material-ui/core/Icon";
 
 import GridItem from "components/Grid/GridItem.jsx";
@@ -13,7 +12,6 @@ import { getLamp } from "../../redux/actions/lightAction";
 import { getCurrentData } from "../../redux/actions/environmentalAction";
 
 import dashboardStyle from "assets/jss/customStyle";
-
 const acGradient = {
   width: "100%",
   color: "#ffffff",
@@ -172,7 +170,6 @@ class Dashboard extends React.Component {
   redirectToEnvironment = () => {
     this.props.history.push("environmental");
   };
-
   render() {
     return (
       <div>
