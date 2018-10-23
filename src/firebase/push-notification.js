@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
 import store from "../redux/store/configureStore";
 import { notificationToken } from "../redux/actions/firebaseAction";
 
@@ -10,29 +10,31 @@ export const config = {
   storageBucket: "homie-backend.appspot.com",
   messagingSenderId: "197890695099"
 };
-export const askForPermissionToReceiveNotifications = async () => {
-  try {
-    const messaging = firebase.messaging();
-    const token = await messaging.getToken();
-    await messaging
-      .requestPermission()
-      .then(function() {
-        console.log("granted");
-      })
-      .catch(function(err) {
-        console.log("error", err);
-      });
-    getNotif();
-    console.log("token:", token);
-    store.store.dispatch(notificationToken(token));
-    return token;
-  } catch (error) {
-    console.error(error);
-  }
-};
-export const getNotif = async () => {
+
+export function initializePush() {
   const messaging = firebase.messaging();
+  messaging
+    .requestPermission()
+    .then(() => {
+      console.log("Have Permission");
+      return messaging.getToken();
+    })
+    .then(token => {
+      console.log("FCM Token:", token);
+      //you probably want to send your new found FCM token to the
+      //application server so that they can send any push
+      //notification to you.
+      store.store.dispatch(notificationToken(token));
+    })
+    .catch(error => {
+      if (error.code === "messaging/permission-blocked") {
+        console.log("Please Unblock Notification Request Manually");
+      } else {
+        console.log("Error Occurred", error);
+      }
+    });
   messaging.onMessage(function(payload) {
     console.log("onMessage: ", payload.notification);
+    alert(payload.notification.title);
   });
-};
+}

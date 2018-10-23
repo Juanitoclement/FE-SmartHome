@@ -62,10 +62,6 @@ const environmentGradient = {
   borderRadius: "3%",
   backgroundImage: "linear-gradient(-90deg, #FF0000,#FF007F)"
 };
-const iconStyles = {
-  width: 100,
-  height: 100,
-};
 
 class Dashboard extends React.Component {
   constructor(props) {
