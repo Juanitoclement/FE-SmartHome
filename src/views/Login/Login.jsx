@@ -8,6 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import store from "../../redux/store/configureStore";
 import { doLogin, doVerify, doLogout } from "../../redux/actions/authAction";
 
+import Modal from "react-responsive-modal";
+
 const cardStyle = {
   border: "0",
   marginBottom: "30px",
@@ -57,7 +59,9 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      code: ""
+      code: "",
+      open: false,
+      open2: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,30 +77,39 @@ class Login extends React.Component {
     const abc = store.store.dispatch(doLogin(data));
     abc.loginPayload.then(test => {
       if (test === "SUCCESS") {
-        var person = prompt("Please check your email:", "Insert Code");
-        console.log(person);
-        this.setState({
-          code: person
-        });
-        this.verifyLogin();
+        // var person = prompt("Please Insert TOken");
+        // this.setState({
+        //   code: person
+        // });
+        // this.verifyLogin();
+        this.onOpenModal2(data);
         // window.location.href = "/dashboard";
       } else {
-        alert("bye");
+        this.onOpenModal();
       }
     });
   }
 
-  verifyLogin() {
+  verifyLogin(c) {
+    console.log(this.state.email);
+    console.log(this.state.password);
+    console.log(this.state.code);
     let data = {
       email: this.state.email,
       password: this.state.password,
-      code: this.state.code
+      code: c
     };
     console.log(data);
     const abc = store.store.dispatch(doVerify(data));
     abc.verifyPayload.then(res => {
       console.log(res);
       window.location.reload();
+    });
+  }
+
+  handleCodeChange = (e) => {
+    this.setState({
+      code: e.target.value
     });
   }
 
@@ -109,9 +122,31 @@ class Login extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    console.log(this.state);
     console.log(event.target.value);
   }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onOpenModal2 = (d) => {
+    console.log(d.email);
+    this.setState({
+      open2: true,
+      // email: d.email,
+      // password: d.password,
+      // code: ""
+    });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+  onCloseModal2 = () => {
+    var code = document.getElementById("code").value;
+    this.setState({ open2: false });
+    this.verifyLogin(code);
+  };
 
   render() {
     return (
@@ -160,6 +195,17 @@ class Login extends React.Component {
                 </GridItem>
               </form>
             </GridItem>
+            <Modal open={this.state.open} onClose={this.onCloseModal} center>
+              <h2>Login Failed</h2>
+              <p>bye</p>
+            </Modal>
+            <Modal open={this.state.open2} onClose={this.onCloseModal2} center>
+              <h2>Insert Code from Your Email</h2>
+              <form onSubmit={this.onCloseModal2}>
+                <input type="text" id="code" onChange={this.handleCodeChange} value={this.state.code} />
+                <input type="submit"/>
+              </form>
+            </Modal>
           </GridContainer>
         </div>
       </div>
