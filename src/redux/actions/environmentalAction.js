@@ -1,7 +1,8 @@
 import axios from "axios/index";
-import { GET_TEMPERATURE, GET_HUMIDITY } from "./actionType";
+import { GET_TEMPERATURE, GET_HUMIDITY, GET_CURRENT_DATA } from "./actionType";
 
-const apiUrl = "http://api.myhomie.me:8000/homie/environment/data/";
+// const apiUrl = "http://api.myhomie.me:8000/homie/environment/data/";
+const apiUrl = "http://192.168.30.102:8000/homie/environment/data/";
 
 function getTemperatureData() {
   return {
@@ -14,7 +15,7 @@ function getTemperatureData() {
             mandatory: localStorage.getItem("token")
           },
           params: {
-            accessToken: localStorage.getItem("token"),
+            accessToken: localStorage.getItem("token")
           }
         })
         .then(response => {
@@ -36,7 +37,7 @@ function getHumidityData() {
             mandatory: localStorage.getItem("token")
           },
           params: {
-            accessToken: localStorage.getItem("token"),
+            accessToken: localStorage.getItem("token")
           }
         })
         .then(response => {
@@ -47,4 +48,27 @@ function getHumidityData() {
   };
 }
 
-export { getTemperatureData, getHumidityData };
+function getCurrentData() {
+  console.log("HAHAHAH");
+  return {
+    type: GET_CURRENT_DATA,
+    getCurrentPayload: new Promise(resolve => {
+      axios
+        .get(apiUrl + "get-current-env-data", {
+          headers: {
+            "Content-type": "application/form-data",
+            mandatory: localStorage.getItem("token")
+          },
+          params: {
+            accessToken: localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          console.log(response);
+          return resolve(response);
+        });
+    })
+  };
+}
+
+export { getTemperatureData, getHumidityData, getCurrentData };

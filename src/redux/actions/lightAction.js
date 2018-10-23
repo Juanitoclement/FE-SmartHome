@@ -7,7 +7,7 @@ import {
   SET_TIMER
 } from "./actionType";
 
-const apiUrl = "http://api.myhomie.me:8000/homie/deviceLamp/";
+const apiUrl = "http://api.myhomie.me:8000/homie/device/Lamp/";
 
 const httpOptions = {
   headers: {

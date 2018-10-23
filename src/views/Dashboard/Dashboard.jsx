@@ -10,8 +10,7 @@ import store from "../../redux/store/configureStore";
 import { getTv } from "../../redux/actions/tvAction";
 import { getAc } from "../../redux/actions/acActions";
 import { getLamp } from "../../redux/actions/lightAction";
-
-import { askForPermissioToReceiveNotifications } from "../../firebase/push-notification";
+import { getCurrentData } from "../../redux/actions/environmentalAction";
 
 import dashboardStyle from "assets/jss/customStyle";
 
@@ -70,10 +69,13 @@ class Dashboard extends React.Component {
     this.state = {
       acTemperature: 0,
       acDeviceID: "",
+      acPower: "ON",
       tvDeviceID: "",
       tvPower: "ON",
       lightDeviceID: "",
-      lightPower: "ON"
+      lightPower: "ON",
+      currentTemperature: 0,
+      currentHumidity: 0
     };
   }
 
@@ -83,15 +85,19 @@ class Dashboard extends React.Component {
     ac.getAcPayload.then(res => {
       if (res.data.data.length == 0) {
         this.setState({
+          acPower: "You have no AC",
           acTemperature: 0,
           acDeviceID: ""
         });
       } else {
         this.setState({
+          acDeviceID: res.data.data[0].id,
           acTemperature: res.data.data[0].temperature,
-          acDeviceID: res.data.data[0].id
+          acPower: res.data.data[0].status
         });
       }
+      console.log(this.state.acPower);
+      console.log(this.state.acDeviceID);
     });
 
     //  TV dashboard
@@ -99,15 +105,17 @@ class Dashboard extends React.Component {
     tv.getTvPayload.then(res => {
       if (res.data.data.length == 0) {
         this.setState({
-          acPower: "You have no TV",
+          tvPower: "You have no TV",
           tvDeviceID: ""
         });
       } else {
         this.setState({
           tvDeviceID: res.data.data[0].id,
-          acPower: res.data.data[0].status
+          tvPower: res.data.data[0].status
         });
       }
+      console.log(this.state.tvPower);
+      console.log(this.state.tvDeviceID);
     });
 
     // Light dashboard
@@ -124,9 +132,31 @@ class Dashboard extends React.Component {
           lightDeviceID: res.data.data[0].id
         });
       }
+      console.log(this.state.lightPower);
+      console.log(this.state.lightDeviceID);
+    });
+
+    // Environment dashboard
+    const environment = store.store.dispatch(getCurrentData());
+    environment.getCurrentPayload.then(res => {
+      console.log(res);
+      if (res.data.data.length == 0) {
+        this.setState({
+          currentTemperature: 0,
+          currentHumidity: 0
+        });
+      } else {
+        this.setState({
+          currentTemperature: res.data.data[0],
+          currentHumidity: res.data.data[1]
+        });
+        console.log(this.state.currentTemperature);
+        console.log(this.state.currentHumidity);
+      }
     });
   }
 
+  // Redirect Dashboard
   redirectToTv = () => {
     this.props.history.push("tv");
   };
@@ -158,10 +188,10 @@ class Dashboard extends React.Component {
                 </GridItem>
                 <GridItem xs={6} md={6}>
                   <p>
-                    <strong>Current Temperature:</strong>
+                    <strong>{this.state.acTemperature} &#8451;</strong>
                   </p>
                   <p>
-                    <strong>{this.state.acTemperature} &#8451;</strong>
+                    <strong>{this.state.acPower}</strong>
                   </p>
                 </GridItem>
               </GridContainer>
@@ -183,19 +213,28 @@ class Dashboard extends React.Component {
                   <p>
                     <strong>{this.state.tvPower}</strong>
                   </p>
-                  <button style={dashboardStyle.timerButton}>
-                    <Icon>power_settings_new</Icon>
-                  </button>
                 </GridItem>
               </GridContainer>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={lightGradient} onClick={this.redirectToLight}>
-              <i className="fas fa-lightbulb fa-4x" />
-              <p>
-                <strong>Light</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-lightbulb fa-4x" />
+                  <p>
+                    <strong>Light</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>Status:</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.lightPower}</strong>
+                  </p>
+                </GridItem>
+              </GridContainer>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
@@ -203,10 +242,24 @@ class Dashboard extends React.Component {
               style={environmentGradient}
               onClick={this.redirectToEnvironment}
             >
-              <i className="fas fa-mountain fa-4x" />
-              <p>
-                <strong>Environment</strong>
-              </p>
+              <GridContainer>
+                <GridItem xs={6} md={6}>
+                  <i className="fas fa-mountain fa-4x" />
+                  <p>
+                    <strong>Environment</strong>
+                  </p>
+                </GridItem>
+                <GridItem xs={6} md={6}>
+                  <p>
+                    <strong>
+                      Temperature: {this.state.currentTemperature}
+                    </strong>
+                  </p>
+                  <p>
+                    <strong>Humidity: {this.state.currentHumidity}</strong>
+                  </p>
+                </GridItem>
+              </GridContainer>
             </button>
           </GridItem>
         </GridContainer>

@@ -23,6 +23,7 @@ export const SET_TEMPERATURE = "SET_TEMPERATURE";
 
 export const GET_TEMPERATURE = "GET_TEMPERATURE";
 export const GET_HUMIDITY = "GET_HUMIDITY";
+export const GET_CURRENT_DATA = "GET_CURRENT_DATA";
 
 export const DO_LOGIN = "DO_LOGIN";
 export const DO_VERIFY = "DO_VERIFY";
