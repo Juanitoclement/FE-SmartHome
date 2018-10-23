@@ -13,7 +13,7 @@ import {
   completedTasksChart
 } from "variables/charts";
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
-
+import { askForPermissioToReceiveNotifications } from "../../firebase/push-notification";
 const acGradient = {
   width: "100%",
   color: "#ffffff",
@@ -95,33 +95,45 @@ class Dashboard extends React.Component {
 
   redirectToEnvironment = () => {
     this.props.history.push("environmental");
-  }
+  };
   render() {
     return (
       <div>
         <GridContainer>
+          <button onClick={askForPermissioToReceiveNotifications}>Notif</button>
           <GridItem xs={12} md={6}>
             <button style={acGradient} onClick={this.redirectToAc}>
-              <i className="fas fa-wind fa-4x"></i>
-              <p><strong>Air Conditioner</strong></p>
+              <i className="fas fa-wind fa-4x" />
+              <p>
+                <strong>Air Conditioner</strong>
+              </p>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={tvGradient} onClick={this.redirectToTv}>
-              <i className="fas fa-tv fa-4x"></i>
-              <p><strong>Television</strong></p>
+              <i className="fas fa-tv fa-4x" />
+              <p>
+                <strong>Television</strong>
+              </p>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
             <button style={lightGradient} onClick={this.redirectToLight}>
-              <i className="fas fa-lightbulb fa-4x"></i>
-              <p><strong>Light</strong></p>
+              <i className="fas fa-lightbulb fa-4x" />
+              <p>
+                <strong>Light</strong>
+              </p>
             </button>
           </GridItem>
           <GridItem xs={12} md={6}>
-            <button style={environmentGradient} onClick={this.redirectToEnvironment}>
-              <i className="fas fa-mountain fa-4x"></i>
-              <p><strong>Environment</strong></p>
+            <button
+              style={environmentGradient}
+              onClick={this.redirectToEnvironment}
+            >
+              <i className="fas fa-mountain fa-4x" />
+              <p>
+                <strong>Environment</strong>
+              </p>
             </button>
           </GridItem>
         </GridContainer>
