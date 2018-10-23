@@ -6,7 +6,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import store from "../../redux/store/configureStore";
-import { doLogin, doVerify, doLogout } from "../../redux/actions/authAction";
+import { doLogin, doVerify } from "../../redux/actions/authAction";
 
 const cardStyle = {
   border: "0",
@@ -81,7 +81,7 @@ class Login extends React.Component {
         this.verifyLogin();
         // window.location.href = "/dashboard";
       } else {
-        alert("bye");
+        alert("User Not Found");
       }
     });
   }

@@ -69,6 +69,11 @@ const customStyle = {
   },
   tableStyle: {
     margin: "auto"
+  },
+  blackStyle: {
+    padding: "50px",
+    borderRadius: "3%",
+    backgroundImage: "linear-gradient(-90deg, teal, turquoise)"
   }
 };
 

@@ -296,6 +296,7 @@ class AC extends React.Component {
                     <div style={acStyle.tableStyle}>
                       <h3 align="center">Schedule</h3>
                       <Table
+                        hover
                         border="1px solid black"
                         style={{ width: "50%", margin: "auto" }}
                       >

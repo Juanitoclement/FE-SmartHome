@@ -17,8 +17,8 @@ import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx
 const acGradient = {
   width: "100%",
   color: "#ffffff",
-  paddingTop: "20%",
-  paddingBottom: "20%",
+  paddingTop: "10%",
+  paddingBottom: "10%",
   marginBottom: "10%",
   textAlign: "center",
   fontSize: "20px",
@@ -29,8 +29,8 @@ const acGradient = {
 const tvGradient = {
   width: "100%",
   color: "#ffffff",
-  paddingTop: "20%",
-  paddingBottom: "20%",
+  paddingTop: "10%",
+  paddingBottom: "10%",
   marginBottom: "10%",
   textAlign: "center",
   fontSize: "20px",
@@ -41,8 +41,8 @@ const tvGradient = {
 const lightGradient = {
   width: "100%",
   color: "#ffffff",
-  paddingTop: "20%",
-  paddingBottom: "20%",
+  paddingTop: "10%",
+  paddingBottom: "10%",
   marginBottom: "10%",
   textAlign: "center",
   fontSize: "20px",
@@ -53,8 +53,8 @@ const lightGradient = {
 const environmentGradient = {
   width: "100%",
   color: "#ffffff",
-  paddingTop: "20%",
-  paddingBottom: "20%",
+  paddingTop: "10%",
+  paddingBottom: "10%",
   marginBottom: "10%",
   textAlign: "center",
   fontSize: "20px",
@@ -97,7 +97,6 @@ class Dashboard extends React.Component {
     this.props.history.push("environmental");
   }
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <GridContainer>
@@ -130,8 +129,4 @@ class Dashboard extends React.Component {
     );
   }
 }
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(dashboardStyle)(Dashboard);
+export default Dashboard;
