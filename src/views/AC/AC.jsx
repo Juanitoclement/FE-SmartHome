@@ -236,7 +236,7 @@ class AC extends React.Component {
   submitSchedule = () => {
     console.log(this.state.hourFrom);
     console.log(this.state.hourTo);
-    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+    if (this.state.hourTo === "" || this.state.hourFrom === "") {
       alert("Input the time first!");
     } else {
       this.validateTime();
@@ -295,52 +295,48 @@ class AC extends React.Component {
                   <div style={acStyle.divStyle}>
                     <div style={acStyle.tableStyle}>
                       <h3 align="center">Schedule</h3>
-                      <Table
-                        border="1px solid black"
-                        style={{ width: "50%", margin: "auto" }}
+                      <table style={acStyle.myTable}>
+                        <tr>
+                          <th style={acStyle.myRow}>
+                            <h3>
+                              <strong>From:</strong>
+                            </h3>
+                          </th>
+                          <td style={acStyle.myRow}>
+                            <Input
+                              type="time"
+                              name="time"
+                              id="exampleTime"
+                              placeholder="time placeholder"
+                              onChange={this.handleFromTime}
+                              style={acStyle.myTimer}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style={acStyle.myRow}>
+                            <h3>
+                              <strong>To:</strong>
+                            </h3>
+                          </th>
+                          <td style={acStyle.myRow}>
+                            <Input
+                              type="time"
+                              name="time"
+                              id="exampleTime"
+                              placeholder="time placeholder"
+                              onChange={this.handleToTime}
+                              style={acStyle.myTimer}
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                      <button
+                        onClick={this.submitSchedule}
+                        style={acStyle.timerButton}
                       >
-                        <tbody>
-                          <tr>
-                            <th>
-                              <h6>Hour From</h6>
-                            </th>
-                            <td>
-                              {/*<TimeInput*/}
-                              {/*mode="12h"*/}
-                              {/*onChange={time => this.handleTimeFrom(time)}*/}
-                              {/*/>*/}
-                              <Input
-                                type="time"
-                                name="time"
-                                id="exampleTime"
-                                placeholder="time placeholder"
-                                onChange={this.handleFromTime}
-                              />
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>
-                              <h6>Hour To</h6>
-                            </th>
-                            <td>
-                              {/*<TimeInput*/}
-                              {/*mode="12h"*/}
-                              {/*onChange={time => this.handleTimeTo(time)}*/}
-                              {/*/>*/}
-                              <Input
-                                type="time"
-                                name="time"
-                                id="exampleTime"
-                                placeholder="time placeholder"
-                                onChange={this.handleToTime}
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                      <p style={acStyle.pStyle}>
-                        <button onClick={this.submitSchedule}>Submit</button>
-                      </p>
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </GridItem>

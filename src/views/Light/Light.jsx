@@ -150,7 +150,7 @@ class Light extends React.Component {
   submitSchedule = () => {
     console.log(this.state.hourFrom);
     console.log(this.state.hourTo);
-    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+    if (this.state.hourTo === "" || this.state.hourFrom === "") {
       alert("Input the time first!");
     } else {
       this.validateTime();
@@ -243,52 +243,48 @@ class Light extends React.Component {
                   <hr />
                   <div style={lightStyle.tableStyle}>
                     <h3 align="center">Schedule</h3>
-                    <Table
-                      border="1px solid black"
-                      style={{ width: "50%", margin: "auto" }}
+                    <table style={lightStyle.myTable}>
+                      <tr>
+                        <th style={lightStyle.myRow}>
+                          <h3>
+                            <strong>From:</strong>
+                          </h3>
+                        </th>
+                        <td style={lightStyle.myRow}>
+                          <Input
+                            type="time"
+                            name="time"
+                            id="exampleTime"
+                            placeholder="time placeholder"
+                            onChange={this.handleFromTime}
+                            style={lightStyle.myTimer}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style={lightStyle.myRow}>
+                          <h3>
+                            <strong>To:</strong>
+                          </h3>
+                        </th>
+                        <td style={lightStyle.myRow}>
+                          <Input
+                            type="time"
+                            name="time"
+                            id="exampleTime"
+                            placeholder="time placeholder"
+                            onChange={this.handleToTime}
+                            style={lightStyle.myTimer}
+                          />
+                        </td>
+                      </tr>
+                    </table>
+                    <button
+                      onClick={this.submitSchedule}
+                      style={lightStyle.timerButton}
                     >
-                      <tbody>
-                        <tr>
-                          <th>
-                            <h6>Hour From</h6>
-                          </th>
-                          <td>
-                            {/*<TimeInput*/}
-                            {/*mode="12h"*/}
-                            {/*onChange={time => this.handleTimeFrom(time)}*/}
-                            {/*/>*/}
-                            <Input
-                              type="time"
-                              name="time"
-                              id="exampleTime"
-                              placeholder="time placeholder"
-                              onChange={this.handleFromTime}
-                            />
-                          </td>
-                        </tr>
-                        <tr>
-                          <th>
-                            <h6>Hour To</h6>
-                          </th>
-                          <td>
-                            {/*<TimeInput*/}
-                            {/*mode="12h"*/}
-                            {/*onChange={time => this.handleTimeTo(time)}*/}
-                            {/*/>*/}
-                            <Input
-                              type="time"
-                              name="time"
-                              id="exampleTime"
-                              placeholder="time placeholder"
-                              onChange={this.handleToTime}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                    <p style={lightStyle.pStyle}>
-                      <button onClick={this.submitSchedule}>Submit</button>
-                    </p>
+                      Submit
+                    </button>
                   </div>
                 </div>
               </GridItem>

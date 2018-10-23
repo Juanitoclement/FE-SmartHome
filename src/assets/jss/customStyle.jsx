@@ -69,6 +69,37 @@ const customStyle = {
   },
   tableStyle: {
     margin: "auto"
+  },
+  blackStyle: {
+    padding: "50px",
+    borderRadius: "3%",
+    backgroundImage: "linear-gradient(-90deg, teal, turquoise)"
+  },
+  myTable: {
+    width: "50%",
+    margin: "auto",
+    padding: "5px",
+    background: "#ddd",
+    borderRadius: "5%"
+  },
+  myRow: {
+    // borderTop: "2px solid black",
+    borderBottom: "2px solid black"
+  },
+  myTimer: {
+    textAlign: "center",
+    height: "100px",
+    fontSize: "50px",
+    width: "100%"
+  },
+  timerButton: {
+    backgroundColor: "#000000",
+    color: "#ffffff",
+    fontSize: "20px",
+    width: "30%",
+    padding: "10px",
+    borderRadius: "10px",
+    margin: "10px"
   }
 };
 
