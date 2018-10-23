@@ -13,6 +13,7 @@ import {
   completedTasksChart
 } from "variables/charts";
 import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
+import { askForPermissioToReceiveNotifications } from "../../firebase/push-notification";
 
 const acGradient = {
   width: "100%",
@@ -96,10 +97,14 @@ class Dashboard extends React.Component {
   redirectToEnvironment = () => {
     this.props.history.push("environmental");
   };
+
   render() {
     return (
       <div>
         <GridContainer>
+          <button onClick={askForPermissioToReceiveNotifications}>
+            Clique aqui para receber notificações
+          </button>
           <GridItem xs={12} md={6}>
             <button style={acGradient} onClick={this.redirectToAc}>
               <GridContainer>
