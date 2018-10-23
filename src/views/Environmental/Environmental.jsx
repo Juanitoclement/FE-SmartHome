@@ -1,5 +1,7 @@
 import React from "react";
 
+import environmentalStyle from "assets/jss/customStyle";
+
 import Humidity from "../../assets/img/humidity.png";
 import Temperature from "../../assets/img/temperature.png";
 
@@ -127,7 +129,7 @@ class Environmental extends React.Component {
             weekDays[dd - 1],
             weekDays[dd]
           ],
-          series: [res.data.data]
+            series: [res.data.data]
         }
       });
       console.log(res.data.data);
@@ -146,8 +148,8 @@ class Environmental extends React.Component {
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-            <Card chart>
-              <CardHeader color="success">
+            <div style={environmentalStyle.blackStyle}>
+              <div chart style={{ background: "black"}}>
                 <Carousel>
                   <div color={"white"}>
                     <ChartistGraph
@@ -171,8 +173,8 @@ class Environmental extends React.Component {
                     <img src={Humidity} />
                   </div>
                 </Carousel>
-              </CardHeader>
-            </Card>
+              </div>
+            </div>
           </GridItem>
         </GridContainer>
       </div>

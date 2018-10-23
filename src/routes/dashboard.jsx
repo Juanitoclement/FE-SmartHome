@@ -2,7 +2,6 @@
 import Person from "@material-ui/icons/Person";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 import Home from "@material-ui/icons/Home";
-import Notifications from "@material-ui/icons/Notifications";
 import LiveTv from "@material-ui/icons/LiveTv";
 import Help from "@material-ui/icons/Help";
 import AirCon from "@material-ui/icons/Toys";
@@ -11,7 +10,6 @@ import Environment from "@material-ui/icons/Wallpaper";
 
 // core components/views
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import NotificationsPage from "views/Notifications/Notifications.jsx";
 import ContactUs from "views/ContactUs/ContactUs.jsx";
 import AC from "views/AC/AC.jsx";
 import TV from "views/TV/TV.jsx";
@@ -27,21 +25,6 @@ const routes = [
     icon: Home,
     component: DashboardPage,
     private: true
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    navbarName: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage,
-    private: true
-  },
-  {
-    path: "/contact-us",
-    sidebarName: "Contact Us",
-    navbarName: "Contact Us",
-    icon: Help,
-    component: ContactUs
   },
   {
     path: "/ac",

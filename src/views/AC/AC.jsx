@@ -236,7 +236,7 @@ class AC extends React.Component {
   submitSchedule = () => {
     console.log(this.state.hourFrom);
     console.log(this.state.hourTo);
-    if (this.state.hourTo === "" && this.state.hourFrom === "") {
+    if (this.state.hourTo === "" || this.state.hourFrom === "") {
       alert("Input the time first!");
     } else {
       this.validateTime();
@@ -296,6 +296,7 @@ class AC extends React.Component {
                     <div style={acStyle.tableStyle}>
                       <h3 align="center">Schedule</h3>
                       <Table
+                        hover
                         border="1px solid black"
                         style={{ width: "50%", margin: "auto" }}
                       >
