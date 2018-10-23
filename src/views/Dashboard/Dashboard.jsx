@@ -1,18 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
-// core components
+
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 
-import { bugs, website, server } from "variables/general";
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts";
-import dashboardStyle from "assets/jss/smart-home-react/views/dashboardStyle.jsx";
+import store from "../../redux/store/configureStore";
+
+import { getTv } from "../../redux/actions/tvAction";
+import { getAc } from "../../redux/actions/acActions";
+import { getLamp } from "../../redux/actions/lightAction";
 
 const acGradient = {
   width: "100%",
@@ -67,18 +62,63 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
-      tvStatus: 0,
-      acStatus: 0,
-      ligStatus: 0,
-      powerTv: "OFF",
-      powerLig: "OFF",
-      powerAc: "OFF",
-      items: 0,
-      items2: [],
-      messages: [],
-      tr: false
+      acTemperature: 0,
+      acDeviceID: "",
+      tvDeviceID: "",
+      tvPower: "ON",
+      lightDeviceID: "",
+      lightPower: "ON"
     };
+  }
+
+  componentWillMount() {
+    // AC dashboard
+    const ac = store.store.dispatch(getAc());
+    ac.getAcPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          acTemperature: 0,
+          acDeviceID: ""
+        });
+      } else {
+        this.setState({
+          acTemperature: res.data.data[0].temperature,
+          acDeviceID: res.data.data[0].id
+        });
+      }
+    });
+
+    //  TV dashboard
+    const tv = store.store.dispatch(getTv());
+    tv.getTvPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          acPower: "You have no TV",
+          tvDeviceID: ""
+        });
+      } else {
+        this.setState({
+          tvDeviceID: res.data.data[0].id,
+          acPower: res.data.data[0].status
+        });
+      }
+    });
+
+    // Light dashboard
+    const light = store.store.dispatch(getLamp());
+    light.getLampPayload.then(res => {
+      if (res.data.data.length == 0) {
+        this.setState({
+          lightPower: "You have no Lamp",
+          lightDeviceID: ""
+        });
+      } else {
+        this.setState({
+          lightPower: res.data.data[0].status,
+          lightDeviceID: res.data.data[0].id
+        });
+      }
+    });
   }
 
   redirectToTv = () => {
@@ -112,6 +152,9 @@ class Dashboard extends React.Component {
                 <GridItem xs={6} md={6}>
                   <p>
                     <strong>Current Temperature:</strong>
+                  </p>
+                  <p>
+                    <strong>{this.state.acTemperature} &#8451;</strong>
                   </p>
                 </GridItem>
               </GridContainer>

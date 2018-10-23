@@ -5,7 +5,7 @@ import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 // core components
-import { Table, Input } from "reactstrap";
+import { Input } from "reactstrap";
 import acStyle from "assets/jss/customStyle";
 
 import store from "../../redux/store/configureStore";

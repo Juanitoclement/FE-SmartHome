@@ -112,7 +112,7 @@ class Login extends React.Component {
     return (
       <div>
         <div style={cardStyle}>
-          <div style={cardHeader}>Welcome!</div>
+          <div style={cardHeader}>Welcome</div>
           <GridContainer>
             <GridItem xs={12} sm={12} md={12} lg={12}>
               <form onSubmit={this.handleSubmit}>
