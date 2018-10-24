@@ -84,8 +84,8 @@ class Environmental extends React.Component {
       lineSmooth: Chartist.Interpolation.cardinal({
         tension: 0
       }),
-      low: 30,
-      high: 80, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      low: 50,
+      high: 110, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
       chartPadding: {
         top: 0,
         right: 0,
